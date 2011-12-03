@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:layout_marginLeft="20dp" android:weightSum="1">
+	<TextView android:layout_width="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:text="開始揪團" android:layout_height="wrap_content" android:id="@+id/textView1"></TextView>
+	<TextView android:layout_width="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_height="wrap_content" android:id="@+id/textView3"
+		android:text="活動日期"></TextView>
+	<LinearLayout android:id="@+id/linearLayout1"
+		android:layout_height="wrap_content" android:layout_width="wrap_content">
+		<DatePicker android:id="@+id/datePicker1"
+			android:layout_width="100dp" android:layout_height="fill_parent"></DatePicker>
+		<TextView android:layout_width="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content" android:id="@+id/textView2"
+			android:text="至" android:layout_gravity="center"></TextView>
+		<DatePicker android:id="@+id/datePicker2"
+			android:layout_width="wrap_content" android:layout_height="59dp"></DatePicker>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout2"
+		android:layout_width="fill_parent" android:layout_height="59dp">
+		<TextView android:layout_width="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="Repo截止時間" android:layout_height="wrap_content"
+			android:id="@+id/textView4" android:layout_gravity="center"></TextView>
+		<DatePicker android:id="@+id/datePicker3"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></DatePicker>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout3"
+		android:layout_height="wrap_content" android:layout_width="wrap_content">
+		<TextView android:layout_width="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_height="wrap_content" android:id="@+id/textView5"
+			android:text="邀請誰"></TextView>
+		<ImageView android:src="@drawable/facebook2" android:id="@+id/imageView1"
+			android:layout_width="120dp" android:layout_height="30dp"></ImageView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout4"
+		android:layout_height="wrap_content" android:layout_width="fill_parent"
+		android:weightSum="1">
+		<TextView android:layout_width="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="活動內容" android:layout_height="wrap_content" android:id="@+id/textView6"></TextView>
+		<EditText android:id="@+id/editText1" android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:layout_weight="0.81"></EditText>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout5"
+		android:layout_height="wrap_content" android:layout_width="wrap_content">
+		<TextView android:layout_width="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:text="活動地點" android:layout_height="wrap_content" android:id="@+id/textView7"></TextView>
+		<EditText android:id="@+id/editText2"
+			android:layout_height="wrap_content" android:layout_width="188dp">
+			<requestFocus></requestFocus>
+		</EditText>
+	</LinearLayout>
+	<TextView android:layout_width="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_height="wrap_content" android:id="@+id/textView8"
+		android:text="備註"></TextView>
+	<EditText android:id="@+id/editText3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textMultiLine" android:layout_weight="0.66"></EditText>
+	<LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout6" android:layout_height="wrap_content" android:layout_gravity="center" android:gravity="center" android:weightSum="1">
+		<Button android:layout_gravity="center" android:layout_weight="0.15" android:id="@+id/button1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="確定"></Button>
+		<Button android:layout_gravity="center" android:id="@+id/button2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="取消" android:layout_weight="0.16"></Button>
+	</LinearLayout>
+
+</LinearLayout>
