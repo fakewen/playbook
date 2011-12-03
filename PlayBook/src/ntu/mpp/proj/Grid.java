@@ -5,9 +5,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
@@ -71,10 +74,24 @@ public class Grid extends Activity {
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
 	Calendar cal = Calendar.getInstance();
+	Button bt1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grid);
+		bt1=(Button)findViewById(R.id.button1);
+		bt1.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent();
+				intent.setClass(Grid.this, proper.class);
+				startActivity(intent);
+				Grid.this.finish();
+			}
+		});
+		
 		girdview();
 		freetime();
 		/*
