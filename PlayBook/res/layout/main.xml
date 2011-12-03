@@ -11,7 +11,7 @@
 		android:layout_gravity="top" android:layout_height="384dp">
 		<Button 
 			android:id="@+id/button2" 
-			android:text="揪人"
+			android:text="啾人"
 			android:textSize="50sp" 
 			android:background="#FEFF91"
 			android:layout_width="130dp" 
@@ -22,7 +22,7 @@
 		<Button 
 			android:gravity="center" 
 			android:id="@+id/button3"
-			android:text="被揪" 
+			android:text="被啾" 
 			android:textSize="50sp" 
 			android:background="#91c7ef"
 			android:layout_marginLeft="10dp" 
