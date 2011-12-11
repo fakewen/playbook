@@ -81,15 +81,15 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="60dp"
-            android:text="       登入       " />
+            android:text="         登入         " />
 
         <Button
             android:id="@+id/Chooseclean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/Chooselogin"
-            android:text="       清除       " />
+            android:text="    清除    " />
 
     </RelativeLayout>
 
@@ -97,7 +97,7 @@
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-		android:layout_marginTop="50dip">
+		android:layout_marginTop="20dip">
         <TextView
             android:id="@+id/TextRegist"
             android:layout_width="wrap_content"
