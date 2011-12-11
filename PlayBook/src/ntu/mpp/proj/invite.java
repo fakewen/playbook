@@ -16,6 +16,9 @@ public class invite extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invite);
         Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
         bt1=(Button)findViewById(R.id.button1);
         bt2=(Button)findViewById(R.id.button2);
         
