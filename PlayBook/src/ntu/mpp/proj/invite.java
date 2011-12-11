@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-
+import com.parse.Parse;
+import com.parse.ParseObject;
 public class invite extends Activity {
     /** Called when the activity is first created. */
     Button bt1,bt2;
@@ -14,7 +15,10 @@ public class invite extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invite);
-        
+        Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
         bt1=(Button)findViewById(R.id.button1);
         bt2=(Button)findViewById(R.id.button2);
         
