@@ -74,7 +74,7 @@ public class FreeTime extends Activity {
 					map.put("ItemText1", "?");
 				else if (map.get("ItemText1").toString().equals("?"))
 					map.put("ItemText1", "O");
-
+       
 				// map.put("ItemText1", "O");
 				// map.put("ItemText2", "X");
 				listItem.set(arg2, map);
