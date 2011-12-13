@@ -23,7 +23,7 @@ public class proper extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent=new Intent();
-				intent.setClass(proper.this, Grid.class);
+				intent.setClass(proper.this, FreeTime.class);
 				startActivity(intent);
 				proper.this.finish();
 			}
