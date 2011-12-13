@@ -15,12 +15,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 public class FreeTime extends Activity {
 	/** Called when the activity is first created. */
 	private GridView TimeTable;
 	private SimpleAdapter listItemAdapter;
 	private ArrayList<HashMap<String, Object>> listItem;
+	private TextView tablename;
 	private int[] TextViewID;
 	Calendar cal = Calendar.getInstance();
 	Button bt1;
@@ -30,6 +32,8 @@ public class FreeTime extends Activity {
 		setContentView(R.layout.grid);
 		//Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
 		bt1=(Button)findViewById(R.id.button1);
+		tablename = (TextView) findViewById(R.id.TableName);
+		tablename.setText("空閒時間表");
 		bt1.setOnClickListener(new OnClickListener() {
 			
 			@Override
