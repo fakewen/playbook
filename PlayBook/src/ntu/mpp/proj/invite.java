@@ -50,6 +50,11 @@ public class invite extends Activity {
 			});*/
 			ParseObject testObject = new ParseObject("TestObject");
 	        //testObject.put("state", "@submit button!");
+			testObject.put("from", "from");
+			testObject.put("to", "to");
+			testObject.put("deadline", "deadline");
+			testObject.put("friends", "friends");
+			
 	        testObject.put("event", ""+et1.getText());
 	        testObject.put("location", ""+et2.getText());
 	        testObject.put("note", ""+et3.getText());
