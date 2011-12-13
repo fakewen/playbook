@@ -13,7 +13,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
-
+import com.parse.Parse;
+import com.parse.ParseObject;
 public class ElistCBox extends ExpandableListActivity
 {
     private static final String LOG_TAG = "ElistCBox";
@@ -64,6 +65,19 @@ public class ElistCBox extends ExpandableListActivity
     {
         super.onCreate(icicle);
         setContentView(R.layout.list);
+        //Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
+        /*
+        ParseQuery query = new ParseQuery("GameScore");
+        query.whereEqualTo("playerName", "Dan Stemkoski");
+        query.findInBackground(new FindCallback() {
+            public void done(List<ParseObject> scoreList, ParseException e) {
+                if (e == null) {
+                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });*/
         bt1=(Button)findViewById(R.id.button1);
         //這裡不用findview! expand會自己找 android:list
 		SimpleExpandableListAdapter expListAdapter =
