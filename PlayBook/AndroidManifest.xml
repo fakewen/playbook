@@ -12,12 +12,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		
-		<activity android:name="ElistCBox"></activity>
-		<activity android:name="Grid"></activity>
+			<activity android:name="ElistCBox"></activity>
+		<activity android:name="FreeTime"></activity>
 		<activity android:name="invite"></activity>
 		<activity android:name="proper"></activity>
 		<activity android:name="PlayBookActivity"></activity>
 		<activity android:name="Register"></activity>
+		<activity android:name="PeopleCnt"></activity>
     </application>
 </manifest>
