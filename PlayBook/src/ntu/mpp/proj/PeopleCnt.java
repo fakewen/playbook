@@ -25,13 +25,15 @@ public class PeopleCnt extends Activity {
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
 	Calendar cal = Calendar.getInstance();
-	Button bt1;
+	Button bt1,freetimesend;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grid);
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
 		bt1=(Button)findViewById(R.id.button1);
+		freetimesend=(Button)findViewById(R.id.FreeTimeSend);
+		freetimesend.setVisibility(View.GONE);
 		tablename = (TextView) findViewById(R.id.TableName);
 		tablename.setText("人數統計");
 		bt1.setOnClickListener(new OnClickListener() {
