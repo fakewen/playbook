@@ -28,6 +28,7 @@ public class PeopleCnt extends Activity {
 	private GridView TimeTable;
 	private SimpleAdapter listItemAdapter;
 	private TextView tablename;
+	private int days = 4;
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
 	Calendar cal = Calendar.getInstance();
@@ -71,8 +72,11 @@ public class PeopleCnt extends Activity {
 			@Override
 			public void done(List<ParseObject> IDList, ParseException e) {
 		        if (e == null) {
+		        	
 		            Log.d("score", "Retrieved " + IDList.get(0).getObjectId() + " scores");
-		            Breturn.setText(/*Integer.toString*/( IDList.get(0).getString("FreeMorning")/*.getObjectId()*/));
+		            Breturn.setText(/*Integer.toString*/( IDList.get(2).getString("FreeMorning")/*.getObjectId()*/));
+		           // IDList.get(0).put("FreeMorning", "123");
+		            //IDList.get(0).saveInBackground();
 		            
 		        } else {
 		            Log.d("score", "Error: " + e.getMessage());
@@ -80,7 +84,7 @@ public class PeopleCnt extends Activity {
 		    }
 		}); 
 		TimeTable = (GridView) findViewById(R.id.gridView1);
-		TimeTable.setNumColumns(8);
+		TimeTable.setNumColumns(days+1);
 		TextViewID = new int[] { R.id.ItemText1, R.id.ItemText2 };
 		listItem = new ArrayList<HashMap<String, Object>>();
 		listItemAdapter = new SimpleAdapter(this, listItem, R.layout.items,
@@ -113,13 +117,13 @@ public class PeopleCnt extends Activity {
 	}
        
 	private void freetime() {
-		for (int i = 0; i < 32; i++) {
+		for (int i = 0; i < (days+1)*4; i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			if (i == 0) {
 				map.put("ItemText1", "");
 				map.put("ItemText2", "");
 				listItem.add(map);
-			} else if (i > 0 && i < 8) {
+			} else if (i > 0 && i < days+1) {
 				
 				String[] weekDays = {"日", "一", "二", "三", "四", "五", "六"};
 		        Calendar cal = Calendar.getInstance();
@@ -134,24 +138,24 @@ public class PeopleCnt extends Activity {
 				map.put("ItemText1",  (Integer.toString(x)));
 				map.put("ItemText2", weekDays[w]);
 				listItem.add(map);
-			} else if (i % 8 == 0 && i != 0) {
-				switch (i) {
-				case 8:
+			} else if (i % (days+1) == 0 && i != 0) {
+				
+				if(i== (days+1)){
 					map.put("ItemText1", "早");
 					map.put("ItemText2", "上");
 					listItem.add(map);
-					break;
-				case 16:
-					map.put("ItemText1", "中");
+				}
+				else if(i== (days+1)*2){
+					map.put("ItemText1", "下");
 					map.put("ItemText2", "午");
 					listItem.add(map);
-					break;
-				case 24:
+				}
+				else if(i== (days+1)*3){
 					map.put("ItemText1", "晚");
 					map.put("ItemText2", "上");
 					listItem.add(map);
-					break;
 				}
+				
 
 			} else {
 				map.put("ItemText1", "1");

@@ -30,15 +30,19 @@ public class FreeTime extends Activity {
 	private ArrayList<HashMap<String, Object>> listItem;
 	private TextView tablename;
 	private int[] TextViewID;
-	private int days = 4;
-	Calendar cal = Calendar.getInstance();
-	Button bt1,freetimesend;
+	private int days = 4,dataIndex;
+	private boolean hadData = false;
+	private Calendar cal = Calendar.getInstance();
+	private Button Breturn,freetimesend;
+	private char queryMorning[],queryNoon[],queryNight[];
+	private String freeMorning ="",freeNoon="",freeNight="";
+	private String PhoneNumber = "0917723346"; 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grid);
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
-		bt1=(Button)findViewById(R.id.button1);
+		Breturn=(Button)findViewById(R.id.button1);
 		tablename = (TextView) findViewById(R.id.TableName);
 		tablename.setText("空閒時間表");
 		freetimesend=(Button)findViewById(R.id.FreeTimeSend);
@@ -47,7 +51,7 @@ public class FreeTime extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				String freeMorning ="",freeNoon="",freeNight="";
+				
 
 				for(int i= (days+2) ;i< (days+1)*4 ; i++){
 					if (i % days+1 != 0){
@@ -57,39 +61,53 @@ public class FreeTime extends Activity {
 								.getItemAtPosition(i%(days+1));
 						if (map.get("ItemText1").toString().equals("O")){
 							if(i<(days+1)*2){
-								freeMorning+=date.get("ItemText1").toString();
+								freeMorning+=i%(days+1);/*date.get("ItemText1").toString();*/
 								freeMorning+=",";
 							}
 							else if((days+1)*2 < i && i<(days+1)*3){
-								freeNoon+=date.get("ItemText1").toString();
+								freeNoon+=i%(days+1);/*date.get("ItemText1").toString();*/
 								freeNoon+=",";
 							}
 							else if((days+1)*3 < i &&i<(days+1)*4){
 
-								freeNight+=date.get("ItemText1").toString();
+								freeNight+=i%(days+1);/*date.get("ItemText1").toString();*/
 								freeNight+=",";
 							}
 							
 						}
-
-
-
 					}
 				}
-
-				ParseObject timeObject = new ParseObject("FreeTimeTable");
-				timeObject.put("phone", "0900123456");
-				timeObject.put("eventID", "778899");
-				timeObject.put("FreeMorning", freeMorning);
-				timeObject.put("FreeNoon", freeNoon);
-				timeObject.put("FreeNight", freeNight);
-				//timeObject.put("May_Free", "friends");
-
-				timeObject.saveInBackground();
+				if(hadData){
+					ParseQuery query = new ParseQuery("FreeTimeTable");
+					query.whereEqualTo("eventID", "778899");
+					query.findInBackground(new FindCallback() {
+						
+						@Override
+						public void done(List<ParseObject> IDList, ParseException e) {
+							// TODO Auto-generated method stub
+							IDList.get(dataIndex).put("FreeMorning", freeMorning);
+							IDList.get(dataIndex).put("FreeNoon", freeNoon);
+							IDList.get(dataIndex).put("FreeNight", freeNight);
+							IDList.get(dataIndex).saveInBackground();
+							
+						}
+					});
+				}
+				else{		
+					ParseObject timeObject = new ParseObject("FreeTimeTable");
+					timeObject.put("phone", PhoneNumber);
+					timeObject.put("eventID", "778899");
+					timeObject.put("FreeMorning", freeMorning);
+					timeObject.put("FreeNoon", freeNoon);
+					timeObject.put("FreeNight", freeNight);
+					//timeObject.put("May_Free", "friends");
+	
+					timeObject.saveInBackground();
+				}
 				
 			}
 		});
-		bt1.setOnClickListener(new OnClickListener() {
+		Breturn.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -112,9 +130,36 @@ public class FreeTime extends Activity {
 			@Override
 			public void done(List<ParseObject> IDList, ParseException e) {
 		        if (e == null) {
-		           // Log.d("score", "Retrieved " + IDList.get(0).getObjectId() + " scores");
-		           // Breturn.setText(/*Integer.toString*/( IDList.get(0).getString("FreeMorning")/*.getObjectId()*/));
-		            
+		        	for(int i = 0 ; i < IDList.size() ; i ++){
+		        		if(IDList.get(i).getString("phone").equals(PhoneNumber)){
+		        			dataIndex = i;
+		        			queryMorning = IDList.get(i).getString("FreeMorning").toCharArray();
+		        			queryNoon = IDList.get(i).getString("FreeNoon").toCharArray();
+		        			queryNight = IDList.get(i).getString("FreeNight").toCharArray();
+		        			hadData = true;
+		        			//Breturn.setText(Integer.toString(queryMorning.length));
+		        			//Breturn.setText(Character.toString(queryNoon[1]));
+		        		}
+		        	}
+		        	if(hadData){
+						for(int i= 0 ;i < queryMorning.length ; i+=2){
+							HashMap<String, Object> map = new HashMap<String, Object>();
+							map.put("ItemText1", "O");
+							listItem.set((days+1)+Integer.parseInt(Character.toString(queryMorning[i])), map);
+						}
+						for(int i= 0 ;i < queryNoon.length ; i+=2){
+							HashMap<String, Object> map = new HashMap<String, Object>();
+							map.put("ItemText1", "O");
+							listItem.set((days+1)*2+Integer.parseInt(Character.toString(queryNoon[i])), map);
+						}
+						for(int i= 0 ;i < queryNight.length ; i+=2){
+							HashMap<String, Object> map = new HashMap<String, Object>();
+							map.put("ItemText1", "O");
+							listItem.set((days+1)*3+Integer.parseInt(Character.toString(queryNight[i])), map);
+						}
+						TimeTable.setAdapter(listItemAdapter);
+		        	}
+					listItemAdapter.notifyDataSetChanged();
 		        } else {
 		            //Log.d("score", "Error: " + e.getMessage());
 		        }
@@ -122,6 +167,7 @@ public class FreeTime extends Activity {
 		}); 
 	}
 	private void girdview() {
+
 		TimeTable = (GridView) findViewById(R.id.gridView1);
 		TimeTable.setNumColumns(days+1);
 		TextViewID = new int[] { R.id.ItemText1, R.id.ItemText2 };
@@ -189,7 +235,7 @@ public class FreeTime extends Activity {
 				
 
 			} else {
-				map.put("ItemText1", "O");
+				map.put("ItemText1", "X");
 				map.put("ItemText2", "");
 				listItem.add(map);
 			}
