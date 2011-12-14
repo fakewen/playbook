@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-    <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/imageView1" android:src="@drawable/icon"></ImageView>
+    <ImageView android:id="@+id/imageView1" android:src="@drawable/icon" android:layout_width="79dp" android:layout_height="79dp"></ImageView>
 
     <TextView android:id="@+id/childname"
          android:paddingLeft="50px"
