@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,7 +26,7 @@ public class FreeTime extends Activity {
 	private TextView tablename;
 	private int[] TextViewID;
 	Calendar cal = Calendar.getInstance();
-	Button bt1;
+	Button bt1,freetimesend;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,6 +35,69 @@ public class FreeTime extends Activity {
 		bt1=(Button)findViewById(R.id.button1);
 		tablename = (TextView) findViewById(R.id.TableName);
 		tablename.setText("空閒時間表");
+		freetimesend=(Button)findViewById(R.id.FreeTimeSend);
+		freetimesend.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				String freeMorning ="",freeNoon="",freeNight="";
+				//freeMorning+=",2";
+				for(int i= 9 ;i<32 ; i++){
+					if (i % 8 != 0){
+						HashMap<String, Object> map = (HashMap<String, Object>) TimeTable
+								.getItemAtPosition(i);
+						HashMap<String, Object> date = (HashMap<String, Object>) TimeTable
+								.getItemAtPosition(i%8);
+						if (map.get("ItemText1").toString().equals("O")){
+							if(i<16){
+								//freetimesend.setText(date.get("ItemText1").toString());
+								freeMorning+=date.get("ItemText1").toString();
+								freeMorning+=",";
+							}
+							else if(16 < i && i<24){
+								//freetimesend.setText(date.get("ItemText1").toString());
+								//date.get("ItemText1").toString();
+								freeNoon+=date.get("ItemText1").toString();
+								freeNoon+=",";
+							}
+							else if(24 < i &&i<32){
+								//freetimesend.setText(date.get("ItemText1").toString());
+								//date.get("ItemText1").toString();
+								freeNight+=date.get("ItemText1").toString();
+								freeNight+=",";
+							}
+							
+						}
+
+						/*else if (map.get("ItemText1").toString().equals("X")){
+							
+						}
+
+						/*else if (map.get("ItemText1").toString().equals("?")){
+							
+						}*/
+
+
+					}
+				}
+				//HashMap<String, Object> date = (HashMap<String, Object>) TimeTable
+						//.getItemAtPosition(1);
+				//freetimesend.setText(freeMorning);
+				
+				ParseObject timeObject = new ParseObject("FreeTimeTable");
+		        //testObject.put("state", "@submit button!");
+				timeObject.put("phone", "0900123456");
+				timeObject.put("eventID", "778899");
+				timeObject.put("FreeMorning", freeMorning);
+				timeObject.put("FreeNoon", freeNoon);
+				timeObject.put("FreeNight", freeNight);
+				//timeObject.put("May_Free", "friends");
+
+				timeObject.saveInBackground();
+				
+			}
+		});
 		bt1.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -71,13 +135,13 @@ public class FreeTime extends Activity {
 				HashMap<String, Object> map = (HashMap<String, Object>) TimeTable
 						.getItemAtPosition(arg2);
 				// HashMap<String, Object> map = new HashMap<String, Object>();
-
+				//freetimesend.setText(Integer.toString(arg2));
 				if (map.get("ItemText1").toString().equals("O"))
 					map.put("ItemText1", "X");
 				else if (map.get("ItemText1").toString().equals("X"))
-					map.put("ItemText1", "?");
-				else if (map.get("ItemText1").toString().equals("?"))
 					map.put("ItemText1", "O");
+				//else if (map.get("ItemText1").toString().equals("?"))
+					//map.put("ItemText1", "O");
        
 				// map.put("ItemText1", "O");
 				// map.put("ItemText2", "X");

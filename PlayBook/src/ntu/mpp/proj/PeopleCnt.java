@@ -3,10 +3,12 @@ package ntu.mpp.proj;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -15,7 +17,11 @@ import android.widget.GridView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class PeopleCnt extends Activity {
 	/** Called when the activity is first created. */
@@ -25,18 +31,18 @@ public class PeopleCnt extends Activity {
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
 	Calendar cal = Calendar.getInstance();
-	Button bt1,freetimesend;
+	Button Breturn,freetimesend;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grid);
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
-		bt1=(Button)findViewById(R.id.button1);
+		Breturn=(Button)findViewById(R.id.button1);
 		freetimesend=(Button)findViewById(R.id.FreeTimeSend);
 		freetimesend.setVisibility(View.GONE);
 		tablename = (TextView) findViewById(R.id.TableName);
 		tablename.setText("人數統計");
-		bt1.setOnClickListener(new OnClickListener() {
+		Breturn.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -59,6 +65,20 @@ public class PeopleCnt extends Activity {
 	}
 
 	private void girdview() {
+		ParseQuery query = new ParseQuery("FreeTimeTable");
+		query.whereEqualTo("eventID", "778899");
+		query.findInBackground(new FindCallback() {
+			@Override
+			public void done(List<ParseObject> IDList, ParseException e) {
+		        if (e == null) {
+		            Log.d("score", "Retrieved " + IDList.get(0).getObjectId() + " scores");
+		            Breturn.setText(/*Integer.toString*/( IDList.get(0).getString("FreeMorning")/*.getObjectId()*/));
+		            
+		        } else {
+		            Log.d("score", "Error: " + e.getMessage());
+		        }
+		    }
+		}); 
 		TimeTable = (GridView) findViewById(R.id.gridView1);
 		TimeTable.setNumColumns(8);
 		TextViewID = new int[] { R.id.ItemText1, R.id.ItemText2 };
