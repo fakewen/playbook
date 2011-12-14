@@ -57,12 +57,7 @@ public class PeopleCnt extends Activity {
 		
 		girdview();
 		freetime();
-		/*
-		 * for (int i = 0; i < 32; i++) { HashMap<String, Object> map = new
-		 * HashMap<String, Object>(); map.put("ItemText1", "");
-		 * map.put("ItemText2", ""); listItem.add(map); }
-		 * Calendar.setAdapter(listItemAdapter);
-		 */
+
 	}
 
 	private void girdview() {
@@ -72,14 +67,16 @@ public class PeopleCnt extends Activity {
 			@Override
 			public void done(List<ParseObject> IDList, ParseException e) {
 		        if (e == null) {
+		        	for(int i = 0 ; i < IDList.size() ;i++ ){
 		        	
-		            Log.d("score", "Retrieved " + IDList.get(0).getObjectId() + " scores");
-		            Breturn.setText(/*Integer.toString*/( IDList.get(2).getString("FreeMorning")/*.getObjectId()*/));
+		        	}
+		           // Log.d("score", "Retrieved " + IDList.get(0).getObjectId() + " scores");
+		           // Breturn.setText( IDList.get(0).getString("FreeMorning"));
 		           // IDList.get(0).put("FreeMorning", "123");
 		            //IDList.get(0).saveInBackground();
 		            
 		        } else {
-		            Log.d("score", "Error: " + e.getMessage());
+		           // Log.d("score", "Error: " + e.getMessage());
 		        }
 		    }
 		}); 
@@ -94,8 +91,8 @@ public class PeopleCnt extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
-				HashMap<String, Object> map = (HashMap<String, Object>) TimeTable
-						.getItemAtPosition(arg2);
+				//HashMap<String, Object> map = (HashMap<String, Object>) TimeTable
+						//.getItemAtPosition(arg2);
 				// HashMap<String, Object> map = new HashMap<String, Object>();
 
 				//if (map.get("ItemText1").toString().equals("O"))
@@ -107,10 +104,10 @@ public class PeopleCnt extends Activity {
 
 				// map.put("ItemText1", "O");
 				// map.put("ItemText2", "X");
-				listItem.set(arg2, map);
+				//listItem.set(arg2, map);
 				// setTitle(Integer.toString(arg2)/* "¿ï¨ú¤F"+ map.get("ItemText")
 				// */);
-				listItemAdapter.notifyDataSetChanged();
+				//listItemAdapter.notifyDataSetChanged();
 
 			}
 		});

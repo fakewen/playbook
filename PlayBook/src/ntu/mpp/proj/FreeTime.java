@@ -104,6 +104,10 @@ public class FreeTime extends Activity {
 	
 					timeObject.saveInBackground();
 				}
+				Intent intent=new Intent();
+				intent.setClass(FreeTime.this, proper.class);
+				startActivity(intent);
+				FreeTime.this.finish();
 				
 			}
 		});
