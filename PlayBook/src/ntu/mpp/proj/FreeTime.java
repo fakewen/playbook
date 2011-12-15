@@ -12,6 +12,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +38,7 @@ public class FreeTime extends Activity {
 	private char queryMorning[],queryNoon[],queryNight[];
 	private String freeMorning ="",freeNoon="",freeNight="";
 	private String PhoneNumber = "0923111111"; 
+	private ProgressDialog ProgressD;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,8 +49,7 @@ public class FreeTime extends Activity {
 		tablename.setText("空閒時間表");
 		freetimesend=(Button)findViewById(R.id.FreeTimeSend);
 		freetimesend.setOnClickListener(new OnClickListener() {
-			
-			@Override
+		@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
@@ -130,6 +131,7 @@ public class FreeTime extends Activity {
 	private void query(){
 		ParseQuery query = new ParseQuery("FreeTimeTable");
 		query.whereEqualTo("eventID", "778899");
+		
 		query.findInBackground(new FindCallback() {
 			@Override
 			public void done(List<ParseObject> IDList, ParseException e) {
@@ -164,11 +166,14 @@ public class FreeTime extends Activity {
 						TimeTable.setAdapter(listItemAdapter);
 		        	}
 					listItemAdapter.notifyDataSetChanged();
+					ProgressD.dismiss();
 		        } else {
+		        	ProgressD.dismiss();
 		            //Log.d("score", "Error: " + e.getMessage());
 		        }
 		    }
-		}); 
+		});
+		ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
 	}
 	private void girdview() {
 

@@ -10,7 +10,7 @@ import android.widget.Button;
 public class proper extends Activity {
     /** Called when the activity is first created. */
     Button bt1,bt2;
-    boolean master = true;
+    boolean master = false;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

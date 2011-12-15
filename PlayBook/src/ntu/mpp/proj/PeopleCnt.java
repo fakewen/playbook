@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,9 +32,10 @@ public class PeopleCnt extends Activity {
 	private int days = 4;
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
-	Calendar cal = Calendar.getInstance();
-	Button Breturn,freetimesend;
+	private Calendar cal = Calendar.getInstance();
+	private Button Breturn,freetimesend;
 	private int freeTime[][];
+	private ProgressDialog ProgressD;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,7 +108,8 @@ public class PeopleCnt extends Activity {
 		        	Breturn.setText("Error");
 		        }
 		    }
-		}); 
+		});
+		ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
 		TimeTable = (GridView) findViewById(R.id.gridView1);
 		TimeTable.setNumColumns(days+1);
 		TextViewID = new int[] { R.id.ItemText1, R.id.ItemText2 };
@@ -117,25 +120,10 @@ public class PeopleCnt extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-
-				//HashMap<String, Object> map = (HashMap<String, Object>) TimeTable
-						//.getItemAtPosition(arg2);
-				// HashMap<String, Object> map = new HashMap<String, Object>();
-
-				//if (map.get("ItemText1").toString().equals("O"))
-				//	map.put("ItemText1", "X");
-				/*else if (map.get("ItemText1").toString().equals("X"))
-					map.put("ItemText1", "?");
-				else if (map.get("ItemText1").toString().equals("?"))
-					map.put("ItemText1", "O");*/
-
-				// map.put("ItemText1", "O");
-				// map.put("ItemText2", "X");
-				//listItem.set(arg2, map);
-				// setTitle(Integer.toString(arg2)/* "選取了"+ map.get("ItemText")
-				// */);
-				//listItemAdapter.notifyDataSetChanged();
-
+				Intent intent=new Intent();
+				intent.setClass(PeopleCnt.this, Confirm.class);
+				startActivity(intent);
+				
 			}
 		});
 	}
