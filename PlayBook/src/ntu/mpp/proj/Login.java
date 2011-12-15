@@ -30,7 +30,7 @@ public class Login extends Activity {
 				Intent intent=new Intent();
 				intent.setClass(Login.this, Register.class);
 				startActivity(intent);
-				Login.this.finish();
+				//Login.this.finish();
 			}
 		});
        Blogin.setOnClickListener(new OnClickListener() {			
@@ -40,7 +40,7 @@ public class Login extends Activity {
 				Intent intent=new Intent();
 				intent.setClass(Login.this, PlayBookActivity.class);
 				startActivity(intent);
-				Login.this.finish();
+				//Login.this.finish();
 			}
 		});
 	}

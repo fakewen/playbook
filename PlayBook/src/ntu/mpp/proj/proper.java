@@ -27,13 +27,13 @@ public class proper extends Activity {
 					Intent intent=new Intent();
 					intent.setClass(proper.this, PeopleCnt.class);
 					startActivity(intent);
-					proper.this.finish();	
+					//proper.this.finish();	
 				}
 				else{
 					Intent intent=new Intent();
 					intent.setClass(proper.this, FreeTime.class);
 					startActivity(intent);
-					proper.this.finish();
+					//proper.this.finish();
 				}
 			}
 		});
@@ -45,7 +45,7 @@ public class proper extends Activity {
 				Intent intent=new Intent();
 				intent.setClass(proper.this, ElistCBox.class);
 				startActivity(intent);
-				proper.this.finish();
+				//proper.this.finish();
 			}
 		});
         

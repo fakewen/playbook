@@ -107,7 +107,7 @@ public class FreeTime extends Activity {
 				Intent intent=new Intent();
 				intent.setClass(FreeTime.this, proper.class);
 				startActivity(intent);
-				FreeTime.this.finish();
+				//FreeTime.this.finish();
 				
 			}
 		});

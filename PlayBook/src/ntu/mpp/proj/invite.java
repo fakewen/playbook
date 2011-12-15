@@ -74,7 +74,7 @@ public class invite extends Activity {
 			Intent intent=new Intent();
 			intent.setClass(invite.this, PlayBookActivity.class);
 			startActivity(intent);
-			invite.this.finish();
+			//invite.this.finish();
 		}
 	};
 }
