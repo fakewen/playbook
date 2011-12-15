@@ -30,6 +30,7 @@ public class PeopleCnt extends Activity {
 	private SimpleAdapter listItemAdapter;
 	private TextView tablename;
 	private int days = 4;
+	private int eventID = 778899;
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
 	private Calendar cal = Calendar.getInstance();
@@ -72,7 +73,7 @@ public class PeopleCnt extends Activity {
 			}
 		}
 		ParseQuery query = new ParseQuery("FreeTimeTable");
-		query.whereEqualTo("eventID", "778899");
+		query.whereEqualTo("eventID", Integer.toString(eventID));
 		query.findInBackground(new FindCallback() {
 			@Override
 			public void done(List<ParseObject> IDList, ParseException e) {
@@ -92,8 +93,6 @@ public class PeopleCnt extends Activity {
 		        			freeTime[2][Integer.parseInt(Character.toString(Night[j]))-1]++;
 		        		}
 		        	}
-		        	//Breturn.setText("YA!");
-		        	//Breturn.setText(Integer.toString(freeTime[0][0]));
 		        	for(int i= 1 ;i <= 3 ; i++){
 			        	for(int j= 1 ;j <= days ; j++){
 							HashMap<String, Object> map = new HashMap<String, Object>();
@@ -104,8 +103,10 @@ public class PeopleCnt extends Activity {
 		        	}
 		        	TimeTable.setAdapter(listItemAdapter);
 		        	listItemAdapter.notifyDataSetChanged();
+		        	ProgressD.dismiss();
 		        } else {
 		        	Breturn.setText("Error");
+		        	ProgressD.dismiss();
 		        }
 		    }
 		});
@@ -120,8 +121,13 @@ public class PeopleCnt extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				Bundle PeopleData = new Bundle();
+				PeopleData.putInt("Index",arg2);
+				PeopleData.putInt("eventID",eventID);
+				PeopleData.putInt("days",days);
 				Intent intent=new Intent();
 				intent.setClass(PeopleCnt.this, Confirm.class);
+				intent.putExtras(PeopleData);
 				startActivity(intent);
 				
 			}

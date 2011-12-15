@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="空閒名單"
+        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_marginTop="10dip"/>
+
+    <ListView
+        android:id="@+id/FreeNameList"
+        android:layout_width="match_parent"
+        android:layout_height="356dp" android:layout_marginTop="10dip">
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="15dip">
+
+        <Button
+            android:id="@+id/ConfirmReturn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="35dp"
+            android:text="   返回   " />
+
+        <Button
+            android:id="@+id/Confirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="38dp"
+            android:layout_toRightOf="@+id/ConfirmReturn"
+            android:text="  確認成行  " />
+
+    </RelativeLayout>
+
+</LinearLayout>
