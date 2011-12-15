@@ -36,7 +36,7 @@ public class FreeTime extends Activity {
 	private Button Breturn,freetimesend;
 	private char queryMorning[],queryNoon[],queryNight[];
 	private String freeMorning ="",freeNoon="",freeNight="";
-	private String PhoneNumber = "0917723346"; 
+	private String PhoneNumber = "0923111111"; 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

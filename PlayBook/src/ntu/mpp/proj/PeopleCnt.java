@@ -33,6 +33,7 @@ public class PeopleCnt extends Activity {
 	private int[] TextViewID;
 	Calendar cal = Calendar.getInstance();
 	Button Breturn,freetimesend;
+	private int freeTime[][];
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class PeopleCnt extends Activity {
 		freetimesend.setVisibility(View.GONE);
 		tablename = (TextView) findViewById(R.id.TableName);
 		tablename.setText("人數統計");
+
 		Breturn.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -61,6 +63,12 @@ public class PeopleCnt extends Activity {
 	}
 
 	private void girdview() {
+		freeTime = new int [3][7];
+		for(int i = 0 ; i<3 ; i++){
+			for(int j = 0 ; j<3 ; j++){
+				freeTime[i][j] = 0;
+			}
+		}
 		ParseQuery query = new ParseQuery("FreeTimeTable");
 		query.whereEqualTo("eventID", "778899");
 		query.findInBackground(new FindCallback() {
@@ -68,15 +76,34 @@ public class PeopleCnt extends Activity {
 			public void done(List<ParseObject> IDList, ParseException e) {
 		        if (e == null) {
 		        	for(int i = 0 ; i < IDList.size() ;i++ ){
-		        	
+		        		char Morning[],Noon[],Night[];
+		        		Morning = IDList.get(i).getString("FreeMorning").toCharArray();
+		        		Noon = IDList.get(i).getString("FreeNoon").toCharArray();
+		        		Night = IDList.get(i).getString("FreeNight").toCharArray();
+		        		for(int j = 0 ;j<Morning.length ; j+=2){
+		        			freeTime[0][Integer.parseInt(Character.toString(Morning[j]))-1]++;
+		        		}
+		        		for(int j = 0 ;j<Noon.length ; j+=2){
+		        			freeTime[1][Integer.parseInt(Character.toString(Noon[j]))-1]++;
+		        		}
+		        		for(int j = 0 ;j<Night.length ; j+=2){
+		        			freeTime[2][Integer.parseInt(Character.toString(Night[j]))-1]++;
+		        		}
 		        	}
-		           // Log.d("score", "Retrieved " + IDList.get(0).getObjectId() + " scores");
-		           // Breturn.setText( IDList.get(0).getString("FreeMorning"));
-		           // IDList.get(0).put("FreeMorning", "123");
-		            //IDList.get(0).saveInBackground();
-		            
+		        	//Breturn.setText("YA!");
+		        	//Breturn.setText(Integer.toString(freeTime[0][0]));
+		        	for(int i= 1 ;i <= 3 ; i++){
+			        	for(int j= 1 ;j <= days ; j++){
+							HashMap<String, Object> map = new HashMap<String, Object>();
+							map.put("ItemText1", Integer.toString(freeTime[i-1][j-1]));
+							listItem.set((days+1)*i+j,map);
+			        	
+						}
+		        	}
+		        	TimeTable.setAdapter(listItemAdapter);
+		        	listItemAdapter.notifyDataSetChanged();
 		        } else {
-		           // Log.d("score", "Error: " + e.getMessage());
+		        	Breturn.setText("Error");
 		        }
 		    }
 		}); 
@@ -155,7 +182,7 @@ public class PeopleCnt extends Activity {
 				
 
 			} else {
-				map.put("ItemText1", "1");
+				map.put("ItemText1", "0");
 				map.put("ItemText2", "");
 				listItem.add(map);
 			}
