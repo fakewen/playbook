@@ -15,7 +15,10 @@ public class invite extends Activity {
     /** Called when the activity is first created. */
     Button bt1,bt2;
     EditText et1,et2,et3;
-    TextView tv1,tv2;
+    TextView tv1,tv2,tv3;
+    int startYear, startMonth, startDay;
+    int endYear, endMonth, endDay;
+    int stopYear, stopMonth, stopDay;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +31,22 @@ public class invite extends Activity {
         et1=(EditText)findViewById(R.id.editText1);
         et2=(EditText)findViewById(R.id.editText2);
         et3=(EditText)findViewById(R.id.editText3);
-        //tv1=(TextView) findViewById(R.id.textview_);
+        tv1=(TextView) findViewById(R.id.textView_start);
+        tv2=(TextView) findViewById(R.id.textView_end);
+        tv3=(TextView) findViewById(R.id.textView_stop);
         bt1.setOnClickListener(submit_listener);
         bt2.setOnClickListener(back_listener);
     }
+	
+	OnClickListener select_start_date = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+	
 	OnClickListener submit_listener=new OnClickListener() {
 		
 		@Override
