@@ -97,14 +97,16 @@ public class ElistCBox extends ExpandableListActivity
             long id) {
         Log.d( LOG_TAG, "onChildClick: "+childPosition );
         final String event_name_=event_[groupPosition][childPosition];
+        Log.i("playbook", "bundle:"+event_name_+" x:"+Integer.toString(groupPosition)+" y:"+Integer.toString(childPosition));
         ElistCBox.this.runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				String event_name=event_name_;
+				String event_name=event_name_;Log.i("playbook","@run event_name:"+event_name);
 				Bundle bData = new Bundle();
-				bData.putString("evnet_name", event_name);
+				bData.putString("event_name", event_name);
+				//bData.putString("ck", "ok");
 				Intent intent=new Intent();
 				intent.setClass(ElistCBox.this, proper.class);
 				intent.putExtras(bData);

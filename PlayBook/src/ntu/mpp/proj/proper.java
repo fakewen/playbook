@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,7 +37,9 @@ public class proper extends Activity {
         tv8=(TextView)findViewById(R.id.textView8);
         
         Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
-        Bundle bData = this.getIntent().getExtras();
+        Bundle bData = getIntent().getExtras();
+        //Log.i("playbook", "got event:"+bData.getString("event_name"));
+        //Log.i("playbook", bData.getString("ck"));
         ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
   	  	ParseQuery query = new ParseQuery("event_list");
   	  	query.whereEqualTo("event", bData.getString("event_name"));//找出自己有被邀請的活動
@@ -44,6 +47,7 @@ public class proper extends Activity {
   		  @Override
   			public void done(List<ParseObject> IDList, ParseException e) {
   			  if (e == null) {
+  				  Log.i("playbook", "list size="+Integer.toString(IDList.size()));
   				tv1.setText("活動內容:"+IDList.get(0).getString("event"));
   				tv2.setText("活動地點:"+IDList.get(0).getString("location"));
   				tv3.setText("發起人:"+IDList.get(0).getString("founder"));
