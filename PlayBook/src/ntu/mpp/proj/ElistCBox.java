@@ -96,13 +96,18 @@ public class ElistCBox extends ExpandableListActivity
             int childPosition,
             long id) {
         Log.d( LOG_TAG, "onChildClick: "+childPosition );
+        final String event_name_=event_[groupPosition][childPosition];
         ElistCBox.this.runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
+				String event_name=event_name_;
+				Bundle bData = new Bundle();
+				bData.putString("evnet_name", event_name);
 				Intent intent=new Intent();
 				intent.setClass(ElistCBox.this, proper.class);
+				intent.putExtras(bData);
 				startActivity(intent);
 				ElistCBox.this.finish();
 			}
@@ -147,7 +152,10 @@ public class ElistCBox extends ExpandableListActivity
 	// Second-level lists
 		  ArrayList secList1;// = new ArrayList();
 		  ArrayList secList2;// = new ArrayList();
+		  String event_[][];int cnt1=0;
+		  String event0[];int cnt0=0;
   private List createChildList() {
+	  event_=new String[2][1000];
 	  result = new ArrayList();
 	  secList1 = new ArrayList();
 	  secList2 = new ArrayList();
@@ -166,12 +174,14 @@ public class ElistCBox extends ExpandableListActivity
 							child.put( "shadeName", IDList.get(i).getString("event") );Log.i("playbook","1"+IDList.get(i).getString("event"));
 						    child.put( "rgb", IDList.get(i).getString("founder") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
 							secList1.add( child );
+							event_[0][cnt1]=IDList.get(i).getString("event");cnt1++;
 					  }
 					  else{
 						  HashMap child = new HashMap();
 							child.put( "shadeName", IDList.get(i).getString("event") );Log.i("playbook","1"+IDList.get(i).getString("event"));
 						    child.put( "rgb", IDList.get(i).getString("founder") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
 							secList2.add( child );
+							event_[1][cnt0]=IDList.get(i).getString("event");cnt0++;
 					  }
 					  
 				  }
@@ -182,7 +192,7 @@ public class ElistCBox extends ExpandableListActivity
 	  });
 	  result.add( secList1 );
 	  result.add( secList2 );
-	 // ProgressD.dismiss();
+	  //ProgressD.dismiss();
 	
 	return result;
   }
