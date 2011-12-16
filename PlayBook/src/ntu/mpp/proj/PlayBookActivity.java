@@ -25,7 +25,7 @@ public class PlayBookActivity extends Activity {
 				Intent intent=new Intent();
 				intent.setClass(PlayBookActivity.this, invite.class);
 				startActivity(intent);
-				PlayBookActivity.this.finish();
+				//PlayBookActivity.this.finish();
 			}
 		});
         bt2.setOnClickListener(new OnClickListener() {
@@ -36,7 +36,7 @@ public class PlayBookActivity extends Activity {
 				Intent intent=new Intent();
 				intent.setClass(PlayBookActivity.this, ElistCBox.class);
 				startActivity(intent);
-				PlayBookActivity.this.finish();
+				//PlayBookActivity.this.finish();
 			}
 		});
         

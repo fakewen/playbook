@@ -19,5 +19,6 @@
 		<activity android:name="PlayBookActivity"></activity>
 		<activity android:name="Register"></activity>
 		<activity android:name="PeopleCnt"></activity>
+		<activity android:name="Confirm"></activity>
     </application>
 </manifest>
