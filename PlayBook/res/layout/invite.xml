@@ -18,7 +18,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="選擇開始日期"
-		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true"/>
+		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#006699"/>
 
 		<TextView android:layout_width="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
@@ -30,7 +30,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="選擇截止日期"
-		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true"/>
+		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#006699"/>
 
 	</LinearLayout>
 
@@ -49,7 +49,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="選擇截止日期"
-		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true"/>
+		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#ff6600"/>
 
 	</LinearLayout>
 	<LinearLayout android:id="@+id/linearLayout3"
