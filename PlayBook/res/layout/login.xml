@@ -18,25 +18,24 @@
         android:layout_marginRight="10dip"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dip">
-        <EditText
-            android:id="@+id/Editaccount"
-            android:layout_width="217dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true" >
-
-            <requestFocus />
-        </EditText>
-
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-			android:layout_marginRight="10dip"
-            android:text="帳號"
+            android:text="手機號碼"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/Editaccount"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:inputType="phone" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -59,12 +58,18 @@
 
         <EditText
             android:id="@+id/Editpassword"
-            android:layout_width="217dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textView2" />
 
     </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="記住我的帳號密碼" android:layout_marginLeft="25dp"/>
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
