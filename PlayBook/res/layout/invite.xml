@@ -9,17 +9,31 @@
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_height="wrap_content" android:id="@+id/textView3"
 		android:text="活動日期"></TextView>
+
 	<LinearLayout android:id="@+id/linearLayout1"
 		android:layout_height="wrap_content" android:layout_width="wrap_content">
-		<DatePicker android:id="@+id/datePicker1"
-			android:layout_width="100dp" android:layout_height="fill_parent"></DatePicker>
+
+		<TextView
+		    android:id="@+id/textView_start"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Large Text"
+		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true"/>
+
 		<TextView android:layout_width="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_height="wrap_content" android:id="@+id/textView2"
 			android:text="至" android:layout_gravity="center"></TextView>
-		<DatePicker android:id="@+id/datePicker2"
-			android:layout_width="wrap_content" android:layout_height="59dp"></DatePicker>
+
+		<TextView
+		    android:id="@+id/textView_end"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Large Text"
+		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true"/>
+
 	</LinearLayout>
+
 	<LinearLayout android:id="@+id/linearLayout2"
 		android:layout_width="fill_parent" android:layout_height="59dp">
 		<TextView android:layout_width="wrap_content"

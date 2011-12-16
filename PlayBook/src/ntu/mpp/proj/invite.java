@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -14,6 +15,7 @@ public class invite extends Activity {
     /** Called when the activity is first created. */
     Button bt1,bt2;
     EditText et1,et2,et3;
+    TextView tv1,tv2;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class invite extends Activity {
         et1=(EditText)findViewById(R.id.editText1);
         et2=(EditText)findViewById(R.id.editText2);
         et3=(EditText)findViewById(R.id.editText3);
+        //tv1=(TextView) findViewById(R.id.textview_);
         bt1.setOnClickListener(submit_listener);
         bt2.setOnClickListener(back_listener);
     }
