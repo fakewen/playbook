@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.ExpandableListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,10 +14,16 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
+
+import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 public class ElistCBox extends ExpandableListActivity
 {
+	String me="0922261111";
+	private ProgressDialog ProgressD;
     private static final String LOG_TAG = "ElistCBox";
 //這是有幾類
     static final String colors[] = {
@@ -30,29 +37,11 @@ public class ElistCBox extends ExpandableListActivity
 	  {
 		"已確定1","by1",
 		"已確定2","by2",
-		"已確定2","by2",
-		"已確定2","by2",
-		"已確定2","by2",
-		"已確定2","by2",
-		"已確定2","by2",
-		"已確定2","by2",
-		"已確定2","by2",
-		"已確定2","by2",
-		"已確定2","by2",
 		"已確定3","by3"
 	  },
 // Shades of 調查中
 	  {
 		"調查中1","by1",
-		"調查中2","by2",
-		"調查中2","by2",
-		"調查中2","by2",
-		"調查中2","by2",
-		"調查中2","by2",
-		"調查中2","by2",
-		"調查中2","by2",
-		"調查中2","by2",
-		"調查中2","by2",
 		"調查中2","by2",
 		"調查中3","by3"
 	  },
@@ -65,19 +54,8 @@ public class ElistCBox extends ExpandableListActivity
     {
         super.onCreate(icicle);
         setContentView(R.layout.list);
-        //Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
-        /*
-        ParseQuery query = new ParseQuery("GameScore");
-        query.whereEqualTo("playerName", "Dan Stemkoski");
-        query.findInBackground(new FindCallback() {
-            public void done(List<ParseObject> scoreList, ParseException e) {
-                if (e == null) {
-                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
-                }
-            }
-        });*/
+        Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
+        //ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);//
         bt1=(Button)findViewById(R.id.button1);
         //這裡不用findview! expand會自己找 android:list
 		SimpleExpandableListAdapter expListAdapter =
@@ -164,19 +142,48 @@ public class ElistCBox extends ExpandableListActivity
   * Maps. Each such Map contains two keys: "shadeName" is the name of the
   * shade and "rgb" is the RGB value for the shade.
   */
+	ArrayList result;// = new ArrayList();
+	
+	// Second-level lists
+		  ArrayList secList1;// = new ArrayList();
+		  ArrayList secList2;// = new ArrayList();
   private List createChildList() {
-	ArrayList result = new ArrayList();
-	for( int i = 0 ; i < shades.length ; ++i ) {
-// Second-level lists
-	  ArrayList secList = new ArrayList();
-	  for( int n = 0 ; n < shades[i].length ; n += 2 ) {
-	    HashMap child = new HashMap();
-		child.put( "shadeName", shades[i][n] );
-	    child.put( "rgb", shades[i][n+1] );
-		secList.add( child );
-	  }
-	  result.add( secList );
-	}
+	  result = new ArrayList();
+	  secList1 = new ArrayList();
+	  secList2 = new ArrayList();
+	  ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
+	  ParseQuery query = new ParseQuery("invite");
+	  query.whereEqualTo("friends", me);//找出自己有被邀請的活動
+	  query.findInBackground(new FindCallback(){
+		  @Override
+			public void done(List<ParseObject> IDList, ParseException e) {
+			  if (e == null) {
+				  ArrayList secList1_ = new ArrayList();
+				  ArrayList secList2_ = new ArrayList();
+				  for(int i=0;i<IDList.size();i++){
+					  if(IDList.get(i).getString("status").equals("1")){
+						  HashMap child = new HashMap();
+							child.put( "shadeName", IDList.get(i).getString("event") );Log.i("playbook","1"+IDList.get(i).getString("event"));
+						    child.put( "rgb", IDList.get(i).getString("founder") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
+							secList1.add( child );
+					  }
+					  else{
+						  HashMap child = new HashMap();
+							child.put( "shadeName", IDList.get(i).getString("event") );Log.i("playbook","1"+IDList.get(i).getString("event"));
+						    child.put( "rgb", IDList.get(i).getString("founder") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
+							secList2.add( child );
+					  }
+					  
+				  }
+			  }
+			  ProgressD.dismiss();
+		  }
+		  
+	  });
+	  result.add( secList1 );
+	  result.add( secList2 );
+	 // ProgressD.dismiss();
+	
 	return result;
   }
 

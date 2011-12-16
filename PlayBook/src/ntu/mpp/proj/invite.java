@@ -33,31 +33,30 @@ public class invite extends Activity {
 		
 		@Override
 		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			/*
-			invite.this.runOnUiThread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					ParseObject testObject = new ParseObject("TestObject");
-			        //testObject.put("state", "@submit button!");
-			        testObject.put("event", et1.getText());
-			        testObject.put("location", et2.getText());
-			        testObject.put("note", et3.getText());
-			        testObject.saveInBackground();
-				}
-			});*/
-			ParseObject testObject = new ParseObject("TestObject");
-	        //testObject.put("state", "@submit button!");
-			testObject.put("from", "from");
-			testObject.put("to", "to");
-			testObject.put("deadline", "deadline");
-			testObject.put("friends", "friends");
 			
+			ParseObject testObject = new ParseObject("event_list");
+	        //testObject.put("state", "@submit button!");
+			testObject.put("from", "2011/12/12");
+			testObject.put("to", "2011/12/19");
+			testObject.put("deadline", "2011/12/25");
+			//用invite table 紀錄人跟活動的關係
+			String friends[]={"0922262222" , "0922261111"};//被邀請的人們 
+			
+			for(int i=0 ; i<friends.length ; i++){
+				ParseObject invite = new ParseObject("invite");//這要放裡面
+				invite.put("event", ""+et1.getText());
+				invite.put("friends", friends[i]);
+				invite.put("founder", "0922263232");//開團者
+		        invite.put("status", "0");//0:調查中  1:成團!
+				invite.saveInBackground();
+			}
+			
+			//
 	        testObject.put("event", ""+et1.getText());
 	        testObject.put("location", ""+et2.getText());
 	        testObject.put("note", ""+et3.getText());
+	        testObject.put("founder", "0922263232");//開團者
+	        testObject.put("status", "0");//0:調查中  1:成團!
 	        testObject.saveInBackground();
 			
 			Intent intent=new Intent();
