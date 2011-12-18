@@ -97,6 +97,7 @@ public class ElistCBox extends ExpandableListActivity
             long id) {
         Log.d( LOG_TAG, "onChildClick: "+childPosition );
         final String event_name_=event_[groupPosition][childPosition];
+        final String event_id_=eventid_[groupPosition][childPosition];
         Log.i("playbook", "bundle:"+event_name_+" x:"+Integer.toString(groupPosition)+" y:"+Integer.toString(childPosition));
         ElistCBox.this.runOnUiThread(new Runnable() {
 			
@@ -104,8 +105,10 @@ public class ElistCBox extends ExpandableListActivity
 			public void run() {
 				// TODO Auto-generated method stub
 				String event_name=event_name_;Log.i("playbook","@run event_name:"+event_name);
+				String event_id=event_id_;
 				Bundle bData = new Bundle();
 				bData.putString("event_name", event_name);
+				bData.putString("event_id", event_id);Log.i("playbook","event_id@list="+event_id);
 				//bData.putString("ck", "ok");
 				Intent intent=new Intent();
 				intent.setClass(ElistCBox.this, proper.class);
@@ -154,10 +157,13 @@ public class ElistCBox extends ExpandableListActivity
 	// Second-level lists
 		  ArrayList secList1;// = new ArrayList();
 		  ArrayList secList2;// = new ArrayList();
-		  String event_[][];int cnt1=0;
+		  String event_[][];/*記錄所有活動*/int cnt1=0;
 		  String event0[];int cnt0=0;
+		  String eventid_[][];
+		  
   private List createChildList() {
 	  event_=new String[2][1000];
+	  eventid_=new String[2][1000];
 	  result = new ArrayList();
 	  secList1 = new ArrayList();
 	  secList2 = new ArrayList();
@@ -176,14 +182,20 @@ public class ElistCBox extends ExpandableListActivity
 							child.put( "shadeName", IDList.get(i).getString("event") );Log.i("playbook","1"+IDList.get(i).getString("event"));
 						    child.put( "rgb", IDList.get(i).getString("founder") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
 							secList1.add( child );
-							event_[0][cnt1]=IDList.get(i).getString("event");cnt1++;
+							event_[0][cnt1]=IDList.get(i).getString("event");
+							eventid_[0][cnt1]=IDList.get(i).getString("eventid");
+							Log.i("playbook", "id@listget="+IDList.get(i).getString("eventid"));
+							cnt1++;
 					  }
 					  else{
 						  HashMap child = new HashMap();
 							child.put( "shadeName", IDList.get(i).getString("event") );Log.i("playbook","1"+IDList.get(i).getString("event"));
 						    child.put( "rgb", IDList.get(i).getString("founder") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
 							secList2.add( child );
-							event_[1][cnt0]=IDList.get(i).getString("event");cnt0++;
+							event_[1][cnt0]=IDList.get(i).getString("event");
+							eventid_[1][cnt0]=IDList.get(i).getString("eventid");
+							Log.i("playbook", "id@listget="+IDList.get(i).getString("eventid"));
+							cnt0++;
 					  }
 					  
 				  }

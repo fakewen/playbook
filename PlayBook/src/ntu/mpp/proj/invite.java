@@ -1,6 +1,7 @@
 package ntu.mpp.proj;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -19,6 +20,7 @@ import com.parse.ParseObject;
 
 public class invite extends Activity {
 	/** Called when the activity is first created. */
+	String me="0922261111";
 	Button bt1, bt2;
 	EditText et1, et2, et3;
 	TextView tv1, tv2, tv3;
@@ -182,13 +184,14 @@ public class invite extends Activity {
 			testObject.put("deadline", "2011/12/25");
 			// 用invite table 紀錄人跟活動的關係
 			String friends[] = { "0922262222", "0922261111" };// 被邀請的人們
-
+			String time=new Date().toString();
 			for (int i = 0; i < friends.length; i++) {
 				ParseObject invite = new ParseObject("invite");// 這要放裡面
 				invite.put("event", "" + et1.getText());
 				invite.put("friends", friends[i]);
 				invite.put("founder", "0922263232");// 開團者
 				invite.put("status", "1");// 0:調查中 1:成團!
+				invite.put("eventid", gl.me+time);//eventid
 				invite.saveInBackground();
 			}
 
@@ -198,6 +201,8 @@ public class invite extends Activity {
 			testObject.put("note", "" + et3.getText());
 			testObject.put("founder", "0922263232");// 開團者
 			testObject.put("status", "1");// 0:調查中 1:成團!
+			
+			testObject.put("eventid", gl.me+time);//eventid
 			testObject.saveInBackground();
 
 			Intent intent = new Intent();

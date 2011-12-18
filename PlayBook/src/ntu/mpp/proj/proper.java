@@ -42,7 +42,9 @@ public class proper extends Activity {
         //Log.i("playbook", bData.getString("ck"));
         ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
   	  	ParseQuery query = new ParseQuery("event_list");
-  	  	query.whereEqualTo("event", bData.getString("event_name"));//找出自己有被邀請的活動
+  	  	//query.whereEqualTo("event", bData.getString("event_name"));//找出自己有被邀請的活動
+  	  	query.whereEqualTo("eventid", bData.getString("event_id"));
+  	  Log.i("playbook", "eventid="+bData.getString("event_id"));
   	  	query.findInBackground(new FindCallback(){
   		  @Override
   			public void done(List<ParseObject> IDList, ParseException e) {
