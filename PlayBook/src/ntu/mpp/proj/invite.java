@@ -190,7 +190,7 @@ public class invite extends Activity {
 				invite.put("event", "" + et1.getText());
 				invite.put("friends", friends[i]);
 				invite.put("founder", "0922263232");// 開團者
-				invite.put("status", "1");// 0:調查中 1:成團!
+				invite.put("status", "0");// 0:調查中 1:成團!
 				invite.put("eventid", gl.me+time);//eventid
 				invite.saveInBackground();
 			}
@@ -200,7 +200,7 @@ public class invite extends Activity {
 			testObject.put("location", "" + et2.getText());
 			testObject.put("note", "" + et3.getText());
 			testObject.put("founder", "0922263232");// 開團者
-			testObject.put("status", "1");// 0:調查中 1:成團!
+			testObject.put("status", "0");// 0:調查中 1:成團!
 			
 			testObject.put("eventid", gl.me+time);//eventid
 			testObject.saveInBackground();
