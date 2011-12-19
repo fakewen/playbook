@@ -23,6 +23,9 @@ public class proper extends Activity {
     TextView tv1,tv2,tv3,tv4,tv5,tv6,tv7,tv8;
     boolean master = true;
     private ProgressDialog ProgressD;
+    String eventid_bundle;
+    String from_bundle;
+    String to_bundle;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class proper extends Activity {
   	  	ParseQuery query = new ParseQuery("event_list");
   	  	//query.whereEqualTo("event", bData.getString("event_name"));//找出自己有被邀請的活動
   	  	query.whereEqualTo("eventid", bData.getString("event_id"));
+  	  eventid_bundle=bData.getString("event_id");
   	  Log.i("playbook", "eventid="+bData.getString("event_id"));
   	  	query.findInBackground(new FindCallback(){
   		  @Override
@@ -54,7 +58,9 @@ public class proper extends Activity {
   				tv2.setText("活動地點:"+IDList.get(0).getString("location"));
   				tv3.setText("發起人:"+IDList.get(0).getString("founder"));
   				tv4.setText("活動日期從:"+IDList.get(0).getString("from"));
+  				from_bundle=IDList.get(0).getString("from");
   				tv5.setText("活動日期到:"+IDList.get(0).getString("to"));
+  				to_bundle=IDList.get(0).getString("to");
   				tv6.setText("活動截止日期:"+IDList.get(0).getString("deadline"));
   				tv7.setText(IDList.get(0).getString("status").equals("1")?"已成團":"調查中");
   				tv8.setText(IDList.get(0).getString("note"));
@@ -69,15 +75,21 @@ public class proper extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Bundle bundle = new Bundle();
+				bundle.putString("eventid", eventid_bundle);
+				bundle.putString("from", from_bundle);
+				bundle.putString("to", to_bundle);
 				if(master){
 					Intent intent=new Intent();
 					intent.setClass(proper.this, PeopleCnt.class);
+					intent.putExtras(bundle);
 					startActivity(intent);
 					//proper.this.finish();	
 				}
 				else{
 					Intent intent=new Intent();
 					intent.setClass(proper.this, FreeTime.class);
+					intent.putExtras(bundle);
 					startActivity(intent);
 					//proper.this.finish();
 				}

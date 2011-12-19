@@ -41,6 +41,10 @@ public class PeopleCnt extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grid);
+		Bundle bData = getIntent().getExtras();
+		Log.i("playbook","got eventid="+bData.getString("eventid"));
+		Log.i("playbook","got from="+bData.getString("from"));
+		Log.i("playbook","got to="+bData.getString("to"));
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
 		Breturn=(Button)findViewById(R.id.button1);
 		freetimesend=(Button)findViewById(R.id.FreeTimeSend);
