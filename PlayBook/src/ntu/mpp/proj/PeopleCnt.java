@@ -29,14 +29,15 @@ public class PeopleCnt extends Activity {
 	private GridView TimeTable;
 	private SimpleAdapter listItemAdapter;
 	private TextView tablename;
-	private int days = 4;
-	private int eventID = 778899;
+	private int days = 8;
+	private String eventID;
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
 	private Calendar cal = Calendar.getInstance();
 	private Button Breturn,freetimesend;
 	private int freeTime[][];
 	private ProgressDialog ProgressD;
+	Bundle EventData;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,14 +71,38 @@ public class PeopleCnt extends Activity {
 	}
 
 	private void girdview() {
-		freeTime = new int [3][7];
+		EventData = this.getIntent().getExtras();
+		eventID = EventData.getString("eventid");
+		EventData = this.getIntent().getExtras();
+		String from_bundle = EventData.getString("from");
+		String to_bundle = EventData.getString("to");
+		int yearFrom,monthFrom,dayFrom,yearTo,monthTo,dayTo;
+		yearFrom = Integer.parseInt(from_bundle.substring(0, 4));
+		yearTo = Integer.parseInt(to_bundle.substring(0, 4));
+		monthFrom = Integer.parseInt(from_bundle.substring(5, 7));
+		monthTo = Integer.parseInt(to_bundle.substring(5, 7));
+		dayFrom = Integer.parseInt(from_bundle.substring(8, 10));
+		dayTo = Integer.parseInt(to_bundle.substring(8, 10));
+		
+        Calendar cal = Calendar.getInstance();
+        cal.getTime();
+        cal.set(yearFrom, monthFrom,dayFrom);
+        if(dayTo - dayFrom < 0)
+		days = cal.getActualMaximum(Calendar.DAY_OF_MONTH) - dayFrom + 1 + dayTo;
+        else if(dayTo - dayFrom == 0)
+        	days = 1;
+        else
+        	days = dayTo - dayFrom +1;
+        //Breturn.setText(Integer.toString(dayTo - dayFrom));
+		freeTime = new int [3][15];
 		for(int i = 0 ; i<3 ; i++){
 			for(int j = 0 ; j<3 ; j++){
 				freeTime[i][j] = 0;
 			}
 		}
 		ParseQuery query = new ParseQuery("FreeTimeTable");
-		query.whereEqualTo("eventID", Integer.toString(eventID));
+		query.whereEqualTo("eventID", eventID);
+		
 		query.findInBackground(new FindCallback() {
 			@Override
 			public void done(List<ParseObject> IDList, ParseException e) {
@@ -127,7 +152,7 @@ public class PeopleCnt extends Activity {
 					long arg3) {
 				Bundle PeopleData = new Bundle();
 				PeopleData.putInt("Index",arg2);
-				PeopleData.putInt("eventID",eventID);
+				PeopleData.putString("eventID",eventID);
 				PeopleData.putInt("days",days);
 				Intent intent=new Intent();
 				intent.setClass(PeopleCnt.this, Confirm.class);
@@ -139,6 +164,8 @@ public class PeopleCnt extends Activity {
 	}
        
 	private void freetime() {
+		
+		
 		for (int i = 0; i < (days+1)*4; i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			if (i == 0) {
@@ -148,8 +175,7 @@ public class PeopleCnt extends Activity {
 			} else if (i > 0 && i < days+1) {
 				
 				String[] weekDays = {"日", "一", "二", "三", "四", "五", "六"};
-		        Calendar cal = Calendar.getInstance();
-		        cal.getTime();
+
 		        int w = (cal.get(Calendar.DAY_OF_WEEK) - 1 +(i-1))%7;
 		        if (w < 0)
 		            w = 0;

@@ -27,7 +27,8 @@ public class Confirm extends Activity {
 	private Button CReturn,CConfirm;
 	private ProgressDialog ProgressD;
 	private String queryString = "";
-	private int Index,eventID,days;
+	private int Index,days;
+	private String eventID;
 	private ListView freeNameList;
 	private SimpleAdapter listItemAdapter;
 	private ArrayList<HashMap<String, Object>> listItem;
@@ -57,7 +58,7 @@ public class Confirm extends Activity {
 
 		Bundle PeopleData = this.getIntent().getExtras();
 	    Index = PeopleData.getInt("Index");
-	    eventID = PeopleData.getInt("eventID");
+	    eventID = PeopleData.getString("eventID");
 	    days = PeopleData.getInt("days");
 	    
 	    switch(Index/(days+1)){
@@ -73,7 +74,7 @@ public class Confirm extends Activity {
 	    }
 	    //CConfirm.setText(Integer.toString(Index));
 	    ParseQuery query = new ParseQuery("FreeTimeTable");
-		query.whereEqualTo("eventID", Integer.toString(eventID));
+		query.whereEqualTo("eventID", eventID);
 		query.findInBackground(new FindCallback() {
 			@Override
 			public void done(List<ParseObject> IDList, ParseException e) {

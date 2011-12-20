@@ -32,6 +32,7 @@ public class FreeTime extends Activity {
 	private TextView tablename;
 	private int[] TextViewID;
 	private int days = 4,dataIndex;
+	private String eventID;
 	private boolean hadData = false;
 	private Calendar cal = Calendar.getInstance();
 	private Button Breturn,freetimesend;
@@ -39,6 +40,7 @@ public class FreeTime extends Activity {
 	private String freeMorning ="",freeNoon="",freeNight="";
 	private String PhoneNumber = "0923111111"; 
 	private ProgressDialog ProgressD;
+	Bundle EventData;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,12 +50,17 @@ public class FreeTime extends Activity {
 		tablename = (TextView) findViewById(R.id.TableName);
 		tablename.setText("空閒時間表");
 		freetimesend=(Button)findViewById(R.id.FreeTimeSend);
+		
+		girdview();
+		freetime();
+		query();
+		
 		freetimesend.setOnClickListener(new OnClickListener() {
 		@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-
+			Breturn.setText(Integer.toString(days));
 				for(int i= (days+2) ;i< (days+1)*4 ; i++){
 					if (i % days+1 != 0){
 						HashMap<String, Object> map = (HashMap<String, Object>) TimeTable
@@ -80,7 +87,7 @@ public class FreeTime extends Activity {
 				}
 				if(hadData){
 					ParseQuery query = new ParseQuery("FreeTimeTable");
-					query.whereEqualTo("eventID", "778899");
+					query.whereEqualTo("eventID", eventID);
 					query.findInBackground(new FindCallback() {
 						
 						@Override
@@ -97,7 +104,7 @@ public class FreeTime extends Activity {
 				else{		
 					ParseObject timeObject = new ParseObject("FreeTimeTable");
 					timeObject.put("phone", PhoneNumber);
-					timeObject.put("eventID", "778899");
+					timeObject.put("eventID", eventID);
 					timeObject.put("FreeMorning", freeMorning);
 					timeObject.put("FreeNoon", freeNoon);
 					timeObject.put("FreeNight", freeNight);
@@ -105,10 +112,10 @@ public class FreeTime extends Activity {
 	
 					timeObject.saveInBackground();
 				}
-				Intent intent=new Intent();
-				intent.setClass(FreeTime.this, proper.class);
-				startActivity(intent);
-				//FreeTime.this.finish();
+				//Intent intent=new Intent();
+				//intent.setClass(FreeTime.this, proper.class);
+				//startActivity(intent);
+				FreeTime.this.finish();
 				
 			}
 		});
@@ -123,15 +130,10 @@ public class FreeTime extends Activity {
 				FreeTime.this.finish();
 			}
 		});
-		
-		girdview();
-		freetime();
-		query();
 	}
 	private void query(){
 		ParseQuery query = new ParseQuery("FreeTimeTable");
-		query.whereEqualTo("eventID", "778899");
-		
+		query.whereEqualTo("eventID", eventID);
 		query.findInBackground(new FindCallback() {
 			@Override
 			public void done(List<ParseObject> IDList, ParseException e) {
@@ -143,8 +145,6 @@ public class FreeTime extends Activity {
 		        			queryNoon = IDList.get(i).getString("FreeNoon").toCharArray();
 		        			queryNight = IDList.get(i).getString("FreeNight").toCharArray();
 		        			hadData = true;
-		        			//Breturn.setText(Integer.toString(queryMorning.length));
-		        			//Breturn.setText(Character.toString(queryNoon[1]));
 		        		}
 		        	}
 		        	if(hadData){
@@ -169,14 +169,34 @@ public class FreeTime extends Activity {
 					ProgressD.dismiss();
 		        } else {
 		        	ProgressD.dismiss();
-		            //Log.d("score", "Error: " + e.getMessage());
 		        }
 		    }
 		});
 		ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
 	}
 	private void girdview() {
-
+		EventData = this.getIntent().getExtras();
+		eventID = EventData.getString("eventid");
+		String from_bundle = EventData.getString("from");
+		String to_bundle = EventData.getString("to");
+		int yearFrom,monthFrom,dayFrom,yearTo,monthTo,dayTo;
+		yearFrom = Integer.parseInt(from_bundle.substring(0, 4));
+		yearTo = Integer.parseInt(to_bundle.substring(0, 4));
+		monthFrom = Integer.parseInt(from_bundle.substring(5, 7));
+		monthTo = Integer.parseInt(to_bundle.substring(5, 7));
+		dayFrom = Integer.parseInt(from_bundle.substring(8, 10));
+		dayTo = Integer.parseInt(to_bundle.substring(8, 10));
+		
+        Calendar cal = Calendar.getInstance();
+        cal.getTime();
+        cal.set(yearFrom, monthFrom,dayFrom);
+        if(dayTo - dayFrom < 0)
+		days = cal.getActualMaximum(Calendar.DAY_OF_MONTH) - dayFrom + 1 + dayTo;
+        else if(dayTo - dayFrom == 0)
+        	days = 1;
+        else
+        	days = dayTo - dayFrom +1;
+		ParseQuery query = new ParseQuery("FreeTimeTable");
 		TimeTable = (GridView) findViewById(R.id.gridView1);
 		TimeTable.setNumColumns(days+1);
 		TextViewID = new int[] { R.id.ItemText1, R.id.ItemText2 };
