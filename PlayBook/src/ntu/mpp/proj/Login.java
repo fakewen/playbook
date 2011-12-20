@@ -1,12 +1,23 @@
 package ntu.mpp.proj;
 
+import java.util.List;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 class gl{
 	static String me="0922261111";
 	
@@ -16,15 +27,19 @@ public class Login extends Activity {
      * @return */
 	private Button Blogin,Bclean;
 	private TextView RegisterNew;
-
+	EditText et1,et2;
+	boolean account_ck=true;
+	private ProgressDialog ProgressD;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        et1=(EditText)findViewById(R.id.Editaccount);
+        et2=(EditText)findViewById(R.id.Editpassword);
         Blogin=(Button) findViewById(R.id.Chooselogin);
         Bclean=(Button) findViewById(R.id.Chooseclean);
         RegisterNew = (TextView) findViewById(R.id.TextRegist);
-        
+        Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
         RegisterNew.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -36,13 +51,47 @@ public class Login extends Activity {
 				//Login.this.finish();
 			}
 		});
+        
        Blogin.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
+				ProgressD = ProgressDialog.show(Login.this, "", "擷取資料中...", true, false);
 				// TODO Auto-generated method stub
-				Intent intent=new Intent();
-				intent.setClass(Login.this, PlayBookActivity.class);
-				startActivity(intent);
+				ParseQuery query = new ParseQuery("user_list");
+		  	  	query.whereEqualTo("account",""+et1.getText());
+		  	    query.whereEqualTo("password",""+et2.getText());
+				final View v_=v;
+		  	  query.findInBackground(new FindCallback(){
+		  		  @Override
+		  			public void done(List<ParseObject> IDList, ParseException e) {
+		  			  if (e == null) {
+		  				  
+		  				  if(IDList.size()!=0){
+		  					  gl.me=""+et1.getText();
+		  					account_ck=true;
+		  					Intent intent=new Intent();
+		  					intent.setClass(Login.this, PlayBookActivity.class);
+		  					startActivity(intent);
+		  				  }
+		  				  else{
+		  					//Toast.makeText(v.getContext(), "請填完整資料", Toast.LENGTH_LONG).show();
+		  					Login.this.runOnUiThread(new Runnable() {
+								
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									Toast.makeText(v_.getContext(), "帳密不合法!", Toast.LENGTH_LONG).show();
+								}
+							});
+		  					  account_ck=false;
+		  				  }
+		  			  }
+		  			ProgressD.dismiss();
+		  		  	}
+		  		});
+			if(account_ck==false){	
+				//Toast.makeText(v.getContext(), "帳密不合法!", Toast.LENGTH_LONG).show();
+		  	}
 				//Login.this.finish();
 			}
 		});

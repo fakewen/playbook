@@ -23,6 +23,7 @@
             android:layout_width="186dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:inputType="phone"
             android:layout_toRightOf="@+id/TextView05" android:layout_marginLeft="5dip"/>
     </RelativeLayout>
 
