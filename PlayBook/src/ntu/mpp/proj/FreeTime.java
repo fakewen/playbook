@@ -124,9 +124,9 @@ public class FreeTime extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent();
-				intent.setClass(FreeTime.this, proper.class);
-				startActivity(intent);
+				//Intent intent=new Intent();
+				//intent.setClass(FreeTime.this, proper.class);
+				//startActivity(intent);
 				FreeTime.this.finish();
 			}
 		});
