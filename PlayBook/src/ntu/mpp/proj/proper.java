@@ -26,6 +26,7 @@ public class proper extends Activity {
     String eventid_bundle;
     String from_bundle;
     String to_bundle;
+    String event_founder;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,7 @@ public class proper extends Activity {
   				tv1.setText("活動內容:"+IDList.get(0).getString("event"));
   				tv2.setText("活動地點:"+IDList.get(0).getString("location"));
   				tv3.setText("發起人:"+IDList.get(0).getString("founder"));
+  				event_founder=IDList.get(0).getString("founder");
   				tv4.setText("活動日期從:"+IDList.get(0).getString("from"));
   				from_bundle=IDList.get(0).getString("from");
   				tv5.setText("活動日期到:"+IDList.get(0).getString("to"));
@@ -79,6 +81,7 @@ public class proper extends Activity {
 				bundle.putString("eventid", eventid_bundle);
 				bundle.putString("from", from_bundle);
 				bundle.putString("to", to_bundle);
+				master=event_founder.equals(gl.me);
 				if(master){
 					Intent intent=new Intent();
 					intent.setClass(proper.this, PeopleCnt.class);
