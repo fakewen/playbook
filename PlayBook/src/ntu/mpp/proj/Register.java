@@ -70,7 +70,7 @@ public class Register extends Activity {
 				testObject.saveInBackground();
 				Toast.makeText(v.getContext(), "¥Ó½Ð¦¨¥\!", Toast.LENGTH_LONG).show();
 				Intent intent = new Intent();
-				intent.setClass(Register.this, Login.class);
+				intent.setClass(Register.this, PlayBookActivity.class);
 				startActivity(intent);
 				Register.this.finish();
 			}

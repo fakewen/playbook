@@ -114,7 +114,7 @@ public class invite extends Activity {
 		}
 
 	};
-
+	String date_from;
 	private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
@@ -127,13 +127,13 @@ public class invite extends Activity {
 			startDay = dayOfMonth;
 			startMonth = monthOfYear + 1;
 			startYear = year;
-
+			date_from=date;
 			tv1.setText(date);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
 		}
 	};
-	
+	String date_to;
 	private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
@@ -146,13 +146,13 @@ public class invite extends Activity {
 			endDay = dayOfMonth;
 			endMonth = monthOfYear + 1;
 			endYear = year;
-
+			date_to=date;
 			tv2.setText(date);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
 		}
 	};
-	
+	String date_dl;
 	private DatePickerDialog.OnDateSetListener dueDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
@@ -165,7 +165,7 @@ public class invite extends Activity {
 			dueDay = dayOfMonth;
 			dueMonth = monthOfYear + 1;
 			dueYear = year;
-
+			date_dl=date;
 			tv3.setText(date);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
@@ -179,9 +179,9 @@ public class invite extends Activity {
 //這裡要驗證三個日期都有選了 還有朋友有選了
 			ParseObject testObject = new ParseObject("event_list");
 			// testObject.put("state", "@submit button!");
-			testObject.put("from", "2011/12/12");
-			testObject.put("to", "2011/12/19");
-			testObject.put("deadline", "2011/12/25");
+			testObject.put("from", date_from);
+			testObject.put("to", date_to);
+			testObject.put("deadline", date_dl);
 			// 用invite table 紀錄人跟活動的關係
 			String friends[] = { "0922262222", "0922261111" };// 被邀請的人們
 			String time=new Date().toString();
