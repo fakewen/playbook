@@ -84,8 +84,8 @@ public class PeopleCnt extends Activity {
 		dayFrom = Integer.parseInt(from_bundle.substring(8, 10));
 		dayTo = Integer.parseInt(to_bundle.substring(8, 10));
 		
-        Calendar cal = Calendar.getInstance();
-        cal.getTime();
+        //Calendar cal = Calendar.getInstance();
+        //cal.getTime();
         cal.set(yearFrom, monthFrom,dayFrom);
         if(dayTo - dayFrom < 0)
 		days = cal.getActualMaximum(Calendar.DAY_OF_MONTH) - dayFrom + 1 + dayTo;
