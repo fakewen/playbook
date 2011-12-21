@@ -5,20 +5,20 @@
     <uses-sdk android:minSdkVersion="4" />
 <uses-permission android:name="android.permission.INTERNET" />
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".Login"
+        <activity android:name=".Login" android:screenOrientation="portrait" 
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-			<activity android:name="ElistCBox"></activity>
-		<activity android:name="FreeTime"></activity>
-		<activity android:name="invite"></activity>
-		<activity android:name="proper"></activity>
-		<activity android:name="PlayBookActivity"></activity>
-		<activity android:name="Register"></activity>
-		<activity android:name="PeopleCnt"></activity>
-		<activity android:name="Confirm"></activity>
+			<activity android:name="ElistCBox" android:screenOrientation="portrait" ></activity>
+		<activity android:name="FreeTime" android:screenOrientation="portrait" ></activity>
+		<activity android:name="invite" android:screenOrientation="portrait" ></activity>
+		<activity android:name="proper" android:screenOrientation="portrait" ></activity>
+		<activity android:name="PlayBookActivity" android:screenOrientation="portrait" ></activity>
+		<activity android:name="Register" android:screenOrientation="portrait" ></activity>
+		<activity android:name="PeopleCnt" android:screenOrientation="portrait" ></activity>
+		<activity android:name="Confirm" android:screenOrientation="portrait" ></activity>
     </application>
 </manifest>
