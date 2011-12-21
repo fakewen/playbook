@@ -61,18 +61,18 @@ public class Login extends Activity {
 		  	  	query.whereEqualTo("account",""+et1.getText());
 		  	    query.whereEqualTo("password",""+et2.getText());
 				final View v_=v;
-		  	 /* query.findInBackground(new FindCallback(){
+		  	  	query.findInBackground(new FindCallback(){
 		  		  @Override
 		  			public void done(List<ParseObject> IDList, ParseException e) {
 		  			  if (e == null) {
 		  				  
 		  				  if(IDList.size()!=0){
 		  					  gl.me=""+et1.getText();
-		  					account_ck=true;*/
+		  					account_ck=true;
 		  					Intent intent=new Intent();
 		  					intent.setClass(Login.this, PlayBookActivity.class);
 		  					startActivity(intent);
-		  				 /* }
+		  				  }
 		  				  else{
 		  					//Toast.makeText(v.getContext(), "請填完整資料", Toast.LENGTH_LONG).show();
 		  					Login.this.runOnUiThread(new Runnable() {
@@ -88,7 +88,7 @@ public class Login extends Activity {
 		  			  }
 		  			ProgressD.dismiss();
 		  		  	}
-		  		});*/
+		  		});
 			if(account_ck==false){	
 				//Toast.makeText(v.getContext(), "帳密不合法!", Toast.LENGTH_LONG).show();
 		  	}
