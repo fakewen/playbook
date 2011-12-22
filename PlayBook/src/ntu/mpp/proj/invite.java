@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -177,8 +178,14 @@ public class invite extends Activity {
 		@Override
 		public void onClick(View v) {
 //這裡要驗證三個日期都有選了 還有朋友有選了
+			if(date_from==null||date_to==null||date_dl==null){
+				
+				Toast.makeText(v.getContext(), "時間還沒填完!", Toast.LENGTH_LONG).show();
+			}
+			else{
 			ParseObject testObject = new ParseObject("event_list");
 			// testObject.put("state", "@submit button!");
+			Log.i("playbook", "from="+date_from+"to"+date_to+"deadline"+date_dl);
 			testObject.put("from", date_from);
 			testObject.put("to", date_to);
 			testObject.put("deadline", date_dl);
@@ -209,6 +216,7 @@ public class invite extends Activity {
 			intent.setClass(invite.this, PlayBookActivity.class);
 			startActivity(intent);
 			invite.this.finish();
+			}
 		}
 	};
 	OnClickListener back_listener = new OnClickListener() {
