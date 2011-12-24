@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -230,7 +231,7 @@ public class invite extends Activity {
 		}
 
 	};
-
+	String date_from;
 	private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
@@ -243,13 +244,13 @@ public class invite extends Activity {
 			startDay = dayOfMonth;
 			startMonth = monthOfYear + 1;
 			startYear = year;
-
+			date_from=date;
 			tv1.setText(date);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
 		}
 	};
-
+	String date_to;
 	private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
@@ -262,12 +263,14 @@ public class invite extends Activity {
 			endDay = dayOfMonth;
 			endMonth = monthOfYear + 1;
 			endYear = year;
-
+			date_to=date;
 			tv2.setText(date);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
 		}
 	};
+
+	String date_dl;
 
 	private DatePickerDialog.OnDateSetListener dueDateListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -281,7 +284,7 @@ public class invite extends Activity {
 			dueDay = dayOfMonth;
 			dueMonth = monthOfYear + 1;
 			dueYear = year;
-
+			date_dl=date;
 			tv3.setText(date);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
@@ -292,12 +295,20 @@ public class invite extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			// 這裡要驗證三個日期都有選了 還有朋友有選了
+
+			//這裡要驗證三個日期都有選了 還有朋友有選了
+			if(date_from==null||date_to==null||date_dl==null){
+				
+				Toast.makeText(v.getContext(), "時間還沒填完!", Toast.LENGTH_LONG).show();
+			}
+			else{
+
 			ParseObject testObject = new ParseObject("event_list");
 			// testObject.put("state", "@submit button!");
-			testObject.put("from", "2011/12/12");
-			testObject.put("to", "2011/12/19");
-			testObject.put("deadline", "2011/12/25");
+			Log.i("playbook", "from="+date_from+"to"+date_to+"deadline"+date_dl);
+			testObject.put("from", date_from);
+			testObject.put("to", date_to);
+			testObject.put("deadline", date_dl);
 			// 用invite table 紀錄人跟活動的關係
 			String friends[] = { "0922262222", "0922261111" };// 被邀請的人們
 			String time = new Date().toString();
@@ -305,7 +316,7 @@ public class invite extends Activity {
 				ParseObject invite = new ParseObject("invite");// 這要放裡面
 				invite.put("event", "" + et1.getText());
 				invite.put("friends", friends[i]);
-				invite.put("founder", "0922263232");// 開團者
+				invite.put("founder", gl.me);// 開團者
 				invite.put("status", "0");// 0:調查中 1:成團!
 				invite.put("eventid", gl.me + time);// eventid
 				invite.saveInBackground();
@@ -315,7 +326,7 @@ public class invite extends Activity {
 			testObject.put("event", "" + et1.getText());
 			testObject.put("location", "" + et2.getText());
 			testObject.put("note", "" + et3.getText());
-			testObject.put("founder", "0922263232");// 開團者
+			testObject.put("founder", gl.me);// 開團者
 			testObject.put("status", "0");// 0:調查中 1:成團!
 
 			testObject.put("eventid", gl.me + time);// eventid
@@ -325,6 +336,7 @@ public class invite extends Activity {
 			intent.setClass(invite.this, PlayBookActivity.class);
 			startActivity(intent);
 			invite.this.finish();
+			}
 		}
 	};
 	OnClickListener back_listener = new OnClickListener() {

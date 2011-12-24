@@ -187,8 +187,8 @@ public class FreeTime extends Activity {
 		dayFrom = Integer.parseInt(from_bundle.substring(8, 10));
 		dayTo = Integer.parseInt(to_bundle.substring(8, 10));
 		
-        Calendar cal = Calendar.getInstance();
-        cal.getTime();
+       // Calendar cal = Calendar.getInstance();
+        //cal.getTime();
         cal.set(yearFrom, monthFrom,dayFrom);
         if(dayTo - dayFrom < 0)
 		days = cal.getActualMaximum(Calendar.DAY_OF_MONTH) - dayFrom + 1 + dayTo;
@@ -232,8 +232,8 @@ public class FreeTime extends Activity {
 			} else if (i > 0 && i < days+1) {
 				
 				String[] weekDays = {"日", "一", "二", "三", "四", "五", "六"};
-		        Calendar cal = Calendar.getInstance();
-		        cal.getTime();
+		        //Calendar cal = Calendar.getInstance();
+		       // cal.getTime();
 		        int w = (cal.get(Calendar.DAY_OF_WEEK) - 1 +(i-1))%7;
 		        if (w < 0)
 		            w = 0;

@@ -27,6 +27,7 @@ public class proper extends Activity {
 	String eventid_bundle;
 	String from_bundle;
 	String to_bundle;
+    String event_founder;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class proper extends Activity {
 				bundle.putString("eventid", eventid_bundle);
 				bundle.putString("from", from_bundle);
 				bundle.putString("to", to_bundle);
+				master=event_founder.equals(gl.me);
 				if (master) {
 					Intent intent = new Intent();
 					intent.setClass(proper.this, PeopleCnt.class);
