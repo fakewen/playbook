@@ -50,7 +50,7 @@ public class invite extends Activity {
 	String[] nameList = new String[1000];
 	String[] phoneList = new String[1000];
 	String[] testList = new String[] { "0912606622", "0932228445",
-			"0972523939", "0922263232", "0921319786","0912345678" };
+			"0972523939", "0922263232", "0921319786", "0912345678" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,13 +89,13 @@ public class invite extends Activity {
 				Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,
 						null, null, null, null);
 				// 向後移動pointer
-				while (cursor.moveToNext()&& counter<1000) {
+				while (cursor.moveToNext() && counter < 1000) {
 					// 取得連絡人名字
 					int nameFieldColumnIndex = cursor
 							.getColumnIndex(PhoneLookup.DISPLAY_NAME);
 					String contact = cursor.getString(nameFieldColumnIndex);
 					// Log.i("playbook", "name " + contact);
-					
+
 					// 取得電話號碼
 					// 先清除上一個人的號碼
 					PhoneNumber = null;
@@ -128,10 +128,10 @@ public class invite extends Activity {
 						phoneList[counter] = PhoneNumber;
 						counter++;
 						Log.i("playbook", nameList[counter - 1] + " "
-							+ phoneList[counter - 1] + " " + (counter - 1));
+								+ phoneList[counter - 1] + " " + (counter - 1));
 					}
 					// }
-					
+
 				}
 				cursor.close();
 				Log.i("counter", Integer.toString(counter));
@@ -151,11 +151,11 @@ public class invite extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
+
 			ParseQuery query = new ParseQuery("user_list");
-			
+
 			// 將手機內有的電話(PhoneList)丟到parse去查詢
-			//****不知道PhoneList裡面是不是有怪字元,丟PhoneList上去會exception,丟測試用的testList就不會
+			// ****不知道PhoneList裡面是不是有怪字元,丟PhoneList上去會exception,丟測試用的testList就不會
 			query.whereContainedIn("account", Arrays.asList(testList));
 
 			query.findInBackground(new FindCallback() {
@@ -169,6 +169,10 @@ public class invite extends Activity {
 					}
 				}
 			});
+
+			Intent intent = new Intent(v.getContext(), FriendList.class);
+			startActivityForResult(intent, 0);
+
 		}
 	};
 
@@ -231,6 +235,7 @@ public class invite extends Activity {
 		}
 
 	};
+
 	String date_from;
 	private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -244,7 +249,7 @@ public class invite extends Activity {
 			startDay = dayOfMonth;
 			startMonth = monthOfYear + 1;
 			startYear = year;
-			date_from=date;
+			date_from = date;
 			tv1.setText(date);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
@@ -263,7 +268,7 @@ public class invite extends Activity {
 			endDay = dayOfMonth;
 			endMonth = monthOfYear + 1;
 			endYear = year;
-			date_to=date;
+			date_to = date;
 			tv2.setText(date);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
@@ -284,7 +289,7 @@ public class invite extends Activity {
 			dueDay = dayOfMonth;
 			dueMonth = monthOfYear + 1;
 			dueYear = year;
-			date_dl=date;
+			date_dl = date;
 			tv3.setText(date);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
@@ -296,46 +301,47 @@ public class invite extends Activity {
 		@Override
 		public void onClick(View v) {
 
-			//這裡要驗證三個日期都有選了 還有朋友有選了
-			if(date_from==null||date_to==null||date_dl==null){
-				
-				Toast.makeText(v.getContext(), "時間還沒填完!", Toast.LENGTH_LONG).show();
-			}
-			else{
+			// 這裡要驗證三個日期都有選了 還有朋友有選了
+			if (date_from == null || date_to == null || date_dl == null) {
 
-			ParseObject testObject = new ParseObject("event_list");
-			// testObject.put("state", "@submit button!");
-			Log.i("playbook", "from="+date_from+"to"+date_to+"deadline"+date_dl);
-			testObject.put("from", date_from);
-			testObject.put("to", date_to);
-			testObject.put("deadline", date_dl);
-			// 用invite table 紀錄人跟活動的關係
-			String friends[] = { "0922262222", "0922261111" };// 被邀請的人們
-			String time = new Date().toString();
-			for (int i = 0; i < friends.length; i++) {
-				ParseObject invite = new ParseObject("invite");// 這要放裡面
-				invite.put("event", "" + et1.getText());
-				invite.put("friends", friends[i]);
-				invite.put("founder", gl.me);// 開團者
-				invite.put("status", "0");// 0:調查中 1:成團!
-				invite.put("eventid", gl.me + time);// eventid
-				invite.saveInBackground();
-			}
+				Toast.makeText(v.getContext(), "時間還沒填完!", Toast.LENGTH_LONG)
+						.show();
+			} else {
 
-			//
-			testObject.put("event", "" + et1.getText());
-			testObject.put("location", "" + et2.getText());
-			testObject.put("note", "" + et3.getText());
-			testObject.put("founder", gl.me);// 開團者
-			testObject.put("status", "0");// 0:調查中 1:成團!
+				ParseObject testObject = new ParseObject("event_list");
+				// testObject.put("state", "@submit button!");
+				Log.i("playbook", "from=" + date_from + "to" + date_to
+						+ "deadline" + date_dl);
+				testObject.put("from", date_from);
+				testObject.put("to", date_to);
+				testObject.put("deadline", date_dl);
+				// 用invite table 紀錄人跟活動的關係
+				String friends[] = { "0922262222", "0922261111" };// 被邀請的人們
+				String time = new Date().toString();
+				for (int i = 0; i < friends.length; i++) {
+					ParseObject invite = new ParseObject("invite");// 這要放裡面
+					invite.put("event", "" + et1.getText());
+					invite.put("friends", friends[i]);
+					invite.put("founder", gl.me);// 開團者
+					invite.put("status", "0");// 0:調查中 1:成團!
+					invite.put("eventid", gl.me + time);// eventid
+					invite.saveInBackground();
+				}
 
-			testObject.put("eventid", gl.me + time);// eventid
-			testObject.saveInBackground();
+				//
+				testObject.put("event", "" + et1.getText());
+				testObject.put("location", "" + et2.getText());
+				testObject.put("note", "" + et3.getText());
+				testObject.put("founder", gl.me);// 開團者
+				testObject.put("status", "0");// 0:調查中 1:成團!
 
-			Intent intent = new Intent();
-			intent.setClass(invite.this, PlayBookActivity.class);
-			startActivity(intent);
-			invite.this.finish();
+				testObject.put("eventid", gl.me + time);// eventid
+				testObject.saveInBackground();
+
+				Intent intent = new Intent();
+				intent.setClass(invite.this, PlayBookActivity.class);
+				startActivity(intent);
+				invite.this.finish();
 			}
 		}
 	};
