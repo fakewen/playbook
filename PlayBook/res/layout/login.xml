@@ -2,8 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:isScrollContainer="true"
+    android:orientation="vertical"
+    android:overScrollMode="ifContentScrolls" >
+
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
@@ -14,11 +18,11 @@
     <RelativeLayout
         android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"         
-        android:layout_marginRight="10dip"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dip">
-
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip" >
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
@@ -35,24 +39,23 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:inputType="phone" />
-
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_marginRight="10dip"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dip">
-		
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="30dip" >
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-			android:layout_marginRight="10dip"
+            android:layout_marginRight="10dip"
             android:text="密碼"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -61,24 +64,25 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/textView2" />
-
+            android:layout_alignTop="@+id/textView2"
+            android:inputType="textPassword" />
     </RelativeLayout>
 
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="記住我的帳號密碼" android:layout_marginLeft="25dp"/>
+        android:layout_marginLeft="25dp"
+        android:text="記住我的帳號密碼" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"         
-        android:layout_marginRight="10dip"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dip">
-
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="20dip" >
+
         <Button
             android:id="@+id/Chooselogin"
             android:layout_width="wrap_content"
@@ -86,23 +90,23 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="60dp"
-            android:text="         登入         " />
+            android:text="    登入    " />
 
         <Button
             android:id="@+id/Chooseclean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Chooselogin"
             android:text="    清除    " />
-
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-		android:layout_marginTop="20dip">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip" >
+
         <TextView
             android:id="@+id/TextRegist"
             android:layout_width="wrap_content"
@@ -112,7 +116,6 @@
             android:layout_marginRight="50dp"
             android:text="註冊新帳號"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </RelativeLayout>
 
 </LinearLayout>
