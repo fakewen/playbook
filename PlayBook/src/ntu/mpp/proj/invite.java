@@ -1,27 +1,38 @@
 package ntu.mpp.proj;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Looper;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.PhoneLookup;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class invite extends Activity {
 	/** Called when the activity is first created. */
-	String me="0922261111";
-	Button bt1, bt2;
+	String me = "0922261111";
+	Button bt1, bt2, bt3;
 	EditText et1, et2, et3;
 	TextView tv1, tv2, tv3;
 	int myYear, myMonth, myDay;
@@ -31,6 +42,14 @@ public class invite extends Activity {
 	static final int START = 0;
 	static final int END = 1;
 	static final int DUE = 2;
+	private ProgressDialog ProgressD;
+	String string = "";
+	String PhoneNumber;
+	int counter = 0;
+	String[] nameList = new String[1000];
+	String[] phoneList = new String[1000];
+	String[] testList = new String[] { "0912606622", "0932228445",
+			"0972523939", "0922263232", "0921319786","0912345678" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +61,7 @@ public class invite extends Activity {
 		// need push to button
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
+		bt3 = (Button) findViewById(R.id.button3);
 		et1 = (EditText) findViewById(R.id.editText1);
 		et2 = (EditText) findViewById(R.id.editText2);
 		et3 = (EditText) findViewById(R.id.editText3);
@@ -50,10 +70,106 @@ public class invite extends Activity {
 		tv3 = (TextView) findViewById(R.id.textView_stop);
 		bt1.setOnClickListener(submit_listener);
 		bt2.setOnClickListener(back_listener);
+
 		tv1.setOnClickListener(select_start_date);
 		tv2.setOnClickListener(select_end_date);
 		tv3.setOnClickListener(select_due_date);
+		bt3.setOnClickListener(select_friend);
+
+		ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
+
+		// 得到ContentResolver對像
+
+		new Thread() {
+			public void run() {
+				Looper.prepare();
+				ContentResolver cr = getContentResolver();
+				// 取的電話部一開始的pointer
+				Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,
+						null, null, null, null);
+				// 向後移動pointer
+				while (cursor.moveToNext()&& counter<1000) {
+					// 取得連絡人名字
+					int nameFieldColumnIndex = cursor
+							.getColumnIndex(PhoneLookup.DISPLAY_NAME);
+					String contact = cursor.getString(nameFieldColumnIndex);
+					// Log.i("playbook", "name " + contact);
+					
+					// 取得電話號碼
+					// 先清除上一個人的號碼
+					PhoneNumber = null;
+					String ContactId = cursor.getString(cursor
+							.getColumnIndex(ContactsContract.Contacts._ID));
+					// 取得聯絡人所有的行動電話
+					Cursor phone = cr
+							.query(
+									ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+									null,
+									ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+											+ "="
+											+ ContactId
+											+ " AND "
+											+ ContactsContract.CommonDataKinds.Phone.TYPE
+											+ "="
+											+ ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE,
+									null, null);
+					while (phone.moveToNext()) {
+						PhoneNumber = phone
+								.getString(phone
+										.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+					}
+					phone.close();
+					// 
+
+					// 排除沒有行動電話的聯絡人
+					if (PhoneNumber != null) {
+						nameList[counter] = contact;
+						phoneList[counter] = PhoneNumber;
+						counter++;
+						Log.i("playbook", nameList[counter - 1] + " "
+							+ phoneList[counter - 1] + " " + (counter - 1));
+					}
+					// }
+					
+				}
+				cursor.close();
+				Log.i("counter", Integer.toString(counter));
+
+				Looper.loop();
+
+				ProgressD.dismiss();
+			}
+		}.start();
+
+		ProgressD.dismiss();
+
 	}
+
+	OnClickListener select_friend = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+			ParseQuery query = new ParseQuery("user_list");
+			
+			// 將手機內有的電話(PhoneList)丟到parse去查詢
+			//****不知道PhoneList裡面是不是有怪字元,丟PhoneList上去會exception,丟測試用的testList就不會
+			query.whereContainedIn("account", Arrays.asList(testList));
+
+			query.findInBackground(new FindCallback() {
+				public void done(List<ParseObject> commentList, ParseException e) {
+					Log.i("user", "size " + commentList.size());
+					// commentList now has the comments for myPost
+					for (int i = 0; i < commentList.size(); i++) {
+
+						Log.i("user", commentList.get(i).getString("name"));
+
+					}
+				}
+			});
+		}
+	};
 
 	OnClickListener select_start_date = new OnClickListener() {
 
@@ -121,7 +237,7 @@ public class invite extends Activity {
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			// TODO Auto-generated method stub
-			String date =  String.valueOf(year)  + "/"
+			String date = String.valueOf(year) + "/"
 					+ String.valueOf(monthOfYear + 1) + "/"
 					+ String.valueOf(dayOfMonth);
 			startDay = dayOfMonth;
@@ -133,16 +249,16 @@ public class invite extends Activity {
 			// Toast.LENGTH_LONG).show();
 		}
 	};
-	
+
 	private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			// TODO Auto-generated method stub
-			String date =  String.valueOf(year)  + "/"
-			+ String.valueOf(monthOfYear + 1) + "/"
-			+ String.valueOf(dayOfMonth);
+			String date = String.valueOf(year) + "/"
+					+ String.valueOf(monthOfYear + 1) + "/"
+					+ String.valueOf(dayOfMonth);
 			endDay = dayOfMonth;
 			endMonth = monthOfYear + 1;
 			endYear = year;
@@ -152,16 +268,16 @@ public class invite extends Activity {
 			// Toast.LENGTH_LONG).show();
 		}
 	};
-	
+
 	private DatePickerDialog.OnDateSetListener dueDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			// TODO Auto-generated method stub
-			String date =  String.valueOf(year)  + "/"
-			+ String.valueOf(monthOfYear + 1) + "/"
-			+ String.valueOf(dayOfMonth);
+			String date = String.valueOf(year) + "/"
+					+ String.valueOf(monthOfYear + 1) + "/"
+					+ String.valueOf(dayOfMonth);
 			dueDay = dayOfMonth;
 			dueMonth = monthOfYear + 1;
 			dueYear = year;
@@ -176,7 +292,7 @@ public class invite extends Activity {
 
 		@Override
 		public void onClick(View v) {
-//這裡要驗證三個日期都有選了 還有朋友有選了
+			// 這裡要驗證三個日期都有選了 還有朋友有選了
 			ParseObject testObject = new ParseObject("event_list");
 			// testObject.put("state", "@submit button!");
 			testObject.put("from", "2011/12/12");
@@ -184,14 +300,14 @@ public class invite extends Activity {
 			testObject.put("deadline", "2011/12/25");
 			// 用invite table 紀錄人跟活動的關係
 			String friends[] = { "0922262222", "0922261111" };// 被邀請的人們
-			String time=new Date().toString();
+			String time = new Date().toString();
 			for (int i = 0; i < friends.length; i++) {
 				ParseObject invite = new ParseObject("invite");// 這要放裡面
 				invite.put("event", "" + et1.getText());
 				invite.put("friends", friends[i]);
 				invite.put("founder", "0922263232");// 開團者
 				invite.put("status", "0");// 0:調查中 1:成團!
-				invite.put("eventid", gl.me+time);//eventid
+				invite.put("eventid", gl.me + time);// eventid
 				invite.saveInBackground();
 			}
 
@@ -201,8 +317,8 @@ public class invite extends Activity {
 			testObject.put("note", "" + et3.getText());
 			testObject.put("founder", "0922263232");// 開團者
 			testObject.put("status", "0");// 0:調查中 1:成團!
-			
-			testObject.put("eventid", gl.me+time);//eventid
+
+			testObject.put("eventid", gl.me + time);// eventid
 			testObject.saveInBackground();
 
 			Intent intent = new Intent();

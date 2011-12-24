@@ -58,8 +58,12 @@
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_height="wrap_content" android:id="@+id/textView5"
 			android:text="邀請誰"></TextView>
-		<ImageView android:src="@drawable/facebook2" android:id="@+id/imageView1"
-			android:layout_width="120dp" android:layout_height="30dp"></ImageView>
+
+		<Button
+		    android:id="@+id/button3"
+		    android:layout_width="78dp"
+		    android:layout_height="wrap_content"
+		    android:text="select" />
 	</LinearLayout>
 	<LinearLayout android:id="@+id/linearLayout4"
 		android:layout_height="wrap_content" android:layout_width="fill_parent"
