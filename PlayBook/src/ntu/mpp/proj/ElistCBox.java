@@ -169,7 +169,7 @@ public class ElistCBox extends ExpandableListActivity
 	  secList2 = new ArrayList();
 	  ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
 	  ParseQuery query = new ParseQuery("invite");
-	  query.whereEqualTo("friends", me);//找出自己有被邀請的活動
+	  query.whereEqualTo("friends", gl.me);//找出自己有被邀請的活動
 	  query.findInBackground(new FindCallback(){
 		  @Override
 			public void done(List<ParseObject> IDList, ParseException e) {
