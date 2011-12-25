@@ -40,7 +40,13 @@ public class Register extends Activity {
 		public void onClick(View v) {
 			Log.i("playbook","click send button!");
 			// TODO Auto-generated method stub
-			if(et1.getText().length()==0){
+			if(et1.getText().length()!=10){
+				Toast.makeText(v.getContext(), "手機號碼要10碼歐!", Toast.LENGTH_LONG).show();
+			}
+			else if(et2.getText().equals(et3.getText())){
+				Toast.makeText(v.getContext(), "驗證密碼錯誤!", Toast.LENGTH_LONG).show();
+			}
+			else if(et1.getText().length()==0){
 				Toast.makeText(v.getContext(), "請填完整資料", Toast.LENGTH_LONG).show();
 			}
 			else if(et2.getText().length()==0){
