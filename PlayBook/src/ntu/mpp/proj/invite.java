@@ -55,6 +55,8 @@ public class invite extends Activity {
 	//String[] userList = new String[5];
 	ArrayList<String> userList = new ArrayList<String>();
 	ArrayList<String> phoneList = new ArrayList<String>();
+	ArrayList<String> test = new ArrayList<String>();
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,9 @@ public class invite extends Activity {
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS",
 				"tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
 
+		
+		test.add("0912606622");
+		test.add("0932228445");
 		// need push to button
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
@@ -95,7 +100,7 @@ public class invite extends Activity {
 				Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,
 						null, null, null, null);
 				// 向後移動pointer
-				while (cursor.moveToNext() && counter < 10) {
+				while (cursor.moveToNext() /*&& counter < 10*/) {
 					// 取得連絡人名字
 					int nameFieldColumnIndex = cursor
 							.getColumnIndex(PhoneLookup.DISPLAY_NAME);
@@ -163,7 +168,7 @@ public class invite extends Activity {
 
 			// 將手機內有的電話(PhoneList)丟到parse去查詢
 			// ****不知道PhoneList裡面是不是有怪字元,丟PhoneList上去會exception,丟測試用的testList就不會
-			query.whereContainedIn("account", Arrays.asList(testList));
+			query.whereContainedIn("account", Arrays.asList(phoneList.toArray()));
 
 			query.findInBackground(new FindCallback() {
 				public void done(List<ParseObject> commentList, ParseException e) {
