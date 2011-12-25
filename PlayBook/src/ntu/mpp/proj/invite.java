@@ -34,7 +34,7 @@ import com.parse.ParseQuery;
 public class invite extends Activity {
 	/** Called when the activity is first created. */
 	String me = "0922261111";
-	Button bt1, bt2, bt3;
+	Button bt1, bt2, bt3 ,bt4;
 	EditText et1, et2, et3;
 	TextView tv1, tv2, tv3;
 	int myYear, myMonth, myDay;
@@ -71,6 +71,7 @@ public class invite extends Activity {
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
 		bt3 = (Button) findViewById(R.id.button3);
+		//bt
 		et1 = (EditText) findViewById(R.id.editText1);
 		et2 = (EditText) findViewById(R.id.editText2);
 		et3 = (EditText) findViewById(R.id.editText3);
