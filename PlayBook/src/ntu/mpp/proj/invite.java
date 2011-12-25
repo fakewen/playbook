@@ -85,7 +85,7 @@ public class invite extends Activity {
 		bt3.setOnClickListener(select_friend);
 
 		ProgressD = ProgressDialog.show(this, "",
-				"朋友資料讀取中...\n你的朋友很多耶,\n請稍等一下下!!", true, false);
+				"朋友資料讀取中...\n你的朋友超多耶,\n請稍等一下下哦!!", true, false);
 
 		// 得到ContentResolver對像
 
@@ -233,7 +233,7 @@ public class invite extends Activity {
 					for (int i=0;i<temp.length;i++){
 						int index = Integer.parseInt(temp[i]);						
 						selectedPhoneList.add(globalPhoneList.get(index));
-						Log.i("selectPhone", selectedPhoneList.get(index));
+						Log.i("selectPhone", globalPhoneList.get(index));
 					}
 				}
 			}
@@ -386,10 +386,12 @@ public class invite extends Activity {
 				for (int i = 0; i < selectedPhoneList.size(); i++) {
 					ParseObject invite = new ParseObject("invite");// 這要放裡面
 					invite.put("event", "" + et1.getText());
+
 					invite.put("friends", selectedPhoneList.get(i).toString());
-					invite.put("founder", gl.me);// 開團者
+					invite.put("founder", global.me);// 開團者
+
 					invite.put("status", "0");// 0:調查中 1:成團!
-					invite.put("eventid", gl.me + time);// eventid
+					invite.put("eventid", global.me + time);// eventid
 					invite.saveInBackground();
 				}
 
@@ -397,10 +399,10 @@ public class invite extends Activity {
 				testObject.put("event", "" + et1.getText());
 				testObject.put("location", "" + et2.getText());
 				testObject.put("note", "" + et3.getText());
-				testObject.put("founder", gl.me);// 開團者
+				testObject.put("founder", global.me);// 開團者
 				testObject.put("status", "0");// 0:調查中 1:成團!
 
-				testObject.put("eventid", gl.me + time);// eventid
+				testObject.put("eventid", global.me + time);// eventid
 				testObject.saveInBackground();
 
 				Intent intent = new Intent();

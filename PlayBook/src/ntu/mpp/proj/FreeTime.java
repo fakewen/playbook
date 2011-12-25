@@ -180,12 +180,14 @@ public class FreeTime extends Activity {
 		String from_bundle = EventData.getString("from");
 		String to_bundle = EventData.getString("to");
 		int yearFrom,monthFrom,dayFrom,yearTo,monthTo,dayTo;
-		yearFrom = Integer.parseInt(from_bundle.substring(0, 4));
-		yearTo = Integer.parseInt(to_bundle.substring(0, 4));
-		monthFrom = Integer.parseInt(from_bundle.substring(5, 7));
-		monthTo = Integer.parseInt(to_bundle.substring(5, 7));
-		dayFrom = Integer.parseInt(from_bundle.substring(8, 10));
-		dayTo = Integer.parseInt(to_bundle.substring(8, 10));
+		String YMD_F[] = from_bundle.split("/");
+		String YMD_T[] = to_bundle.split("/");
+		yearFrom = Integer.parseInt(YMD_F[0]);
+		yearTo = Integer.parseInt(YMD_T[0]);
+		monthFrom = Integer.parseInt(YMD_F[1]);
+		monthTo = Integer.parseInt(YMD_T[1]);
+		dayFrom = Integer.parseInt(YMD_F[2]);
+		dayTo = Integer.parseInt(YMD_T[2]);
 		
        // Calendar cal = Calendar.getInstance();
         //cal.getTime();
