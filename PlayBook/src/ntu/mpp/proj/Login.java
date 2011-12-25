@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,17 +29,23 @@ public class Login extends Activity {
 	private Button Blogin,Bclean;
 	private TextView RegisterNew;
 	EditText et1,et2;
+	CheckBox cb1;
 	boolean account_ck=true;
 	private ProgressDialog ProgressD;
+	
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        cb1=(CheckBox)findViewById(R.id.checkBox1);
         et1=(EditText)findViewById(R.id.Editaccount);
         et2=(EditText)findViewById(R.id.Editpassword);
         Blogin=(Button) findViewById(R.id.Chooselogin);
         Bclean=(Button) findViewById(R.id.Chooseclean);
         RegisterNew = (TextView) findViewById(R.id.TextRegist);
+        //cb1
+        //cb1.setOnCheckedChangeListener(listener);
         Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
         RegisterNew.setOnClickListener(new OnClickListener() {
 			
