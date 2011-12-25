@@ -1,5 +1,6 @@
 package ntu.mpp.proj;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,9 +49,12 @@ public class invite extends Activity {
 	String PhoneNumber;
 	int counter = 0;
 	String[] nameList = new String[1000];
-	String[] phoneList = new String[1000];
+	//String[] phoneList = new String[1000];
 	String[] testList = new String[] { "0912606622", "0932228445",
 			"0972523939", "0922263232", "0921319786", "0912345678" };
+	//String[] userList = new String[5];
+	ArrayList<String> userList = new ArrayList<String>();
+	ArrayList<String> phoneList = new ArrayList<String>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class invite extends Activity {
 		// parse SQL init here
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS",
 				"tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
+
 		// need push to button
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
@@ -77,19 +82,20 @@ public class invite extends Activity {
 		tv3.setOnClickListener(select_due_date);
 		bt3.setOnClickListener(select_friend);
 
-		ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
+		ProgressD = ProgressDialog.show(this, "",
+				"朋友資料資料中...\n你的朋友很多哦,\n請稍等一下下!!", true, false);
 
 		// 得到ContentResolver對像
 
 		new Thread() {
 			public void run() {
-				Looper.prepare();
+				// Looper.prepare();
 				ContentResolver cr = getContentResolver();
 				// 取的電話部一開始的pointer
 				Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,
 						null, null, null, null);
 				// 向後移動pointer
-				while (cursor.moveToNext() && counter < 1000) {
+				while (cursor.moveToNext() && counter < 10) {
 					// 取得連絡人名字
 					int nameFieldColumnIndex = cursor
 							.getColumnIndex(PhoneLookup.DISPLAY_NAME);
@@ -124,25 +130,24 @@ public class invite extends Activity {
 
 					// 排除沒有行動電話的聯絡人
 					if (PhoneNumber != null) {
-						nameList[counter] = contact;
-						phoneList[counter] = PhoneNumber;
+						//nameList[counter] = contact;
+						phoneList.add(PhoneNumber);
 						counter++;
-						Log.i("playbook", nameList[counter - 1] + " "
-								+ phoneList[counter - 1] + " " + (counter - 1));
+						Log.i("playbook", contact + " "
+								+ phoneList.get(counter-1));
 					}
 					// }
 
 				}
 				cursor.close();
 				Log.i("counter", Integer.toString(counter));
-
-				Looper.loop();
-
 				ProgressD.dismiss();
+				// Looper.loop();
+
 			}
 		}.start();
 
-		ProgressD.dismiss();
+		// ProgressD.dismiss();
 
 	}
 
@@ -150,8 +155,10 @@ public class invite extends Activity {
 
 		@Override
 		public void onClick(View v) {
+			final View v_ = v;
 			// TODO Auto-generated method stub
-
+			ProgressD = ProgressDialog.show(invite.this, "", "搜尋朋友中...", true,
+					false);
 			ParseQuery query = new ParseQuery("user_list");
 
 			// 將手機內有的電話(PhoneList)丟到parse去查詢
@@ -160,18 +167,40 @@ public class invite extends Activity {
 
 			query.findInBackground(new FindCallback() {
 				public void done(List<ParseObject> commentList, ParseException e) {
-					Log.i("user", "size " + commentList.size());
-					// commentList now has the comments for myPost
-					for (int i = 0; i < commentList.size(); i++) {
+					if (e != null) {
+						Log.i("exception", e.getMessage());
+					} else {
+						Log.i("user", "size " + commentList.size());
+						// commentList now has the comments for myPost
+						for (int i = 0; i < commentList.size(); i++) {
 
-						Log.i("user", commentList.get(i).getString("name"));
+							Log.i("user", commentList.get(i).getString("name"));
+							//userList[i] = commentList.get(i).getString("name");
+							userList.add(commentList.get(i).getString("name"));
+
+						}
+						// **這一段現在執行不到
+						Bundle bundle = new Bundle();
+						//bundle.putStringArray("friend_list", userList);// 實際上應改成userList
+						bundle.putStringArrayList("friend_list", userList);
+						Intent intent = new Intent(v_.getContext(),
+								FriendList.class);
+						intent.putExtras(bundle);
+						startActivityForResult(intent, 0);
+						// **
 
 					}
+					ProgressD.dismiss();
 				}
 			});
 
-			Intent intent = new Intent(v.getContext(), FriendList.class);
-			startActivityForResult(intent, 0);
+			// **這一段之後要刪掉
+			// Bundle bundle = new Bundle();
+			// bundle.putStringArray("friend_list", testList);//實際上應改成userList
+			// Intent intent = new Intent(v.getContext(), FriendList.class);
+			// intent.putExtras(bundle);
+			// startActivityForResult(intent, 0);
+			// **
 
 		}
 	};

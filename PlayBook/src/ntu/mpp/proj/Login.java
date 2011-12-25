@@ -55,6 +55,10 @@ public class Login extends Activity {
        Blogin.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
+//				Intent intent=new Intent();
+//					intent.setClass(Login.this, PlayBookActivity.class);
+//					startActivity(intent);
+				
 				ProgressD = ProgressDialog.show(Login.this, "", "擷取資料中...", true, false);
 				// TODO Auto-generated method stub
 				ParseQuery query = new ParseQuery("user_list");

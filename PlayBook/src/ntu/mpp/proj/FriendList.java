@@ -8,6 +8,7 @@ import android.app.ListActivity;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -17,19 +18,21 @@ import android.widget.Toast;
 
 public class FriendList extends ListActivity {
 
-	private String[] lv_arr = {};
+	
 	private ListView mainListView = null;
-	final String SETTING_TODOLIST = "todolist";
+	
 
 	private ArrayList<string> selectedItems = new ArrayList<string>();
 
+	@SuppressWarnings("unchecked")
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.friend_list);
 
 		// 資料陣列
-		String[] vData = { "足球", "棒球", "籃球" };
-
+		//String[] vData = { "足球", "棒球", "籃球" };
+		Bundle bData = getIntent().getExtras();
+		
 		Button btnSave = (Button) findViewById(R.id.btnSave);
 		btnSave.setOnClickListener(new OnClickListener() {
 
@@ -37,9 +40,10 @@ public class FriendList extends ListActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Toast.makeText(getApplicationContext(),
-						" You clicked Save button", Toast.LENGTH_SHORT).show();
+						"儲存受邀好友", Toast.LENGTH_SHORT).show();
 
 				SaveSelections();
+				//這裡要把所有preference丟回去invite.java
 			}
 		});
 
@@ -49,7 +53,7 @@ public class FriendList extends ListActivity {
 			public void onClick(View v) {
 
 				Toast.makeText(getApplicationContext(),
-						" You clicked Clear button", Toast.LENGTH_SHORT).show();
+						"清除所有選擇", Toast.LENGTH_SHORT).show();
 
 				ClearSelections();
 			}
@@ -66,7 +70,7 @@ public class FriendList extends ListActivity {
 		// lv_arr = (String[]) listTODO.toArray(new String[0]);
 		mainListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		mainListView.setAdapter(new ArrayAdapter(FriendList.this,
-				android.R.layout.simple_list_item_multiple_choice, vData));
+				android.R.layout.simple_list_item_multiple_choice, bData.getStringArrayList("friend_list")));
 		
 		//new ArrayAdapter<string>(FriendList.this, android.R.layout.simple_list_item_multiple_choice, vData);
 
@@ -108,12 +112,33 @@ public class FriendList extends ListActivity {
 		SharedPreferences.Editor prefEditor = settingsActivity.edit();
 
 		String savedItems = getSavedItems();
+		String savedIndex = getSavedIndex();
+		Log.i("selected", savedIndex);
 
-		prefEditor.putString(SETTING_TODOLIST, savedItems);
+		prefEditor.putString("select_items", savedItems);
+		prefEditor.putString("select_index", savedIndex);
 
 		prefEditor.commit();
 	}
+	private String getSavedIndex() {
+		String savedItems = "";
 
+		int count = this.mainListView.getAdapter().getCount();
+
+		for (int i = 0; i < count; i++) {
+
+			if (this.mainListView.isItemChecked(i)) {
+				if (savedItems.length() > 0) {
+					savedItems += "," + i;
+				} else {
+					savedItems += i;
+				}
+			}
+
+		}
+		return savedItems;
+	}
+	
 	private String getSavedItems() {
 		String savedItems = "";
 
