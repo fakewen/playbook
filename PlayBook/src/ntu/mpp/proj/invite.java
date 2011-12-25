@@ -53,9 +53,10 @@ public class invite extends Activity {
 	String[] testList = new String[] { "0912606622", "0932228445",
 			"0972523939", "0922263232", "0921319786", "0912345678" };
 	//String[] userList = new String[5];
-	ArrayList<String> userList = new ArrayList<String>();
-	ArrayList<String> phoneList = new ArrayList<String>();
-	ArrayList<String> test = new ArrayList<String>();
+	ArrayList<String> globalUserList = new ArrayList<String>();
+	ArrayList<String> globalPhoneList = new ArrayList<String>();
+	ArrayList<String> localPhoneList = new ArrayList<String>();
+
 	
 
 	@Override
@@ -65,10 +66,7 @@ public class invite extends Activity {
 		// parse SQL init here
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS",
 				"tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
-
 		
-		test.add("0912606622");
-		test.add("0932228445");
 		// need push to button
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
@@ -136,10 +134,10 @@ public class invite extends Activity {
 					// 排除沒有行動電話的聯絡人
 					if (PhoneNumber != null) {
 						//nameList[counter] = contact;
-						phoneList.add(PhoneNumber);
+						localPhoneList.add(PhoneNumber);
 						counter++;
 						Log.i("playbook", contact + " "
-								+ phoneList.get(counter-1));
+								+ localPhoneList.get(counter-1));
 					}
 					// }
 
@@ -168,7 +166,7 @@ public class invite extends Activity {
 
 			// 將手機內有的電話(PhoneList)丟到parse去查詢
 			// ****不知道PhoneList裡面是不是有怪字元,丟PhoneList上去會exception,丟測試用的testList就不會
-			query.whereContainedIn("account", Arrays.asList(phoneList.toArray()));
+			query.whereContainedIn("account", Arrays.asList(localPhoneList.toArray()));
 
 			query.findInBackground(new FindCallback() {
 				public void done(List<ParseObject> commentList, ParseException e) {
@@ -181,13 +179,13 @@ public class invite extends Activity {
 
 							Log.i("user", commentList.get(i).getString("name"));
 							//userList[i] = commentList.get(i).getString("name");
-							userList.add(commentList.get(i).getString("name"));
-
+							globalUserList.add(commentList.get(i).getString("name"));
+							globalPhoneList.add(commentList.get(i).getString("account"));
 						}
 						// **這一段現在執行不到
 						Bundle bundle = new Bundle();
 						//bundle.putStringArray("friend_list", userList);// 實際上應改成userList
-						bundle.putStringArrayList("friend_list", userList);
+						bundle.putStringArrayList("friend_list", globalUserList);
 						Intent intent = new Intent(v_.getContext(),
 								FriendList.class);
 						intent.putExtras(bundle);
