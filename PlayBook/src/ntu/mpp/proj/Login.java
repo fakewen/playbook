@@ -22,7 +22,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-class gl {
+class global {
 	static String me = "";
 
 }
@@ -71,7 +71,7 @@ public class Login extends Activity {
 		// et1.setText(shp.getString("account", ""));
 		// et2.setText(shp.getString("password", ""));
 		if (shp.getBoolean("flag_in", false)) {
-			gl.me=shp.getString("account", "0922263232");
+			global.me=shp.getString("account", "0922263232");
 			Intent intent = new Intent();
 			intent.setClass(Login.this, PlayBookActivity.class);
 			startActivity(intent);
@@ -90,7 +90,15 @@ public class Login extends Activity {
 				Login.this.finish();
 			}
 		});
-
+		Bclean.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				et1.setText("");
+				et2.setText("");
+			}
+		});
 		Blogin.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -125,7 +133,7 @@ public class Login extends Activity {
 									editor.commit();// prefer end
 								}
 
-								gl.me = "" + et1.getText();
+								global.me = "" + et1.getText();
 								account_ck = true;
 								Intent intent = new Intent();
 								intent.setClass(Login.this,
