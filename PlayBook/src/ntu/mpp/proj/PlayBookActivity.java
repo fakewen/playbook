@@ -24,6 +24,7 @@ public class PlayBookActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent=new Intent();
 				intent.setClass(PlayBookActivity.this, invite.class);
+				//intent.setClass(PlayBookActivity.this, MyMap.class);
 				startActivity(intent);
 				//PlayBookActivity.this.finish();
 			}
