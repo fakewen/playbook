@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.PhoneLookup;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,15 +50,14 @@ public class invite extends Activity {
 	String PhoneNumber;
 	int counter = 0;
 	String[] nameList = new String[1000];
-	//String[] phoneList = new String[1000];
+	// String[] phoneList = new String[1000];
 	String[] testList = new String[] { "0912606622", "0932228445",
 			"0972523939", "0922263232", "0921319786", "0912345678" };
-	//String[] userList = new String[5];
+	// String[] userList = new String[5];
 	ArrayList<String> globalUserList = new ArrayList<String>();
 	ArrayList<String> globalPhoneList = new ArrayList<String>();
 	ArrayList<String> localPhoneList = new ArrayList<String>();
-
-	
+	ArrayList<String> selectedPhoneList = new ArrayList<String>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class invite extends Activity {
 		// parse SQL init here
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS",
 				"tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
-		
+
 		// need push to button
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
@@ -87,7 +87,7 @@ public class invite extends Activity {
 		bt3.setOnClickListener(select_friend);
 
 		ProgressD = ProgressDialog.show(this, "",
-				"朋友資料資料中...\n你的朋友很多哦,\n請稍等一下下!!", true, false);
+				"朋友資料讀取中...\n你的朋友超多耶,\n請稍等一下下哦!!", true, false);
 
 		// 得到ContentResolver對像
 
@@ -99,7 +99,7 @@ public class invite extends Activity {
 				Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,
 						null, null, null, null);
 				// 向後移動pointer
-				while (cursor.moveToNext() /*&& counter < 10*/) {
+				while (cursor.moveToNext() && counter < 10) {
 					// 取得連絡人名字
 					int nameFieldColumnIndex = cursor
 							.getColumnIndex(PhoneLookup.DISPLAY_NAME);
@@ -134,11 +134,11 @@ public class invite extends Activity {
 
 					// 排除沒有行動電話的聯絡人
 					if (PhoneNumber != null) {
-						//nameList[counter] = contact;
+						// nameList[counter] = contact;
 						localPhoneList.add(PhoneNumber);
 						counter++;
 						Log.i("playbook", contact + " "
-								+ localPhoneList.get(counter-1));
+								+ localPhoneList.get(counter - 1));
 					}
 					// }
 
@@ -167,26 +167,36 @@ public class invite extends Activity {
 
 			// 將手機內有的電話(PhoneList)丟到parse去查詢
 			// ****不知道PhoneList裡面是不是有怪字元,丟PhoneList上去會exception,丟測試用的testList就不會
-			query.whereContainedIn("account", Arrays.asList(localPhoneList.toArray()));
+			query.whereContainedIn("account", Arrays.asList(localPhoneList
+					.toArray()));
 
 			query.findInBackground(new FindCallback() {
 				public void done(List<ParseObject> commentList, ParseException e) {
+
+					globalUserList.clear();
+					globalPhoneList.clear();
 					if (e != null) {
-						Log.i("exception", e.getMessage());
+						Log.i("exception", "exception" + e.getMessage());
 					} else {
 						Log.i("user", "size " + commentList.size());
 						// commentList now has the comments for myPost
 						for (int i = 0; i < commentList.size(); i++) {
 
 							Log.i("user", commentList.get(i).getString("name"));
-							//userList[i] = commentList.get(i).getString("name");
-							globalUserList.add(commentList.get(i).getString("name"));
-							globalPhoneList.add(commentList.get(i).getString("account"));
+							// userList[i] =
+							// commentList.get(i).getString("name");
+							globalUserList.add(commentList.get(i).getString(
+									"name"));
+							globalPhoneList.add(commentList.get(i).getString(
+									"account"));
 						}
 						// **這一段現在執行不到
 						Bundle bundle = new Bundle();
-						//bundle.putStringArray("friend_list", userList);// 實際上應改成userList
-						bundle.putStringArrayList("friend_list", globalUserList);
+						// bundle.putStringArray("friend_list", userList);//
+						// 實際上應改成userList
+						bundle
+								.putStringArrayList("friend_list",
+										globalUserList);
 						Intent intent = new Intent(v_.getContext(),
 								FriendList.class);
 						intent.putExtras(bundle);
@@ -207,6 +217,28 @@ public class invite extends Activity {
 			// **
 
 		}
+	};
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// selectedPhoneList.clear();
+
+		if (requestCode == 0) {
+			if (resultCode == RESULT_OK) {
+				Bundle extras = data.getExtras();
+				if (extras != null) {
+					Log.i("extras", extras.getString("selectedIndex"));
+					String[] temp = extras.getString("selectedIndex")
+							.split(",");
+					Log.i("extras", "length " + temp.length);
+					for (int i = 0; i < temp.length; i++) {
+						int index = Integer.parseInt(temp[i]);
+						selectedPhoneList.add(globalPhoneList.get(index));
+						Log.i("selectPhone", globalPhoneList.get(index));
+					}
+				}
+			}
+		}
+
 	};
 
 	OnClickListener select_start_date = new OnClickListener() {
@@ -269,61 +301,73 @@ public class invite extends Activity {
 
 	};
 
-	String date_from;
+	String date_from = null;
+	String date_from_ = null;
 	private DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			// TODO Auto-generated method stub
-			String date = String.valueOf(year) + "/"
+			date_from = String.valueOf(year) + "/"
 					+ String.valueOf(monthOfYear + 1) + "/"
 					+ String.valueOf(dayOfMonth);
+			date_from_ = String.valueOf(year)
+					+ String.format("%02d", monthOfYear + 1)
+					+ String.format("%02d", dayOfMonth);
+			Log.i("date", "//" + String.format("%02d", monthOfYear + 1));
 			startDay = dayOfMonth;
 			startMonth = monthOfYear + 1;
 			startYear = year;
-			date_from = date;
-			tv1.setText(date);
+
+			tv1.setText(date_from);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
 		}
 	};
-	String date_to;
+	String date_to = null;
+	String date_to_ = null;
 	private DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			// TODO Auto-generated method stub
-			String date = String.valueOf(year) + "/"
+			date_to = String.valueOf(year) + "/"
 					+ String.valueOf(monthOfYear + 1) + "/"
 					+ String.valueOf(dayOfMonth);
+			date_to_ = String.valueOf(year)
+					+ String.format("%02d", monthOfYear + 1)
+					+ String.format("%02d", dayOfMonth);
 			endDay = dayOfMonth;
 			endMonth = monthOfYear + 1;
 			endYear = year;
-			date_to = date;
-			tv2.setText(date);
+
+			tv2.setText(date_to);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
 		}
 	};
 
-	String date_dl;
-
+	String date_dl = null;
+	String date_dl_ = null;
 	private DatePickerDialog.OnDateSetListener dueDateListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			// TODO Auto-generated method stub
-			String date = String.valueOf(year) + "/"
+			date_dl = String.valueOf(year) + "/"
 					+ String.valueOf(monthOfYear + 1) + "/"
 					+ String.valueOf(dayOfMonth);
+			date_dl_ = String.valueOf(year)
+					+ String.format("%02d", monthOfYear + 1)
+					+ String.format("%02d", dayOfMonth);
 			dueDay = dayOfMonth;
 			dueMonth = monthOfYear + 1;
 			dueYear = year;
-			date_dl = date;
-			tv3.setText(date);
+
+			tv3.setText(date_dl);
 			// Toast.makeText(AndroidDatePicker.this, date,
 			// Toast.LENGTH_LONG).show();
 		}
@@ -334,10 +378,24 @@ public class invite extends Activity {
 		@Override
 		public void onClick(View v) {
 
+			DateFormat df;
 			// 這裡要驗證三個日期都有選了 還有朋友有選了
+			// 還有驗證不可以早於今天
 			if (date_from == null || date_to == null || date_dl == null) {
 
 				Toast.makeText(v.getContext(), "時間還沒填完!", Toast.LENGTH_LONG)
+						.show();
+			} else if (Integer.valueOf(date_from_) >= Integer.valueOf(date_to_)) {
+				Toast.makeText(v.getContext(), "活動開始日期不可以晚於活動截止日期哦",
+						Toast.LENGTH_LONG).show();
+			} else if (Integer.valueOf(date_dl_) >= Integer.valueOf(date_from_)) {
+				Toast.makeText(v.getContext(), "repo截止日期不可以晚於活動開始日期哦",
+						Toast.LENGTH_LONG).show();
+			} else if (selectedPhoneList.size() == 0) {
+				Toast.makeText(v.getContext(), "還沒選擇好友哦", Toast.LENGTH_LONG)
+						.show();
+			} else if (et1.getText().equals("")) {
+				Toast.makeText(v.getContext(), "活動內容還沒填寫哦", Toast.LENGTH_LONG)
 						.show();
 			} else {
 
@@ -349,13 +407,15 @@ public class invite extends Activity {
 				testObject.put("to", date_to);
 				testObject.put("deadline", date_dl);
 				// 用invite table 紀錄人跟活動的關係
-				String friends[] = { "0922262222", "0922261111" };// 被邀請的人們
+
 				String time = new Date().toString();
-				for (int i = 0; i < friends.length; i++) {
+				for (int i = 0; i < selectedPhoneList.size(); i++) {
 					ParseObject invite = new ParseObject("invite");// 這要放裡面
 					invite.put("event", "" + et1.getText());
-					invite.put("friends", friends[i]);
+
+					invite.put("friends", selectedPhoneList.get(i).toString());
 					invite.put("founder", global.me);// 開團者
+
 					invite.put("status", "0");// 0:調查中 1:成團!
 					invite.put("eventid", global.me + time);// eventid
 					invite.saveInBackground();
