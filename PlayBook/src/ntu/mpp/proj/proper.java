@@ -130,13 +130,12 @@ public class proper extends Activity {
 					intent.setClass(proper.this, PeopleCnt.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-					// proper.this.finish();
 				} else {
 					Intent intent = new Intent();
 					intent.setClass(proper.this, FreeTime.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-					// proper.this.finish();
+
 				}
 			}
 		});
@@ -144,11 +143,7 @@ public class proper extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				intent.setClass(proper.this, ElistCBox.class);
-				startActivity(intent);
-				// proper.this.finish();
+				proper.this.finish();
 			}
 		});
 
