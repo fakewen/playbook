@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -24,6 +25,7 @@ public class ElistCBoxmaster extends ExpandableListActivity
 {
 	String me="0922261111";
 	private ProgressDialog ProgressD;
+	TextView tv1;
     private static final String LOG_TAG = "ElistCBox";
 //這是有幾類
     static final String colors[] = {
@@ -54,6 +56,9 @@ public class ElistCBoxmaster extends ExpandableListActivity
     {
         super.onCreate(icicle);
         setContentView(R.layout.list);
+        tv1=(TextView)findViewById(R.id.textView1);
+        tv1.setText("我的活動");
+        
         Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
         //ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);//
         bt1=(Button)findViewById(R.id.button1);
@@ -168,8 +173,8 @@ public class ElistCBoxmaster extends ExpandableListActivity
 	  secList1 = new ArrayList();
 	  secList2 = new ArrayList();
 	  ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
-	  ParseQuery query = new ParseQuery("invite");
-	  query.whereEqualTo("friends", global.me);//找出自己有被邀請的活動
+	  ParseQuery query = new ParseQuery("event_list");
+	  query.whereEqualTo("founder", global.me);//找出自己的活動!
 	  query.findInBackground(new FindCallback(){
 		  @Override
 			public void done(List<ParseObject> IDList, ParseException e) {
