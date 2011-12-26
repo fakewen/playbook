@@ -57,7 +57,7 @@ public class FreeTime extends Activity {
 	private Button Breturn,freetimesend,googleimport;
 	private char queryMorning[],queryNoon[],queryNight[],queryAfternoon[];
 	private String freeMorning ="",freeAfternoon="",freeNoon="",freeNight="";
-	private String PhoneNumber = "0923111111"; 
+	private String PhoneNumber = global.me; 
 	private ProgressDialog ProgressD;
 	private int yearFrom,monthFrom,dayFrom,yearTo,monthTo,dayTo,dayMax;
 	Bundle EventData;
@@ -429,17 +429,13 @@ public class FreeTime extends Activity {
 			} else if (i > 0 && i < days+1) {
 				
 				String[] weekDays = {"日", "一", "二", "三", "四", "五", "六"};
-		        //Calendar cal = Calendar.getInstance();
-		       // cal.getTime();
 		        int w = (getChineseDayOfWeek(cal) + (i-1))%7;
 		        if (w < 0)
 		            w = 0;
 		        int x =(cal.get(Calendar.DATE)+(i-1));
 		        if(x > (cal.getActualMaximum(Calendar.DAY_OF_MONTH)))
 		        	x = x%(cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-		        	
-		        //if(x==0)
-		        	//x=1;
+
 				map.put("ItemText1",  (Integer.toString(x)));
 				map.put("ItemText2", weekDays[w]);
 				listItem.add(map);

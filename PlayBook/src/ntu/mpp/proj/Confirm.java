@@ -40,6 +40,13 @@ public class Confirm extends Activity {
         CReturn = (Button) findViewById(R.id.ConfirmReturn);
         CConfirm = (Button) findViewById(R.id.Confirmed);
         listview();
+        CReturn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Confirm.this.finish();
+			}
+		});
         CConfirm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
