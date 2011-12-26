@@ -36,7 +36,7 @@ public class Confirm extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirm);
-        Confirm.this.setTitle(global.my_name);
+        //Confirm.this.setTitle(global.my_name);
         Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
         CReturn = (Button) findViewById(R.id.ConfirmReturn);
         CConfirm = (Button) findViewById(R.id.Confirmed);
