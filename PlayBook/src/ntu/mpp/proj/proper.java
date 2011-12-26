@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -28,7 +29,9 @@ public class proper extends Activity {
 	String from_bundle;
 	String to_bundle;
     String event_founder;
-
+    boolean flag_mark=false;
+    ImageButton ib1;
+    double x_tmp,y_tmp;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,7 +44,26 @@ public class proper extends Activity {
 		tv6 = (TextView) findViewById(R.id.textView6);
 		tv7 = (TextView) findViewById(R.id.textView7);
 		tv8 = (TextView) findViewById(R.id.textView8);
-
+		ib1 = (ImageButton)findViewById(R.id.imageButton1);
+		ib1.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(flag_mark){
+					
+					
+					Intent intent = new Intent();
+					intent.setClass(proper.this, MyMapshow.class);
+					Bundle bData = new Bundle();
+					bData.putDouble("x", x_tmp);
+					bData.putDouble("y", y_tmp);
+					intent.putExtras(bData);
+					startActivity(intent);
+					
+				}
+			}
+		});
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS",
 				"tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
 		Bundle bData = getIntent().getExtras();
@@ -71,6 +93,17 @@ public class proper extends Activity {
 					tv6.setText("活動截止日期:" + IDList.get(0).getString("deadline"));
 					tv7.setText(IDList.get(0).getString("status").equals("1") ? "已成團" : "調查中");
 					tv8.setText(IDList.get(0).getString("note"));
+					if(IDList.get(0).has("x")&&IDList.get(0).has("y")){
+						x_tmp=IDList.get(0).getDouble("x");
+						y_tmp=IDList.get(0).getDouble("y");
+						flag_mark=true;
+						ib1.setVisibility(ImageButton.VISIBLE);
+						
+					}else{
+						
+						flag_mark=false;
+						ib1.setVisibility(ImageButton.INVISIBLE);
+					}
 				}
 				ProgressD.dismiss();
 			}

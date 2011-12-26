@@ -3,6 +3,8 @@ package ntu.mpp.proj;
 
 import java.util.List;
 
+import ntu.mpp.proj.MyMap.MapOverlay;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -24,9 +26,11 @@ public class MyMapshow extends MapActivity
 	private MapController mapController;
 	private MyLocationOverlay mylayer;
 	boolean flag_draw=true;
+	boolean flag_mark=false;
 	//MapView mapView; 
     MapController mc;
     GeoPoint p;
+    double x_tmp,y_tmp;
 	/*
 	@Override
     public boolean onTouchEvent(MotionEvent event, MapView mapView) 
@@ -50,17 +54,22 @@ public class MyMapshow extends MapActivity
         boolean shadow, long when) 
         {
             super.draw(canvas, mapView, shadow);                   
- 
+            if(flag_mark){
             //---translate the GeoPoint to screen pixels---
             Point screenPts = new Point();
+            p = new GeoPoint(
+                    (int) (x_tmp * 1E6), 
+                    (int) (y_tmp * 1E6));
             mapView.getProjection().toPixels(p, screenPts);//這裡要給位置
  
             //---add the marker---
             Bitmap bmp = BitmapFactory.decodeResource(
                 getResources(), R.drawable.darkreddot);            
-            canvas.drawBitmap(bmp, screenPts.x, screenPts.y-50, null);         
+            canvas.drawBitmap(bmp, screenPts.x, screenPts.y-50, null);
+            }
             return true;
         }
+        /*
         @Override
         public boolean onTouchEvent(MotionEvent event, MapView mapView) 
         {   
@@ -75,7 +84,8 @@ public class MyMapshow extends MapActivity
                         Toast.LENGTH_SHORT).show();
             }                            
             return false;
-        }      
+        } 
+        */     
     } 
 	/** Called when the activity is first created. */
 	@Override
@@ -83,6 +93,10 @@ public class MyMapshow extends MapActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mymapshow);
+		Bundle bData = getIntent().getExtras();
+		x_tmp = bData.getDouble("x");
+		y_tmp = bData.getDouble("y");
+		flag_mark=true;
 		findControl();
 	}
 
@@ -93,7 +107,7 @@ public class MyMapshow extends MapActivity
 		
 		mapController = mapView.getController();
 		mapController.setZoom(16);
-		
+		/*
 		//定位點
 		List<Overlay> overlays = mapView.getOverlays();
 		mylayer = new MyLocationOverlay(this, mapView);
@@ -116,9 +130,15 @@ public class MyMapshow extends MapActivity
 				}
 			}
 		});
-		
+		*/
+		if(flag_draw){
+			MapOverlay mapOverlay = new MapOverlay();
+			List<Overlay> listOfOverlays = mapView.getOverlays();
+			listOfOverlays.clear();
+			listOfOverlays.add(mapOverlay);
+		}
 		//mylayer.draw(canvas, mapView, shadow)
-		overlays.add(mylayer);
+		//overlays.add(mylayer);
 	}
 
 	@Override
