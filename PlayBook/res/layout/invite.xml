@@ -41,7 +41,7 @@
 
 		<TextView android:layout_width="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:text="Repo截止時間" android:layout_height="wrap_content"
+			android:text="回報截止時間" android:layout_height="wrap_content"
 			android:id="@+id/textView4" android:layout_gravity="center"></TextView>
 
 		<TextView
@@ -109,7 +109,7 @@
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_height="wrap_content" android:id="@+id/textView8"
 		android:text="備註"></TextView>
-	<EditText android:id="@+id/editText3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textMultiLine" android:layout_weight="0.66"></EditText>
+	<EditText android:id="@+id/editText3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:inputType="textMultiLine" android:layout_weight="0.66" android:gravity="top"></EditText>
 	<LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout6" android:layout_height="wrap_content" android:layout_gravity="center" android:gravity="center" android:weightSum="1">
 		<Button android:layout_gravity="center" android:layout_weight="0.15" android:id="@+id/button1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="確定"></Button>
 		<Button android:layout_gravity="center" android:id="@+id/button2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="取消" android:layout_weight="0.16"></Button>

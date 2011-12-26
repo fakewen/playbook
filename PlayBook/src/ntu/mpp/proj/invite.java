@@ -394,14 +394,14 @@ public class invite extends Activity {
 			} else if (Integer.valueOf(today) >= Integer.valueOf(date_from_)) {
 				Toast.makeText(v.getContext(), "活動開始日期不可以早於今天哦",
 						Toast.LENGTH_LONG).show();
-			} else if (Integer.valueOf(date_from_) >= Integer.valueOf(date_to_)) {
+			} else if (Integer.valueOf(date_from_) > Integer.valueOf(date_to_)) {
 				Toast.makeText(v.getContext(), "活動開始日期不可以晚於活動截止日期哦",
 						Toast.LENGTH_LONG).show();
 			} else if (Integer.valueOf(date_dl_) >= Integer.valueOf(date_from_)) {
-				Toast.makeText(v.getContext(), "repo截止日期不可以晚於活動開始日期哦",
+				Toast.makeText(v.getContext(), "回報截止日期不可以晚於活動開始日期哦",
 						Toast.LENGTH_LONG).show();
 			}else if (Integer.valueOf(today) >= Integer.valueOf(date_dl_)) {
-				Toast.makeText(v.getContext(), "repo截止日期不可以早於今天哦",
+				Toast.makeText(v.getContext(), "回報截止日期不可以早於今天哦",
 						Toast.LENGTH_LONG).show();
 			} else if (selectedPhoneList.size() == 0) {
 				Toast.makeText(v.getContext(), "還沒選擇好友哦", Toast.LENGTH_LONG)
