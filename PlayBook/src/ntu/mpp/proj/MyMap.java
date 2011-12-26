@@ -3,7 +3,6 @@ package ntu.mpp.proj;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;

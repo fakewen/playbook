@@ -57,7 +57,7 @@ public class FreeTime extends Activity {
 	private Button Breturn,freetimesend,googleimport;
 	private char queryMorning[],queryNoon[],queryNight[],queryAfternoon[];
 	private String freeMorning ="",freeAfternoon="",freeNoon="",freeNight="";
-	private String PhoneNumber = "0923111111"; 
+	private String PhoneNumber = global.me; 
 	private ProgressDialog ProgressD;
 	private int yearFrom,monthFrom,dayFrom,yearTo,monthTo,dayTo,dayMax;
 	Bundle EventData;

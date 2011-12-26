@@ -23,7 +23,7 @@ public class proper extends Activity {
 	/** Called when the activity is first created. */
 	Button bt1, bt2;
 	TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8;
-	boolean master = false;
+	boolean master = true;
 	private ProgressDialog ProgressD;
 	String eventid_bundle;
 	String from_bundle;
@@ -120,7 +120,7 @@ public class proper extends Activity {
 				bundle.putString("from", from_bundle);
 				bundle.putString("to", to_bundle);
 				Log.i("playbook","event_founder="+event_founder+"  me="+global.me);
-				master=event_founder.equals(global.me);
+				//master=event_founder.equals(global.me);
 				if (master) {
 					Intent intent = new Intent();
 					intent.setClass(proper.this, PeopleCnt.class);
