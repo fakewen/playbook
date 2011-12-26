@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -35,6 +36,7 @@ public class Confirm extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirm);
+        Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
         CReturn = (Button) findViewById(R.id.ConfirmReturn);
         CConfirm = (Button) findViewById(R.id.Confirmed);
         listview();
@@ -55,6 +57,14 @@ public class Confirm extends Activity {
 //				intent.setClass(Confirm.this, ?.class);
 //				intent.putExtras(bundle);
 //				startActivity(intent);
+				ParseQuery query = new ParseQuery("event_list");
+				  query.whereEqualTo("founder", global.me);//找出自己的活動!
+				  query.findInBackground(new FindCallback(){
+					  @Override
+						public void done(List<ParseObject> IDList, ParseException e) {
+						  }
+					  }
+				  );
 				Confirm.this.finish();
 			}
 		});
