@@ -464,10 +464,10 @@ public class invite extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Intent intent = new Intent();
-			intent.setClass(invite.this, PlayBookActivity.class);
-			startActivity(intent);
-			// invite.this.finish();
+			//Intent intent = new Intent();
+			//intent.setClass(invite.this, PlayBookActivity.class);
+			//startActivity(intent);
+			invite.this.finish();
 		}
 	};
 	OnClickListener map_listener = new OnClickListener() {
