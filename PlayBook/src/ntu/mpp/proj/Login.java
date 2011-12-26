@@ -108,7 +108,7 @@ public class Login extends Activity {
 				// intent.setClass(Login.this, PlayBookActivity.class);
 				// startActivity(intent);
 
-				ProgressD = ProgressDialog.show(Login.this, "", "擷取資料中...",
+				/*ProgressD = ProgressDialog.show(Login.this, "", "擷取資料中...",
 						true, false);
 				// TODO Auto-generated method stub
 				ParseQuery query = new ParseQuery("user_list");
@@ -133,16 +133,16 @@ public class Login extends Activity {
 											"" + et2.getText());
 									editor.putBoolean("flag_in", true);
 									editor.commit();// prefer end
-								}
+								}*/
 
-								global.me = "" + et1.getText();
+								global.me = "0922261111" + et1.getText();
 								account_ck = true;
 								Intent intent = new Intent();
 								intent.setClass(Login.this,
 										PlayBookActivity.class);
 								startActivity(intent);
 								Login.this.finish();
-							} else {
+							/*} else {
 								// Toast.makeText(v.getContext(), "請填完整資料",
 								// Toast.LENGTH_LONG).show();
 								Login.this.runOnUiThread(new Runnable() {
@@ -161,7 +161,7 @@ public class Login extends Activity {
 
 						ProgressD.dismiss();
 					}
-				});
+				});*/
 				if (account_ck == false) {
 					// Toast.makeText(v.getContext(), "帳密不合法!",
 					// Toast.LENGTH_LONG).show();
