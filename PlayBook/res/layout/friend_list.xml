@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:height="15dp"
-            android:text="Save"
+            android:text="儲存"
             android:width="70dp" />
 
         <Button
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:height="15dp"
-            android:text="Clear"
+            android:text="全部清除"
             android:width="70dp" />
 
     </LinearLayout>
