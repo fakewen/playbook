@@ -60,9 +60,9 @@ public class PeopleCnt extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent();
-				intent.setClass(PeopleCnt.this, proper.class);
-				startActivity(intent);
+				//Intent intent=new Intent();
+				//intent.setClass(PeopleCnt.this, proper.class);
+				//startActivity(intent);
 				PeopleCnt.this.finish();
 			}
 		});
@@ -90,7 +90,7 @@ public class PeopleCnt extends Activity {
 		
         //Calendar cal = Calendar.getInstance();
         //cal.getTime();
-        cal.set(yearFrom, monthFrom,dayFrom);
+		cal.set(yearFrom, getRealMonth(monthFrom),dayFrom);
         if(dayTo - dayFrom < 0)
 		days = cal.getActualMaximum(Calendar.DAY_OF_MONTH) - dayFrom + 1 + dayTo;
         else if(dayTo - dayFrom == 0)
@@ -98,7 +98,7 @@ public class PeopleCnt extends Activity {
         else
         	days = dayTo - dayFrom +1;
         //Breturn.setText(Integer.toString(dayTo - dayFrom));
-		freeTime = new int [4][15];
+		freeTime = new int [4][30];
 		for(int i = 0 ; i<3 ; i++){
 			for(int j = 0 ; j<3 ; j++){
 				freeTime[i][j] = 0;
@@ -183,14 +183,13 @@ public class PeopleCnt extends Activity {
 			} else if (i > 0 && i < days+1) {
 				
 				String[] weekDays = {"日", "一", "二", "三", "四", "五", "六"};
-
-		        int w = (cal.get(Calendar.DAY_OF_WEEK) - 1 +(i-1))%7;
+		        int w = (getChineseDayOfWeek(cal) + (i-1))%7;
 		        if (w < 0)
 		            w = 0;
 		        int x =(cal.get(Calendar.DATE)+(i-1));
-		        x = x%((cal.getActualMaximum(Calendar.DAY_OF_MONTH))+1);
-		        if(x==0)
-		        	x=1;
+		        if(x > (cal.getActualMaximum(Calendar.DAY_OF_MONTH)))
+		        	x = x%(cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+
 				map.put("ItemText1",  (Integer.toString(x)));
 				map.put("ItemText2", weekDays[w]);
 				listItem.add(map);
@@ -227,6 +226,78 @@ public class PeopleCnt extends Activity {
 		}
 		TimeTable.setAdapter(listItemAdapter);
 	}
+	public static int getRealMonth(int month) {
+        int intMonth = 0;
+        
+        switch(month) {
+            case 1:
+            	intMonth = Calendar.JANUARY;
+                break;
+            case 2:
+            	intMonth = Calendar.FEBRUARY;
+                break;
+            case 3:
+            	intMonth = Calendar.MARCH;
+                break;
+            case 4:
+            	intMonth = Calendar.APRIL;
+                break;
+            case 5:
+            	intMonth = Calendar.MAY;
+                break;
+            case 6:
+            	intMonth = Calendar.JUNE;
+                break;
+            case 7:
+            	intMonth = Calendar.JULY;
+                break;
+            case 8:
+            	intMonth = Calendar.AUGUST;
+                break;
+            case 9:
+            	intMonth = Calendar.SEPTEMBER;
+                break;
+            case 10:
+            	intMonth = Calendar.OCTOBER;
+                break;
+            case 11:
+            	intMonth = Calendar.NOVEMBER;
+                break;
+            case 12:
+            	intMonth = Calendar.DECEMBER;
+                break;                
+        }
+        
+        return intMonth;
+    }
+	public static int getChineseDayOfWeek(Calendar rightNow) {
+		int chineseDayOfWeek = 0;
 
+		switch (rightNow.get(Calendar.DAY_OF_WEEK)) {
+		case Calendar.SUNDAY:
+			chineseDayOfWeek = 0;
+			break;
+		case Calendar.MONDAY:
+			chineseDayOfWeek = 1;
+			break;
+		case Calendar.TUESDAY:
+			chineseDayOfWeek = 2;
+			break;
+		case Calendar.WEDNESDAY:
+			chineseDayOfWeek = 3;
+			break;
+		case Calendar.THURSDAY:
+			chineseDayOfWeek = 4;
+			break;
+		case Calendar.FRIDAY:
+			chineseDayOfWeek = 5;
+			break;
+		case Calendar.SATURDAY:
+			chineseDayOfWeek = 6;
+			break;
+		}
+
+		return chineseDayOfWeek;
+	}
 
 }
