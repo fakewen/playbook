@@ -103,7 +103,7 @@ public class invite extends Activity {
 				Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,
 						null, null, null, null);
 				// 向後移動pointer
-				while (cursor.moveToNext() && counter < 10) {
+				while (cursor.moveToNext() /*&& counter < 10*/) {
 					// 取得連絡人名字
 					int nameFieldColumnIndex = cursor
 							.getColumnIndex(PhoneLookup.DISPLAY_NAME);
