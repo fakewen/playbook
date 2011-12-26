@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" android:background="#407f7f">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -14,15 +14,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="人數統計"
-            android:textAppearance="?android:attr/textAppearanceLarge" >
+            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#ffff7f">
         </TextView>
 
         <Button
             android:id="@+id/GoogleImport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.06"
-            android:text="從Google日曆匯入" />
+            android:text="從Google日曆匯入" android:layout_marginLeft="40dp" android:background="#b0ddff" android:layout_marginTop="10dp" android:textSize="20dp"/>
 
     </LinearLayout>
 

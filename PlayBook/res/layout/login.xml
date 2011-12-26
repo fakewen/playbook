@@ -2,16 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffccff"
+    android:fadeScrollbars="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:isScrollContainer="true"
     android:orientation="vertical"
-    android:fadeScrollbars="true" android:scrollbars="vertical" android:scrollbarAlwaysDrawVerticalTrack="true" android:soundEffectsEnabled="true">
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbars="vertical"
+    android:soundEffectsEnabled="true" >
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
-        android:layout_height="114dp"
+        android:layout_height="160dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/pink" />
 
@@ -30,7 +34,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:text="手機號碼"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#363636" />
 
         <EditText
             android:id="@+id/Editaccount"
@@ -57,7 +62,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="10dip"
             android:text="密碼"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#363636"/>
 
         <EditText
             android:id="@+id/Editpassword"
@@ -73,15 +78,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:text="記住我的帳號密碼" />
+        android:text="記住我的帳號密碼" android:textColor="#363636"/>
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="10dip"
-        android:layout_marginTop="20dip" >
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp" >
 
         <Button
             android:id="@+id/Chooselogin"
@@ -113,9 +118,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="53dp"
             android:text="註冊新帳號"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge" android:textColor="#363636"/>
+
     </RelativeLayout>
 
 </LinearLayout>

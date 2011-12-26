@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:weightSum="1">
+	android:layout_height="fill_parent" android:weightSum="1" android:background="#363636">
     <ImageView android:src="@drawable/pink" android:id="@+id/imageView1" android:layout_gravity="center" android:layout_marginTop="20dp" android:layout_width="fill_parent" android:layout_height="213dp"></ImageView>
 	<LinearLayout 
 		android:id="@+id/linearLayout2"
 		android:layout_width="fill_parent" 
 		android:gravity="center"
 		android:weightSum="1" 
-		android:layout_gravity="top" android:layout_height="130dp">
+		android:layout_gravity="top" android:layout_height="wrap_content">
 		<Button 
 			android:id="@+id/button2" 
 			android:text="啾人"
@@ -39,14 +39,14 @@
 
 		<Button
 		    android:id="@+id/Button01"
-		    android:layout_width="260dp"
+		    android:layout_width="270dp"
 		    android:layout_height="85dp"
 		    android:layout_alignParentTop="true"
 		    android:layout_centerHorizontal="true"
-		    android:background="#FFFFFF"
+		    android:background="#7fff7f"
 		    android:gravity="center"
 		    android:text="我是主啾"
-		    android:textSize="50sp" />
+		    android:textSize="50sp" android:layout_marginTop="10dp"/>
 
 	</RelativeLayout>
 

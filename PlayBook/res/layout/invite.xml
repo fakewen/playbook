@@ -18,7 +18,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="活動開始日期"
-		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#006699"/>
+		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#6363ff"/>
 
 		<TextView android:layout_width="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
@@ -30,7 +30,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="活動截止日期"
-		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#006699"/>
+		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#6363ff"/>
 
 	</LinearLayout>
 
@@ -49,7 +49,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="回報截止日期"
-		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#ff6600"/>
+		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#6363ff"/>
 
 	</LinearLayout>
 	<LinearLayout android:id="@+id/linearLayout3"
@@ -63,8 +63,8 @@
 		    android:id="@+id/button3"
 		    android:layout_width="72dp"
 		    android:layout_height="33dp"
-		    android:background="#ff0000"
-		    android:text="選擇" android:layout_marginTop="5dip" android:layout_marginLeft="5dip"/>
+		    android:background="#ffff7f"
+		    android:text="選擇" android:layout_marginTop="5dip" android:layout_marginLeft="5dip" android:textColor="#4a4a4a" android:textSize="20dp"/>
 
 	</LinearLayout>
 	<LinearLayout android:id="@+id/linearLayout4"
