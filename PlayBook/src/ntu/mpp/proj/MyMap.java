@@ -102,9 +102,9 @@ public class MyMap extends MapActivity
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				intent.setClass(MyMap.this, invite.class);
-				startActivity(intent);
+//				Intent intent = new Intent();
+//				intent.setClass(MyMap.this, invite.class);
+//				startActivity(intent);
 				MyMap.this.finish();
 			}
 		});
@@ -126,7 +126,7 @@ public class MyMap extends MapActivity
 		
 		mapController = mapView.getController();
 		mapController.setZoom(16);
-		
+		/*
 		//©w¦ìÂI
 		List<Overlay> overlays = mapView.getOverlays();
 		mylayer = new MyLocationOverlay(this, mapView);
@@ -149,9 +149,15 @@ public class MyMap extends MapActivity
 				}
 			}
 		});
-		
+		*/
+		if(flag_draw){
+			MapOverlay mapOverlay = new MapOverlay();
+			List<Overlay> listOfOverlays = mapView.getOverlays();
+			listOfOverlays.clear();
+			listOfOverlays.add(mapOverlay);
+		}
 		//mylayer.draw(canvas, mapView, shadow)
-		overlays.add(mylayer);
+		//overlays.add(mylayer);
 	}
 
 	@Override
