@@ -27,6 +27,7 @@ class global {
 	static String me = "";
 	static GeoPoint p_;
 	static boolean flag_mark=false;
+	static String my_name="";
 }
 
 public class Login extends Activity {
@@ -134,7 +135,7 @@ public class Login extends Activity {
 									editor.putBoolean("flag_in", true);
 									editor.commit();// prefer end
 								}
-
+								global.my_name=""+IDList.get(0).getString("name");
 								global.me = "" + et1.getText();
 								account_ck = true;
 								Intent intent = new Intent();

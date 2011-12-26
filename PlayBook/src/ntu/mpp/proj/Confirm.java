@@ -4,23 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class Confirm extends Activity {
     /** Called when the activity is first created. */
@@ -51,14 +49,12 @@ public class Confirm extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Bundle bundle = new Bundle();
-				bundle.putString("eventid", eventID);
-				//bundle.putString("from", from_bundle);
-				//bundle.putString("to", to_bundle);
-				Intent intent = new Intent();
-				//intent.setClass(Confirm.this, ??????.class);
-				intent.putExtras(bundle);
-				startActivity(intent);
+//				Bundle bundle = new Bundle();
+//				bundle.putString("eventid", eventID);
+//				Intent intent = new Intent();
+//				intent.setClass(Confirm.this, ?.class);
+//				intent.putExtras(bundle);
+//				startActivity(intent);
 				Confirm.this.finish();
 			}
 		});
@@ -74,7 +70,7 @@ public class Confirm extends Activity {
 
 		Bundle PeopleData = this.getIntent().getExtras();
 	    Index = PeopleData.getInt("Index");
-	    eventID = PeopleData.getString("eventID");
+	    eventID = PeopleData.getString("eventID");Log.i("playbook","really?"+eventID);
 	    days = PeopleData.getInt("days");
 	    
 	    switch(Index/(days+1)){

@@ -23,7 +23,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 public class ElistCBoxmaster extends ExpandableListActivity
 {
-	String me="0922261111";
+	//String me="0922261111";
 	private ProgressDialog ProgressD;
 	TextView tv1;
     private static final String LOG_TAG = "ElistCBox";
