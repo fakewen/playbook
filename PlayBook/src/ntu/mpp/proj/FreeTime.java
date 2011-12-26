@@ -138,6 +138,7 @@ public class FreeTime extends Activity {
 				else{		
 					ParseObject timeObject = new ParseObject("FreeTimeTable");
 					timeObject.put("phone", PhoneNumber);
+					timeObject.put("name", global.my_name);
 					timeObject.put("eventID", eventID);
 					timeObject.put("FreeMorning", freeMorning);
 					timeObject.put("FreeAfternoon", freeAfternoon);

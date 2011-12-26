@@ -101,7 +101,7 @@ public class Confirm extends Activity {
 							if(Integer.parseInt((Character.toString(freeDay[j])))== Index%(days+1) ){
 								//CConfirm.setText(IDList.get(i).getString("phone"));
 								HashMap<String, Object> map = new HashMap<String, Object>();
-								map.put("freeName", IDList.get(i).getString("phone"));
+								map.put("freeName", IDList.get(i).getString("name"));
 								//map.put("ItemText2", "");
 								listItem.add(map);
 							}

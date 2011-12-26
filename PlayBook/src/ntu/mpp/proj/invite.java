@@ -59,6 +59,7 @@ public class invite extends Activity {
 	ArrayList<String> globalPhoneList = new ArrayList<String>();
 	ArrayList<String> localPhoneList = new ArrayList<String>();
 	ArrayList<String> selectedPhoneList = new ArrayList<String>();
+	ArrayList<String> selectedNameList = new ArrayList<String>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -237,6 +238,7 @@ public class invite extends Activity {
 					for (int i = 0; i < temp.length; i++) {
 						int index = Integer.parseInt(temp[i]);
 						selectedPhoneList.add(globalPhoneList.get(index));
+						selectedNameList.add(globalUserList.get(index));
 						Log.i("selectPhone", globalPhoneList.get(index));
 					}
 				}
@@ -431,6 +433,7 @@ public class invite extends Activity {
 					invite.put("event", "" + et1.getText());
 
 					invite.put("friends", selectedPhoneList.get(i).toString());
+					invite.put("friendName", selectedNameList.get(i).toString());
 					invite.put("founder", global.me);// ¶}¹ÎªÌ
 					//if flag_mark x,y
 					if(global.flag_mark){
