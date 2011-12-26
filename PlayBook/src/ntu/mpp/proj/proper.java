@@ -69,7 +69,7 @@ public class proper extends Activity {
 		Bundle bData = getIntent().getExtras();
 		// Log.i("playbook", "got event:"+bData.getString("event_name"));
 		// Log.i("playbook", bData.getString("ck"));
-		ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
+		
 		ParseQuery query = new ParseQuery("event_list");
 		// query.whereEqualTo("event",
 		// bData.getString("event_name"));//找出自己有被邀請的活動
@@ -86,6 +86,12 @@ public class proper extends Activity {
 					tv2.setText("活動地點:" + IDList.get(0).getString("location"));
 					tv3.setText("發起人:" + IDList.get(0).getString("founder"));
 					event_founder=IDList.get(0).getString("founder");
+					master=event_founder.equals(global.me);
+					if (master) {
+						bt1.setText("統計人數");
+					} else {
+						bt1.setText("回報空閒時間");
+					}
 					tv4.setText("活動日期從:" + IDList.get(0).getString("from"));
 					from_bundle = IDList.get(0).getString("from");
 					tv5.setText("活動日期到:" + IDList.get(0).getString("to"));
@@ -104,28 +110,31 @@ public class proper extends Activity {
 						flag_mark=false;
 						ib1.setVisibility(ImageButton.INVISIBLE);
 					}
+					ProgressD.dismiss();
 				}
-				ProgressD.dismiss();
+				else{
+					ProgressD.dismiss();
+				}
+				
 			}
 		});
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
-		master=event_founder.equals(global.me);
-		if (master) {
-			bt1.setText("統計人數");
-		} else {
-			bt1.setText("回報空閒時間");
-		}
+		ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
+
+		//master=event_founder.equals(global.me);
+		//master=event_founder.equals(global.me);
+
 		bt1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Bundle bundle = new Bundle();
+				final Bundle bundle = new Bundle();
 				bundle.putString("eventid", eventid_bundle);
 				bundle.putString("from", from_bundle);
 				bundle.putString("to", to_bundle);
 				Log.i("playbook","event_founder="+event_founder+"  me="+global.me);
-
+				
 				if (master) {
 					Intent intent = new Intent();
 					intent.setClass(proper.this, PeopleCnt.class);
