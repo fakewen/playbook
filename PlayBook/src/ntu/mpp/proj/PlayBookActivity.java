@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class PlayBookActivity extends Activity {
     /** Called when the activity is first created. */
-    Button bt1,bt2;
+    Button bt1,bt2,bt3;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +17,7 @@ public class PlayBookActivity extends Activity {
         
         bt1=(Button)findViewById(R.id.button2);
         bt2=(Button)findViewById(R.id.button3);
-        
+        bt3=(Button)findViewById(R.id.Button01);
         bt1.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
