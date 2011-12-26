@@ -40,22 +40,23 @@ public class Confirm extends Activity {
         CReturn = (Button) findViewById(R.id.ConfirmReturn);
         CConfirm = (Button) findViewById(R.id.Confirmed);
         listview();
-        CReturn.setOnClickListener(new OnClickListener() {
+        CConfirm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Bundle bundle = new Bundle();
+				bundle.putString("eventid", eventID);
+				//bundle.putString("from", from_bundle);
+				//bundle.putString("to", to_bundle);
+				Intent intent = new Intent();
+				//intent.setClass(Confirm.this, ??????.class);
+				intent.putExtras(bundle);
+				startActivity(intent);
 				Confirm.this.finish();
 			}
 		});
-        CConfirm.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 	}
+	
 	private void listview(){
 		freeNameList = (ListView) findViewById(R.id.FreeNameList);
 		TextViewID = new int[] { R.id.freeName};
@@ -77,6 +78,9 @@ public class Confirm extends Activity {
 	    	queryString = "FreeNoon";
 	    	break;
 	    case 3:
+	    	queryString = "FreeAfternoon";
+	    	break;
+	    case 4:
 	    	queryString = "FreeNight";
 	    	break;
 	    }

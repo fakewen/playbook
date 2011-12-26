@@ -34,7 +34,7 @@ public class PeopleCnt extends Activity {
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
 	private Calendar cal = Calendar.getInstance();
-	private Button Breturn,freetimesend;
+	private Button Breturn,freetimesend,googleimport;
 	private int freeTime[][];
 	private ProgressDialog ProgressD;
 	Bundle EventData;
@@ -49,7 +49,9 @@ public class PeopleCnt extends Activity {
 		Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
 		Breturn=(Button)findViewById(R.id.button1);
 		freetimesend=(Button)findViewById(R.id.FreeTimeSend);
+		googleimport=(Button)findViewById(R.id.GoogleImport);
 		freetimesend.setVisibility(View.GONE);
+		googleimport.setVisibility(View.GONE);
 		tablename = (TextView) findViewById(R.id.TableName);
 		tablename.setText("人數統計");
 
@@ -96,7 +98,7 @@ public class PeopleCnt extends Activity {
         else
         	days = dayTo - dayFrom +1;
         //Breturn.setText(Integer.toString(dayTo - dayFrom));
-		freeTime = new int [3][15];
+		freeTime = new int [4][15];
 		for(int i = 0 ; i<3 ; i++){
 			for(int j = 0 ; j<3 ; j++){
 				freeTime[i][j] = 0;
@@ -110,9 +112,10 @@ public class PeopleCnt extends Activity {
 			public void done(List<ParseObject> IDList, ParseException e) {
 		        if (e == null) {
 		        	for(int i = 0 ; i < IDList.size() ;i++ ){
-		        		char Morning[],Noon[],Night[];
+		        		char Morning[],Noon[],Afternoon[],Night[];
 		        		Morning = IDList.get(i).getString("FreeMorning").toCharArray();
 		        		Noon = IDList.get(i).getString("FreeNoon").toCharArray();
+		        		Afternoon = IDList.get(i).getString("FreeAfternoon").toCharArray();
 		        		Night = IDList.get(i).getString("FreeNight").toCharArray();
 		        		for(int j = 0 ;j<Morning.length ; j+=2){
 		        			freeTime[0][Integer.parseInt(Character.toString(Morning[j]))-1]++;
@@ -120,11 +123,14 @@ public class PeopleCnt extends Activity {
 		        		for(int j = 0 ;j<Noon.length ; j+=2){
 		        			freeTime[1][Integer.parseInt(Character.toString(Noon[j]))-1]++;
 		        		}
+		        		for(int j = 0 ;j<Afternoon.length ; j+=2){
+		        			freeTime[2][Integer.parseInt(Character.toString(Afternoon[j]))-1]++;
+		        		}
 		        		for(int j = 0 ;j<Night.length ; j+=2){
-		        			freeTime[2][Integer.parseInt(Character.toString(Night[j]))-1]++;
+		        			freeTime[3][Integer.parseInt(Character.toString(Night[j]))-1]++;
 		        		}
 		        	}
-		        	for(int i= 1 ;i <= 3 ; i++){
+		        	for(int i= 1 ;i <= 4 ; i++){
 			        	for(int j= 1 ;j <= days ; j++){
 							HashMap<String, Object> map = new HashMap<String, Object>();
 							map.put("ItemText1", Integer.toString(freeTime[i-1][j-1]));
@@ -168,7 +174,7 @@ public class PeopleCnt extends Activity {
 	private void freetime() {
 		
 		
-		for (int i = 0; i < (days+1)*4; i++) {
+		for (int i = 0; i < (days+1)*5; i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			if (i == 0) {
 				map.put("ItemText1", "");
@@ -196,11 +202,16 @@ public class PeopleCnt extends Activity {
 					listItem.add(map);
 				}
 				else if(i== (days+1)*2){
-					map.put("ItemText1", "下");
+					map.put("ItemText1", "中");
 					map.put("ItemText2", "午");
 					listItem.add(map);
 				}
 				else if(i== (days+1)*3){
+					map.put("ItemText1", "下");
+					map.put("ItemText2", "午");
+					listItem.add(map);
+				}
+				else if(i== (days+1)*4){
 					map.put("ItemText1", "晚");
 					map.put("ItemText2", "上");
 					listItem.add(map);

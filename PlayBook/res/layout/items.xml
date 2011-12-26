@@ -3,18 +3,18 @@
     android:id="@+id/LinearLayout01"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#555555" >
+    android:background="#FFFFFF" >
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="88dp"
+        android:layout_height="60dp"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/ItemText1"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
             android:layout_marginTop="1dip"
@@ -22,7 +22,7 @@
             android:bufferType="normal"
             android:gravity="bottom|center"
             android:singleLine="true"
-            android:text="" />
+            android:text="123" />
 
         <TextView
             android:id="@+id/ItemText2"
@@ -35,7 +35,7 @@
             android:bufferType="normal"
             android:gravity="top|center"
             android:singleLine="true"
-            android:text="" />
+            android:text="123" />
 
     </LinearLayout>
 
