@@ -257,7 +257,7 @@ public class invite extends Activity {
 			showDialog(START);
 		}
 	};
-
+	String today = null;
 	OnClickListener select_end_date = new OnClickListener() {
 
 		@Override
@@ -267,6 +267,8 @@ public class invite extends Activity {
 			myYear = c.get(Calendar.YEAR);
 			myMonth = c.get(Calendar.MONTH);
 			myDay = c.get(Calendar.DAY_OF_MONTH);
+			today = String.valueOf(myYear) + String.format("%02d", myMonth + 1)
+					+ String.format("%02d", myDay);
 			showDialog(END);
 		}
 	};
@@ -389,11 +391,17 @@ public class invite extends Activity {
 
 				Toast.makeText(v.getContext(), "時間還沒填完!", Toast.LENGTH_LONG)
 						.show();
+			} else if (Integer.valueOf(today) >= Integer.valueOf(date_from_)) {
+				Toast.makeText(v.getContext(), "活動開始日期不可以早於今天哦",
+						Toast.LENGTH_LONG).show();
 			} else if (Integer.valueOf(date_from_) >= Integer.valueOf(date_to_)) {
 				Toast.makeText(v.getContext(), "活動開始日期不可以晚於活動截止日期哦",
 						Toast.LENGTH_LONG).show();
 			} else if (Integer.valueOf(date_dl_) >= Integer.valueOf(date_from_)) {
 				Toast.makeText(v.getContext(), "repo截止日期不可以晚於活動開始日期哦",
+						Toast.LENGTH_LONG).show();
+			}else if (Integer.valueOf(today) >= Integer.valueOf(date_dl_)) {
+				Toast.makeText(v.getContext(), "repo截止日期不可以早於今天哦",
 						Toast.LENGTH_LONG).show();
 			} else if (selectedPhoneList.size() == 0) {
 				Toast.makeText(v.getContext(), "還沒選擇好友哦", Toast.LENGTH_LONG)
