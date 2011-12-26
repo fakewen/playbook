@@ -26,9 +26,6 @@ public class FriendList extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.friend_list);
-
-		// 資料陣列
-		// String[] vData = { "足球", "棒球", "籃球" };
 		Bundle bData = getIntent().getExtras();
 
 		Button btnSave = (Button) findViewById(R.id.btnSave);
