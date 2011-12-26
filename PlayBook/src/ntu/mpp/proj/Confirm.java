@@ -36,6 +36,7 @@ public class Confirm extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirm);
+        //Confirm.this.setTitle(global.my_name);
         Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
         CReturn = (Button) findViewById(R.id.ConfirmReturn);
         CConfirm = (Button) findViewById(R.id.Confirmed);
@@ -66,7 +67,7 @@ public class Confirm extends Activity {
 						  if (e == null) {
 							  Log.i("playbook", "change status"+Integer.toString(IDList.size()));
 							  IDList.get(0).put("status","1");
-							  
+							  IDList.get(0).saveInBackground();
 						  }
 					  }
 					  
@@ -74,21 +75,21 @@ public class Confirm extends Activity {
 				  
 				);
 				ParseQuery query2 = new ParseQuery("invite");
-				  query.whereEqualTo("eventid", eventID);//找出指定的活動!
-				  query.findInBackground(new FindCallback(){
+				  query2.whereEqualTo("eventid", eventID);//找出指定的活動!
+				  query2.findInBackground(new FindCallback(){
 					  @Override
 						public void done(List<ParseObject> IDList, ParseException e) {
 						  if (e == null) {
 							  Log.i("playbook", "change status"+Integer.toString(IDList.size()));
 							  IDList.get(0).put("status","1");
-							  
+							  IDList.get(0).saveInBackground();
 						  }
 					  }
 					  
 				  }
 				  
 				);  
-				//Confirm.this.finish();
+				Confirm.this.finish();
 			}
 		});
 	}

@@ -75,6 +75,7 @@ public class Login extends Activity {
 		// et2.setText(shp.getString("password", ""));
 		if (shp.getBoolean("flag_in", false)) {
 			global.me=shp.getString("account", "0922263232");
+			global.my_name=shp.getString("my_name", "³¯¸s¤¸");
 			Intent intent = new Intent();
 			intent.setClass(Login.this, PlayBookActivity.class);
 			startActivity(intent);
@@ -132,6 +133,8 @@ public class Login extends Activity {
 											"" + et1.getText());
 									editor.putString("password",
 											"" + et2.getText());
+									editor.putString("my_name",
+											"" + IDList.get(0).getString("name"));
 									editor.putBoolean("flag_in", true);
 									editor.commit();// prefer end
 								}
