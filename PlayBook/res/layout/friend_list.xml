@@ -21,7 +21,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_marginTop="10dip">
+        android:layout_height="wrap_content" android:layout_gravity="bottom" android:layout_marginTop="15dip">
 
         <Button
             android:id="@+id/btnSave"
