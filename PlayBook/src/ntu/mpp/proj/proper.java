@@ -23,7 +23,7 @@ public class proper extends Activity {
 	/** Called when the activity is first created. */
 	Button bt1, bt2;
 	TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8;
-	boolean master = true;
+	boolean master = false;
 	private ProgressDialog ProgressD;
 	String eventid_bundle;
 	String from_bundle;

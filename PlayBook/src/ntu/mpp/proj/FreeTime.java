@@ -88,7 +88,7 @@ public class FreeTime extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-			Breturn.setText(Integer.toString(days));
+			//Breturn.setText(Integer.toString(days));
 				for(int i= (days+2) ;i< (days+1)*5 ; i++){
 					if (i % days+1 != 0){
 						HashMap<String, Object> map = (HashMap<String, Object>) TimeTable
@@ -120,6 +120,7 @@ public class FreeTime extends Activity {
 				if(hadData){
 					ParseQuery query = new ParseQuery("FreeTimeTable");
 					query.whereEqualTo("eventID", eventID);
+					
 					query.findInBackground(new FindCallback() {
 						
 						@Override
@@ -241,7 +242,6 @@ public class FreeTime extends Activity {
 			else{
 				if(CalStart.get(Calendar.DATE) - CalEnd.get(Calendar.DATE) ==0)
 				if(CalStart.get(Calendar.DATE) >= dayFrom || CalEnd.get(Calendar.DATE) <= dayTo){
-					
 			        int Noindex = dayMax - dayFrom  + CalEnd.get(Calendar.DATE);
 					if(CalStart.get(Calendar.HOUR_OF_DAY)<=11 && CalStart.get(Calendar.HOUR_OF_DAY) > 6){
 						if(CalEnd.get(Calendar.HOUR_OF_DAY)<=11 && CalEnd.get(Calendar.HOUR_OF_DAY) > 6){
@@ -337,6 +337,7 @@ public class FreeTime extends Activity {
 		        		}
 		        	}
 		        	if(hadData){
+		        		freetimesend.setText("  §ó·s  ");
 						for(int i= 0 ;i < queryMorning.length ; i+=2){
 							HashMap<String, Object> map = new HashMap<String, Object>();
 							map.put("ItemText1", "O");
