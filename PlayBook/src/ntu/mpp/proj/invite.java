@@ -13,7 +13,6 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Looper;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.PhoneLookup;
 import android.text.format.DateFormat;
@@ -23,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,9 +35,10 @@ import com.parse.ParseQuery;
 public class invite extends Activity {
 	/** Called when the activity is first created. */
 	String me = "0922261111";
-	Button bt1, bt2, bt3 ,bt4;
+	Button bt1, bt2, bt3 ;
 	EditText et1, et2, et3;
 	TextView tv1, tv2, tv3;
+	ImageButton ib1;
 	int myYear, myMonth, myDay;
 	int startYear, startMonth, startDay;
 	int endYear, endMonth, endDay;
@@ -71,7 +72,8 @@ public class invite extends Activity {
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
 		bt3 = (Button) findViewById(R.id.button3);
-		//bt
+		ib1 = (ImageButton)findViewById(R.id.imageButton1);
+		
 		et1 = (EditText) findViewById(R.id.editText1);
 		et2 = (EditText) findViewById(R.id.editText2);
 		et3 = (EditText) findViewById(R.id.editText3);
@@ -86,6 +88,8 @@ public class invite extends Activity {
 		tv3.setOnClickListener(select_due_date);
 		bt3.setOnClickListener(select_friend);
 
+		ib1.setOnClickListener(map_listener);
+		
 		ProgressD = ProgressDialog.show(this, "",
 				"朋友資料讀取中...\n你的朋友超多耶,\n請稍等一下下哦!!", true, false);
 
@@ -445,6 +449,17 @@ public class invite extends Activity {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
 			intent.setClass(invite.this, PlayBookActivity.class);
+			startActivity(intent);
+			// invite.this.finish();
+		}
+	};
+	OnClickListener map_listener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent();
+			intent.setClass(invite.this, MyMap.class);
 			startActivity(intent);
 			// invite.this.finish();
 		}
