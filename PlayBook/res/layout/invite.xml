@@ -37,7 +37,7 @@
 	<LinearLayout
 	    android:id="@+id/linearLayout2"
 	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content" >
+	    android:layout_height="wrap_content" android:layout_marginTop="10dip">
 
 		<TextView android:layout_width="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
@@ -48,7 +48,7 @@
 		    android:id="@+id/textView_stop"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="Repo截止日期"
+		    android:text="回報截止日期"
 		    android:textAppearance="?android:attr/textAppearanceLarge" android:clickable="true" android:background="#ff6600"/>
 
 	</LinearLayout>
@@ -57,17 +57,19 @@
 		<TextView android:layout_width="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_height="wrap_content" android:id="@+id/textView5"
-			android:text="邀請誰"></TextView>
+			android:text="邀請誰" android:layout_marginTop="5dip"></TextView>
 
 		<Button
 		    android:id="@+id/button3"
-		    android:layout_width="78dp"
-		    android:layout_height="wrap_content"
-		    android:text="select" />
+		    android:layout_width="72dp"
+		    android:layout_height="33dp"
+		    android:background="#ff0000"
+		    android:text="選擇" android:layout_marginTop="5dip" android:layout_marginLeft="5dip"/>
+
 	</LinearLayout>
 	<LinearLayout android:id="@+id/linearLayout4"
 		android:layout_height="wrap_content" android:layout_width="fill_parent"
-		android:weightSum="1">
+		android:weightSum="1" android:layout_marginTop="5dip">
 		<TextView android:layout_width="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:text="活動內容" android:layout_height="wrap_content" android:id="@+id/textView6"></TextView>

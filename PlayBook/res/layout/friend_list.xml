@@ -9,28 +9,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:gravity="right">
 
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="364dp" >
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="10dip">
+
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="57dp"
             android:height="15dp"
             android:text="儲存"
             android:width="70dp" />
-
+
         <Button
             android:id="@+id/btnClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="58dp"
             android:height="15dp"
             android:text="全部清除"
-            android:width="70dp" />
+            android:width="80dp" />
 
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/android:list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+    </RelativeLayout>
 
 </LinearLayout>
