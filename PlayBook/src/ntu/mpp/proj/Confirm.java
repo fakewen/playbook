@@ -58,14 +58,37 @@ public class Confirm extends Activity {
 //				intent.putExtras(bundle);
 //				startActivity(intent);
 				ParseQuery query = new ParseQuery("event_list");
-				  query.whereEqualTo("founder", global.me);//找出自己的活動!
+				  query.whereEqualTo("eventid", eventID);//找出指定的活動!
+				  //Log.i("", msg)
 				  query.findInBackground(new FindCallback(){
 					  @Override
 						public void done(List<ParseObject> IDList, ParseException e) {
+						  if (e == null) {
+							  Log.i("playbook", "change status"+Integer.toString(IDList.size()));
+							  IDList.get(0).put("status","1");
+							  
 						  }
 					  }
-				  );
-				Confirm.this.finish();
+					  
+				  }
+				  
+				);
+				ParseQuery query2 = new ParseQuery("invite");
+				  query.whereEqualTo("eventid", eventID);//找出指定的活動!
+				  query.findInBackground(new FindCallback(){
+					  @Override
+						public void done(List<ParseObject> IDList, ParseException e) {
+						  if (e == null) {
+							  Log.i("playbook", "change status"+Integer.toString(IDList.size()));
+							  IDList.get(0).put("status","1");
+							  
+						  }
+					  }
+					  
+				  }
+				  
+				);  
+				//Confirm.this.finish();
 			}
 		});
 	}
