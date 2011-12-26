@@ -110,7 +110,11 @@ public class proper extends Activity {
 		});
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
-
+		if (master) {
+			bt1.setText("統計人數");
+		} else {
+			bt1.setText("回報空閒時間");
+		}
 		bt1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
