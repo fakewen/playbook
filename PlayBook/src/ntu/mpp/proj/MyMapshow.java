@@ -3,15 +3,14 @@ package ntu.mpp.proj;
 
 import java.util.List;
 
-import ntu.mpp.proj.MyMap.MapOverlay;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.widget.Toast;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -31,6 +30,7 @@ public class MyMapshow extends MapActivity
     MapController mc;
     GeoPoint p;
     double x_tmp,y_tmp;
+    Button bt1;
 	/*
 	@Override
     public boolean onTouchEvent(MotionEvent event, MapView mapView) 
@@ -93,6 +93,15 @@ public class MyMapshow extends MapActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mymapshow);
+		bt1=(Button)findViewById(R.id.button1);
+		bt1.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				MyMapshow.this.finish();
+			}
+		});
 		Bundle bData = getIntent().getExtras();
 		x_tmp = bData.getDouble("x");
 		y_tmp = bData.getDouble("y");
@@ -107,6 +116,10 @@ public class MyMapshow extends MapActivity
 		
 		mapController = mapView.getController();
 		mapController.setZoom(16);
+		p = new GeoPoint(
+                (int) (x_tmp * 1E6), 
+                (int) (y_tmp * 1E6));
+		mapController.setCenter(p);
 		/*
 		//©w¦ìÂI
 		List<Overlay> overlays = mapView.getOverlays();
