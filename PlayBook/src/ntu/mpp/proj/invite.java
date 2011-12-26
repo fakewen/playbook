@@ -418,6 +418,11 @@ public class invite extends Activity {
 				testObject.put("from", date_from);
 				testObject.put("to", date_to);
 				testObject.put("deadline", date_dl);
+				//if flag_mark x,y
+				if(global.flag_mark){
+					testObject.put("x", global.p_.getLatitudeE6() / 1E6);
+					testObject.put("y", global.p_.getLongitudeE6() /1E6);
+				}
 				// 用invite table 紀錄人跟活動的關係
 
 				String time = new Date().toString();
@@ -427,7 +432,11 @@ public class invite extends Activity {
 
 					invite.put("friends", selectedPhoneList.get(i).toString());
 					invite.put("founder", global.me);// 開團者
-
+					//if flag_mark x,y
+					if(global.flag_mark){
+						invite.put("x", global.p_.getLatitudeE6() / 1E6);
+						invite.put("y", global.p_.getLongitudeE6() /1E6);
+					}
 					invite.put("status", "0");// 0:調查中 1:成團!
 					invite.put("eventid", global.me + time);// eventid
 					invite.saveInBackground();

@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.maps.GeoPoint;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -24,7 +25,8 @@ import com.parse.ParseQuery;
 
 class global {
 	static String me = "";
-
+	static GeoPoint p_;
+	static boolean flag_mark=false;
 }
 
 public class Login extends Activity {

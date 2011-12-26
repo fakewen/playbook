@@ -47,6 +47,14 @@ public class Confirm extends Activity {
 				Confirm.this.finish();
 			}
 		});
+        CConfirm.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	private void listview(){
 		freeNameList = (ListView) findViewById(R.id.FreeNameList);

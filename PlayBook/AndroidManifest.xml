@@ -50,6 +50,8 @@
         </activity>
         <activity android:name="MyMap" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden">
         </activity>
+        <activity android:name="MyMapshow" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden">
+        </activity>
         <uses-library android:name="com.google.android.maps"/>
     </application>
 

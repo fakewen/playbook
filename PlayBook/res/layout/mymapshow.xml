@@ -22,12 +22,6 @@
             android:layout_height="wrap_content"
             android:text="回上一頁" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="儲存地點" />
-
     </LinearLayout>
     
 <com.google.android.maps.MapView android:id="@+id/map"
