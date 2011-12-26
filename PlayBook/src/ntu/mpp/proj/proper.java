@@ -110,6 +110,7 @@ public class proper extends Activity {
 		});
 		bt1 = (Button) findViewById(R.id.button1);
 		bt2 = (Button) findViewById(R.id.button2);
+		master=event_founder.equals(global.me);
 		if (master) {
 			bt1.setText("統計人數");
 		} else {
@@ -124,7 +125,7 @@ public class proper extends Activity {
 				bundle.putString("from", from_bundle);
 				bundle.putString("to", to_bundle);
 				Log.i("playbook","event_founder="+event_founder+"  me="+global.me);
-				master=event_founder.equals(global.me);
+
 				if (master) {
 					Intent intent = new Intent();
 					intent.setClass(proper.this, PeopleCnt.class);
