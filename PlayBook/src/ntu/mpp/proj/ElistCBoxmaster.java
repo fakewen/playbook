@@ -119,7 +119,7 @@ public class ElistCBoxmaster extends ExpandableListActivity
 				intent.setClass(ElistCBoxmaster.this, proper.class);
 				intent.putExtras(bData);
 				startActivity(intent);
-				ElistCBoxmaster.this.finish();
+				//ElistCBoxmaster.this.finish();
 			}
 		});
         

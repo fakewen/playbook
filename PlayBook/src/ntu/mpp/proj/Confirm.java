@@ -3,10 +3,10 @@ package ntu.mpp.proj;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +32,7 @@ public class Confirm extends Activity {
 	private SimpleAdapter listItemAdapter;
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
+	private Vector UserPhone;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,21 +75,33 @@ public class Confirm extends Activity {
 				  }
 				  
 				);
-				ParseQuery query2 = new ParseQuery("invite");
-				  query2.whereEqualTo("eventid", eventID);//找出指定的活動!
-				  query2.findInBackground(new FindCallback(){
-					  @Override
-						public void done(List<ParseObject> IDList, ParseException e) {
-						  if (e == null) {
-							  Log.i("playbook", "change status"+Integer.toString(IDList.size()));
-							  IDList.get(0).put("status","1");
-							  IDList.get(0).saveInBackground();
+				  ParseQuery query2 = new ParseQuery("invite");
+					query2.whereEqualTo("eventid", eventID);//找出指定的活動!
+					query2.findInBackground(new FindCallback(){
+						  @Override
+							public void done(List<ParseObject> IDList, ParseException e) {
+							  if (e == null) {
+								  Log.i("playbook", "change status"+Integer.toString(IDList.size()));
+								  for(int i = 0 ; i < IDList.size() ; i++){
+									  boolean Inside = false;
+									  for(int j = 0 ; j < UserPhone.size() ; j++){
+										  	if( UserPhone.elementAt(j).toString().equals(IDList.get(i).getString("friends")) ){
+										  		IDList.get(i).put("status","1");
+										  		IDList.get(i).put("EventDay","1");
+										  		IDList.get(i).put("Time",queryString);
+										  		IDList.get(i).saveInBackground();
+										  		Inside = true;
+										  		break;
+										  	}
+									  }
+									  if(Inside == false)
+										  IDList.get(i).deleteInBackground();
+									  
+								  }
+							  }
 						  }
-					  }
-					  
-				  }
-				  
-				);  
+						  
+					  });
 				Confirm.this.finish();
 			}
 		});
