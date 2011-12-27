@@ -112,8 +112,14 @@ public class MyMap extends MapActivity
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(p_tmp!=null){
 				global.p_=p_tmp;
 				global.flag_mark=true;
+				}else{
+					Toast.makeText(MyMap.this, "請先點選地點!",
+							Toast.LENGTH_SHORT).show();
+					
+				}
 			}
 		});
 	}

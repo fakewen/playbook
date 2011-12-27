@@ -50,9 +50,10 @@ public class Login extends Activity {
 
 			if (cb1.isChecked() == true) {
 				flag_sv = true;
-				// ´h≈„•‹¶r¶ÍYou are Woman
+				
+				/*
 				Toast.makeText(Login.this, "save ur account!",
-						Toast.LENGTH_SHORT).show();
+						Toast.LENGTH_SHORT).show();*/
 			}
 		}
 	};
