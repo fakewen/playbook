@@ -1,5 +1,7 @@
 package ntu.mpp.proj;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -32,10 +36,27 @@ public class propersure extends Activity {
     boolean flag_mark=false;
     ImageButton ib1;
     double x_tmp,y_tmp;
+    //
+    private ArrayList<HashMap<String, Object>> listItem;
+    private SimpleAdapter adapter;
+    ListView listview;
+    int[] TextViewID;
+    private SimpleAdapter listItemAdapter;
+    void friendlist(){
+    	
+    	TextViewID = new int[] { R.id.freeName};
+		listItem = new ArrayList<HashMap<String, Object>>();
+		listItemAdapter = new SimpleAdapter(this, listItem, R.layout.name,
+				new String[] {"friendName"}, TextViewID);
+    	
+
+    	
+    }
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.propersure);
+		listview=(ListView)findViewById(R.id.listView1);
 		tv1 = (TextView) findViewById(R.id.textView1);
 		tv2 = (TextView) findViewById(R.id.textView2);
 		tv3 = (TextView) findViewById(R.id.textView3);
@@ -69,6 +90,23 @@ public class propersure extends Activity {
 		Bundle bData = getIntent().getExtras();
 		// Log.i("playbook", "got event:"+bData.getString("event_name"));
 		// Log.i("playbook", bData.getString("ck"));
+		friendlist();
+		ParseQuery query2 = new ParseQuery("invite");
+		query2.whereEqualTo("eventid", bData.getString("event_id"));
+		query2.findInBackground(new FindCallback() {
+			@Override
+			public void done(List<ParseObject> IDList, ParseException e) {
+				if (e == null) {
+					for(int i=0;i<IDList.size();i++){
+						HashMap<String, Object> map = new HashMap<String, Object>();
+						map.put("friendName", IDList.get(i).getString("friendName"));
+						//map.put("ItemText2", "");
+						listItem.add(map);
+					}
+					listview.setAdapter(listItemAdapter);
+				}
+			}
+		});
 		
 		ParseQuery query = new ParseQuery("event_list");
 		// query.whereEqualTo("event",
