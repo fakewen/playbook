@@ -160,18 +160,13 @@ public class FreeTime extends Activity {
 		});
 	}
 	private void calendarImprot(){
-		boolean NoTime[][] = new boolean[4][days];
+		boolean NoTime[][] = new boolean[4][150];
 		for(int i = 0 ; i < 4 ; i ++)
 			for(int j = 0 ; j < days ; j++)
 				NoTime[i][j] = false;
 		Cursor eventCursor = getContentResolver().query(Uri.parse(calanderEventURL), null, null, null, null);
 		eventCursor.moveToLast();
-		/*int Noindex = 0;
-        if(CalEnd.get(Calendar.DATE) - dayFrom < 0)
-        	Noindex = dayMax - dayFrom  + CalEnd.get(Calendar.DATE);
-        else if(dayTo - dayFrom == 0)
-        	Noindex = 1;
-        else*/
+
 		do{
 			Calendar CalStart = Calendar.getInstance();
 			Calendar CalEnd = Calendar.getInstance();
@@ -183,6 +178,8 @@ public class FreeTime extends Activity {
 			if(CalStart.get(Calendar.DATE) >= dayFrom && CalEnd.get(Calendar.DATE) <= dayTo)
 			if(CalStart.get(Calendar.DATE) - CalEnd.get(Calendar.DATE) ==0){ 
 			        int Noindex = CalEnd.get(Calendar.DATE) - dayFrom;
+					if(Noindex < 0 || Noindex >7)
+						Noindex = 0;
 					if(CalStart.get(Calendar.HOUR_OF_DAY)<=11 && CalStart.get(Calendar.HOUR_OF_DAY) > 6){
 						if(CalEnd.get(Calendar.HOUR_OF_DAY)<=11 && CalEnd.get(Calendar.HOUR_OF_DAY) > 6){
 							NoTime[0][Noindex] = true;
@@ -240,10 +237,16 @@ public class FreeTime extends Activity {
 				}
 				
 			}
-			else{
+			else if(monthTo - monthFrom == 1){
 				if(CalStart.get(Calendar.DATE) - CalEnd.get(Calendar.DATE) ==0)
 				if(CalStart.get(Calendar.DATE) >= dayFrom || CalEnd.get(Calendar.DATE) <= dayTo){
-			        int Noindex = dayMax - dayFrom  + CalEnd.get(Calendar.DATE);
+					int Noindex = 0;
+					if(CalEnd.get(Calendar.DATE) - dayFrom <0)
+						Noindex = dayMax - dayFrom  + CalEnd.get(Calendar.DATE);
+					else
+						Noindex = CalEnd.get(Calendar.DATE) - dayFrom;
+					if(Noindex < 0 || Noindex >7)
+						Noindex = 0;
 					if(CalStart.get(Calendar.HOUR_OF_DAY)<=11 && CalStart.get(Calendar.HOUR_OF_DAY) > 6){
 						if(CalEnd.get(Calendar.HOUR_OF_DAY)<=11 && CalEnd.get(Calendar.HOUR_OF_DAY) > 6){
 							NoTime[0][Noindex] = true;
