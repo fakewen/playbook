@@ -97,6 +97,19 @@ public class propersure extends Activity {
 			@Override
 			public void done(List<ParseObject> IDList, ParseException e) {
 				if (e == null) {
+					tv4.setText("活動日期:" + IDList.get(0).getString("eventday"));
+					if(IDList.get(0).getString("time").equals("FreeMorning")){
+						tv5.setText("活動時段:" + "早上");
+					}
+					if(IDList.get(0).getString("time").equals("FreeNoon")){
+						tv5.setText("活動時段:" + "中午");
+					}
+					if(IDList.get(0).getString("time").equals("FreeAfternoon")){
+						tv5.setText("活動時段:" + "下午");
+					}
+					if(IDList.get(0).getString("time").equals("FreeNight")){
+						tv5.setText("活動時段:" + "晚上");
+					}
 					for(int i=0;i<IDList.size();i++){
 						HashMap<String, Object> map = new HashMap<String, Object>();
 						map.put("friendName", IDList.get(i).getString("friendName"));
@@ -104,7 +117,9 @@ public class propersure extends Activity {
 						listItem.add(map);
 					}
 					listview.setAdapter(listItemAdapter);
+					
 				}
+				ProgressD.dismiss();
 			}
 		});
 		
@@ -126,9 +141,9 @@ public class propersure extends Activity {
 					event_founder=IDList.get(0).getString("founder");
 					master=event_founder.equals(global.me);
 					
-					tv4.setText("活動日期:" + IDList.get(0).getString("eventday"));
+					//tv4.setText("活動日期:" + IDList.get(0).getString("eventday"));
 					//from_bundle = IDList.get(0).getString("from");
-					tv5.setText("活動時段:" + IDList.get(0).getString("time"));
+					//tv5.setText("活動時段:" + IDList.get(0).getString("time"));
 					//to_bundle = IDList.get(0).getString("to");
 					
 					tv6.setText(IDList.get(0).getString("status").equals("1") ? "已成團" : "調查中");
@@ -145,10 +160,10 @@ public class propersure extends Activity {
 						flag_mark=false;
 						ib1.setVisibility(ImageButton.INVISIBLE);
 					}
-					ProgressD.dismiss();
+					//ProgressD.dismiss();
 				}
 				else{
-					ProgressD.dismiss();
+					//ProgressD.dismiss();
 				}
 				
 			}
