@@ -93,7 +93,7 @@ public class ElistCBoxmaster extends ExpandableListActivity
         super.onContentChanged();
         Log.d( LOG_TAG, "onContentChanged" );
     }
-
+    int groupPosition_;
     public boolean onChildClick(
             ExpandableListView parent, 
             View v, 
@@ -101,6 +101,7 @@ public class ElistCBoxmaster extends ExpandableListActivity
             int childPosition,
             long id) {
         Log.d( LOG_TAG, "onChildClick: "+childPosition );
+        groupPosition_=groupPosition;
         final String event_name_=event_[groupPosition][childPosition];
         final String event_id_=eventid_[groupPosition][childPosition];
         Log.i("playbook", "bundle:"+event_name_+" x:"+Integer.toString(groupPosition)+" y:"+Integer.toString(childPosition));
@@ -108,6 +109,7 @@ public class ElistCBoxmaster extends ExpandableListActivity
 			
 			@Override
 			public void run() {
+				if(groupPosition_==1){
 				// TODO Auto-generated method stub
 				String event_name=event_name_;Log.i("playbook","@run event_name:"+event_name);
 				String event_id=event_id_;
@@ -120,6 +122,21 @@ public class ElistCBoxmaster extends ExpandableListActivity
 				intent.putExtras(bData);
 				startActivity(intent);
 				//ElistCBoxmaster.this.finish();
+				}else{
+					// TODO Auto-generated method stub
+					String event_name=event_name_;Log.i("playbook","@run event_name:"+event_name);
+					String event_id=event_id_;
+					Bundle bData = new Bundle();
+					bData.putString("event_name", event_name);
+					bData.putString("event_id", event_id);Log.i("playbook","event_id@list="+event_id);
+					//bData.putString("ck", "ok");
+					Intent intent=new Intent();
+					intent.setClass(ElistCBoxmaster.this, propersure.class);
+					intent.putExtras(bData);
+					startActivity(intent);
+					//ElistCBoxmaster.this.finish();
+					
+				}
 			}
 		});
         

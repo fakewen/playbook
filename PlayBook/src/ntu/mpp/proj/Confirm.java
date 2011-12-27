@@ -108,6 +108,7 @@ public class Confirm extends Activity {
 						  }
 						  
 					  });
+					//¸õ¦^¥D­¶­±
 				Confirm.this.finish();
 			}
 		});
