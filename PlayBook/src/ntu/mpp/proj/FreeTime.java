@@ -237,7 +237,7 @@ public class FreeTime extends Activity {
 				}
 				
 			}
-			else if(monthTo - monthFrom == 1){
+			else if(monthTo - monthFrom == 1 || monthTo - monthFrom == -11){
 				if(CalStart.get(Calendar.DATE) - CalEnd.get(Calendar.DATE) ==0)
 				if(CalStart.get(Calendar.DATE) >= dayFrom || CalEnd.get(Calendar.DATE) <= dayTo){
 					int Noindex = 0;
