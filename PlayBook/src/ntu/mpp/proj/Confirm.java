@@ -32,7 +32,8 @@ public class Confirm extends Activity {
 	private SimpleAdapter listItemAdapter;
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
-	private Vector UserPhone;
+	//private Vector UserPhone;
+	List<String> UserPhone = new ArrayList<String>();
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,14 +82,16 @@ public class Confirm extends Activity {
 						  @Override
 							public void done(List<ParseObject> IDList, ParseException e) {
 							  if (e == null) {
-								  Log.i("playbook", "change status"+Integer.toString(IDList.size()));
+								  Log.i("Confirm", "Success");
+								  //Log.i("playbook", "change status"+Integer.toString(IDList.size()));
 								  for(int i = 0 ; i < IDList.size() ; i++){
 									  boolean Inside = false;
 									  for(int j = 0 ; j < UserPhone.size() ; j++){
-										  	if( UserPhone.elementAt(j).toString().equals(IDList.get(i).getString("friends")) ){
+										  	if( UserPhone.get(j).toString().equals(IDList.get(i).getString("friends")) ){
 										  		IDList.get(i).put("status","1");
-										  		IDList.get(i).put("EventDay",EventDay);
-										  		IDList.get(i).put("Time",queryString);
+										  		Log.i("Confirm", "Success11");
+										  		IDList.get(i).put("eventday",EventDay);
+										  		IDList.get(i).put("time",queryString);
 										  		IDList.get(i).saveInBackground();
 										  		Inside = true;
 										  		break;
@@ -98,6 +101,9 @@ public class Confirm extends Activity {
 										  IDList.get(i).deleteInBackground();
 									  
 								  }
+							  }
+							  else{
+								  Log.i("Confirm", "Error");
 							  }
 						  }
 						  
@@ -147,7 +153,8 @@ public class Confirm extends Activity {
 						char freeDay[] = IDList.get(i).getString(queryString).toCharArray();
 						for(int j = 0 ; j < freeDay.length; j+=2){
 							if(Integer.parseInt((Character.toString(freeDay[j])))== Index%(days+1) ){
-								//CConfirm.setText(IDList.get(i).getString("phone"));
+								//CConfirm.setText();
+								UserPhone.add(IDList.get(i).getString("phone"));
 								HashMap<String, Object> map = new HashMap<String, Object>();
 								map.put("freeName", IDList.get(i).getString("name"));
 								//map.put("ItemText2", "");
