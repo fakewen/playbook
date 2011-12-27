@@ -88,13 +88,14 @@ public class ElistCBox extends ExpandableListActivity
         super.onContentChanged();
         Log.d( LOG_TAG, "onContentChanged" );
     }
-
+int groupPosition_;
     public boolean onChildClick(
             ExpandableListView parent, 
             View v, 
             int groupPosition,
             int childPosition,
             long id) {
+    	groupPosition_=groupPosition;
         Log.d( LOG_TAG, "onChildClick: "+childPosition );
         final String event_name_=event_[groupPosition][childPosition];
         final String event_id_=eventid_[groupPosition][childPosition];
@@ -104,6 +105,7 @@ public class ElistCBox extends ExpandableListActivity
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
+				if(groupPosition_==1){
 				String event_name=event_name_;Log.i("playbook","@run event_name:"+event_name);
 				String event_id=event_id_;
 				Bundle bData = new Bundle();
@@ -115,6 +117,21 @@ public class ElistCBox extends ExpandableListActivity
 				intent.putExtras(bData);
 				startActivity(intent);
 				ElistCBox.this.finish();
+				}
+				else{
+					String event_name=event_name_;Log.i("playbook","@run event_name:"+event_name);
+					String event_id=event_id_;
+					Bundle bData = new Bundle();
+					bData.putString("event_name", event_name);
+					bData.putString("event_id", event_id);Log.i("playbook","event_id@list="+event_id);
+					//bData.putString("ck", "ok");
+					Intent intent=new Intent();
+					intent.setClass(ElistCBox.this, propersure.class);
+					intent.putExtras(bData);
+					startActivity(intent);
+					ElistCBox.this.finish();	
+					
+				}
 			}
 		});
         

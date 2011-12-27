@@ -52,7 +52,7 @@ public class Login extends Activity {
 				flag_sv = true;
 				// ´h≈„•‹¶r¶ÍYou are Woman
 				Toast.makeText(Login.this, "save ur account!",
-						Toast.LENGTH_LONG).show();
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 	};

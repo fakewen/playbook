@@ -435,6 +435,7 @@ public class invite extends Activity {
 					invite.put("friends", selectedPhoneList.get(i).toString());
 					invite.put("friendName", selectedNameList.get(i).toString());
 					invite.put("founder", global.me);// 開團者
+					invite.put("foundername", global.my_name);// 開團者
 					//if flag_mark x,y
 					if(global.flag_mark){
 						invite.put("x", global.p_.getLatitudeE6() / 1E6);
@@ -450,6 +451,7 @@ public class invite extends Activity {
 				testObject.put("location", "" + et2.getText());
 				testObject.put("note", "" + et3.getText());
 				testObject.put("founder", global.me);// 開團者
+				testObject.put("foundername", global.my_name);// 開團者
 				testObject.put("status", "0");// 0:調查中 1:成團!
 
 				testObject.put("eventid", global.me + time);// eventid

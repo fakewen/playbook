@@ -43,7 +43,7 @@ public class Register extends Activity {
 			if(et1.getText().length()!=10){
 				Toast.makeText(v.getContext(), "手機號碼要10碼歐!", Toast.LENGTH_LONG).show();
 			}
-			else if(!et2.getText().equals(et3.getText())){
+			else if(!(et2.getText().toString().equals(et3.getText().toString()))){
 				Toast.makeText(v.getContext(), "確認密碼不一樣歐!", Toast.LENGTH_LONG).show();
 			}
 			else if(et1.getText().length()==0){

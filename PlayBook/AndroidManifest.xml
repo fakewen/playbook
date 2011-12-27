@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ntu.mpp.proj"
-    android:versionCode="5"
-    android:versionName="1.2" >
+    android:versionCode="12"
+    android:versionName="2.3" >
 
     <uses-sdk android:minSdkVersion="4" />
 
@@ -39,6 +39,8 @@
         <activity android:name="invite" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden">
         </activity>
         <activity android:name="proper" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name="propersure" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden">
         </activity>
         <activity android:name="PlayBookActivity" android:screenOrientation="portrait" android:configChanges="orientation|keyboardHidden">
         </activity>
