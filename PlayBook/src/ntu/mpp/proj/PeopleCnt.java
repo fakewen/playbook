@@ -181,11 +181,11 @@ public class PeopleCnt extends Activity {
 					PeopleData.putString("eventID",eventID);
 					PeopleData.putString("eventDay",EventDay);
 					PeopleData.putInt("days",days);
-					Breturn.setText(EventDay);
-					/*Intent intent=new Intent();
+					//Breturn.setText(EventDay);
+					Intent intent=new Intent();
 					intent.setClass(PeopleCnt.this, Confirm.class);
 					intent.putExtras(PeopleData);
-					startActivity(intent);*/
+					startActivity(intent);
 				}
 				
 			}

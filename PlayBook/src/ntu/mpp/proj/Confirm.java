@@ -27,7 +27,7 @@ public class Confirm extends Activity {
 	private ProgressDialog ProgressD;
 	private String queryString = "";
 	private int Index,days;
-	private String eventID;
+	private String eventID,EventDay;
 	private ListView freeNameList;
 	private SimpleAdapter listItemAdapter;
 	private ArrayList<HashMap<String, Object>> listItem;
@@ -87,7 +87,7 @@ public class Confirm extends Activity {
 									  for(int j = 0 ; j < UserPhone.size() ; j++){
 										  	if( UserPhone.elementAt(j).toString().equals(IDList.get(i).getString("friends")) ){
 										  		IDList.get(i).put("status","1");
-										  		IDList.get(i).put("EventDay","1");
+										  		IDList.get(i).put("EventDay",EventDay);
 										  		IDList.get(i).put("Time",queryString);
 										  		IDList.get(i).saveInBackground();
 										  		Inside = true;
@@ -117,7 +117,8 @@ public class Confirm extends Activity {
 
 		Bundle PeopleData = this.getIntent().getExtras();
 	    Index = PeopleData.getInt("Index");
-	    eventID = PeopleData.getString("eventID");Log.i("playbook","really?"+eventID);
+	    eventID = PeopleData.getString("eventID");
+	    EventDay = PeopleData.getString("eventDay");
 	    days = PeopleData.getInt("days");
 	    
 	    switch(Index/(days+1)){
