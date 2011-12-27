@@ -158,6 +158,9 @@ public class PeopleCnt extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+
+				HashMap<String, Object> date = (HashMap<String, Object>) TimeTable
+						.getItemAtPosition(arg2%(days+1));
 				Bundle PeopleData = new Bundle();
 				PeopleData.putInt("Index",arg2);
 				PeopleData.putString("eventID",eventID);
