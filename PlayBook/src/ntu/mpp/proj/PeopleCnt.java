@@ -37,6 +37,7 @@ public class PeopleCnt extends Activity {
 	private Button Breturn,freetimesend,googleimport;
 	private int freeTime[][];
 	private ProgressDialog ProgressD;
+	private int yearFrom,monthFrom,dayFrom,yearTo,monthTo,dayTo;
 	Bundle EventData;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class PeopleCnt extends Activity {
 		EventData = this.getIntent().getExtras();
 		String from_bundle = EventData.getString("from");
 		String to_bundle = EventData.getString("to");
-		int yearFrom,monthFrom,dayFrom,yearTo,monthTo,dayTo;
+		
 		String YMD_F[] = from_bundle.split("/");
 		String YMD_T[] = to_bundle.split("/");
 		yearFrom = Integer.parseInt(YMD_F[0]);
@@ -158,17 +159,34 @@ public class PeopleCnt extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-
-				HashMap<String, Object> date = (HashMap<String, Object>) TimeTable
-						.getItemAtPosition(arg2%(days+1));
-				Bundle PeopleData = new Bundle();
-				PeopleData.putInt("Index",arg2);
-				PeopleData.putString("eventID",eventID);
-				PeopleData.putInt("days",days);
-				Intent intent=new Intent();
-				intent.setClass(PeopleCnt.this, Confirm.class);
-				intent.putExtras(PeopleData);
-				startActivity(intent);
+				if(arg2%(days+1) !=0 && arg2>(days+1)){
+					HashMap<String, Object> date = (HashMap<String, Object>) TimeTable
+							.getItemAtPosition(arg2%(days+1));
+					String EventDay = "";
+					if(dayFrom - Integer.parseInt(date.get("ItemText1").toString()) >0 ){
+						EventDay+= Integer.toString(yearTo);
+						EventDay+= "/";
+						EventDay+= Integer.toString(monthTo);
+						EventDay+= "/";
+					}
+					else{
+						EventDay+= Integer.toString(yearFrom);
+						EventDay+= "/";
+						EventDay+= Integer.toString(monthFrom);
+						EventDay+= "/";
+					}
+					EventDay += date.get("ItemText1").toString();
+					Bundle PeopleData = new Bundle();
+					PeopleData.putInt("Index",arg2);
+					PeopleData.putString("eventID",eventID);
+					PeopleData.putString("eventDay",EventDay);
+					PeopleData.putInt("days",days);
+					Breturn.setText(EventDay);
+					/*Intent intent=new Intent();
+					intent.setClass(PeopleCnt.this, Confirm.class);
+					intent.putExtras(PeopleData);
+					startActivity(intent);*/
+				}
 				
 			}
 		});
