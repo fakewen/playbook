@@ -116,6 +116,10 @@ public class MyMapshow extends MapActivity
 		
 		mapController = mapView.getController();
 		mapController.setZoom(16);
+		p = new GeoPoint(
+                (int) (x_tmp * 1E6), 
+                (int) (y_tmp * 1E6));
+		mapController.setCenter(p);
 		/*
 		//©w¦ìÂI
 		List<Overlay> overlays = mapView.getOverlays();
