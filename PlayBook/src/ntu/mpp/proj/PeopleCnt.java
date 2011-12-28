@@ -185,6 +185,7 @@ public class PeopleCnt extends Activity {
 						EventDay+= "/";
 					}
 					EventDay += date.get("ItemText1").toString();
+					EventDay += " " + "(" + date.get("ItemText2").toString() + ")";
 					Bundle PeopleData = new Bundle();
 					PeopleData.putInt("Index",arg2);
 					PeopleData.putString("eventID",eventID);
