@@ -89,9 +89,11 @@ public class ElistCBoxmaster extends ExpandableListActivity
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				/*
 				Intent intent=new Intent();
 				intent.setClass(ElistCBoxmaster.this, PlayBookActivity.class);
 				startActivity(intent);
+				*/
 				ElistCBoxmaster.this.finish();
 			}
 		});

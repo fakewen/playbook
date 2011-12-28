@@ -1,5 +1,7 @@
 package ntu.mpp.proj;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,14 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class Register extends Activity {
     /** Called when the activity is first created. */
 	EditText et1,et2,et3,et4,et5,et6;
 	Button bt1,bt2;
 	String account,password,password2,name,nick,email;
+	boolean flag_ck=false;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +44,8 @@ public class Register extends Activity {
 		
 		@Override
 		public void onClick(View v) {
+			Toast.makeText(Register.this, "正在驗證帳號...!",
+					Toast.LENGTH_SHORT).show();
 			Log.i("playbook","click send button!");
 			// TODO Auto-generated method stub
 			if(et1.getText().length()!=10){
@@ -66,19 +74,38 @@ public class Register extends Activity {
 			}else{
 				//save user
 				//account,password,password2,name,nick,email
-				ParseObject testObject = new ParseObject("user_list");
-				testObject.put("account", ""+et1.getText());
-				testObject.put("password", ""+et2.getText());
-				testObject.put("password2", ""+et3.getText());
-				testObject.put("name", ""+et4.getText());
-				testObject.put("nick", ""+et5.getText());
-				testObject.put("email", ""+et6.getText());
-				testObject.saveInBackground();
-				Toast.makeText(v.getContext(), "申請成功!", Toast.LENGTH_LONG).show();
-				Intent intent = new Intent();
-				intent.setClass(Register.this, PlayBookActivity.class);
-				startActivity(intent);
-				Register.this.finish();
+				ParseQuery query = new ParseQuery("user_list");
+				query.whereEqualTo("account",""+et1.getText().toString());//找出自己的活動!
+				List<ParseObject> IDList;
+				try {
+					IDList = query.find();
+					if(IDList.size()==0){
+						 flag_ck=true;
+					 }  else{
+						 Toast.makeText(Register.this, "這個手機號碼申請過歐!",
+									Toast.LENGTH_SHORT).show();
+						 flag_ck=false;
+					 }
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				if(flag_ck){
+					ParseObject testObject = new ParseObject("user_list");
+					testObject.put("account", ""+et1.getText());
+					testObject.put("password", ""+et2.getText());
+					testObject.put("password2", ""+et3.getText());
+					testObject.put("name", ""+et4.getText());
+					testObject.put("nick", ""+et5.getText());
+					testObject.put("email", ""+et6.getText());
+					testObject.saveInBackground();
+					Toast.makeText(v.getContext(), "申請成功!", Toast.LENGTH_LONG).show();
+					Intent intent = new Intent();
+					intent.setClass(Register.this, PlayBookActivity.class);
+					startActivity(intent);
+					Register.this.finish();
+				}
 			}
 			
 		}

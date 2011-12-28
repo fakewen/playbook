@@ -76,9 +76,11 @@ public class ElistCBox extends ExpandableListActivity
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				/*
 				Intent intent=new Intent();
 				intent.setClass(ElistCBox.this, PlayBookActivity.class);
 				startActivity(intent);
+				*/
 				ElistCBox.this.finish();
 			}
 		});
