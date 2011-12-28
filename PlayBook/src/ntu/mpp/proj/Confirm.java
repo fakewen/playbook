@@ -3,10 +3,10 @@ package ntu.mpp.proj;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -109,7 +109,14 @@ public class Confirm extends Activity {
 						  
 					  });
 					//¸õ¦^¥D­¶­±
+				Bundle bundle = new Bundle();
+				bundle.putString("event_id", eventID);
+				Intent intent = new Intent();
+				intent.setClass(Confirm.this, propersure.class);
+				intent.putExtras(bundle);
+				//startActivity(intent);
 				Confirm.this.finish();
+				global.confirm = true;
 			}
 		});
 	}

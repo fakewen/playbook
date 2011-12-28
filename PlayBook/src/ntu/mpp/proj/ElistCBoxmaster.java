@@ -50,6 +50,14 @@ public class ElistCBoxmaster extends ExpandableListActivity
 
     };
 	Button bt1;
+	@Override
+	public void onRestart(){
+		Log.i("TAG","onReStart");
+		super.onRestart();
+		if(global.confirm == true)
+			ElistCBoxmaster.this.finish();
+		global.confirm = false;
+	}
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle)

@@ -33,6 +33,13 @@ public class proper extends Activity {
     ImageButton ib1;
     double x_tmp,y_tmp;
 	@Override
+	public void onRestart(){
+		Log.i("TAG","onReStart");
+		super.onRestart();
+		if(global.confirm == true)
+			proper.this.finish();
+	}
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.proper);
