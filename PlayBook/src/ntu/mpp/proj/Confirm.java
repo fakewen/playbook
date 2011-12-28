@@ -3,10 +3,10 @@ package ntu.mpp.proj;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -32,7 +33,7 @@ public class Confirm extends Activity {
 	private SimpleAdapter listItemAdapter;
 	private ArrayList<HashMap<String, Object>> listItem;
 	private int[] TextViewID;
-	//private Vector UserPhone;
+	private TextView ConfirmDate,ConfirmTime;
 	List<String> UserPhone = new ArrayList<String>();
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class Confirm extends Activity {
         Parse.initialize(this, "97PXpE7X3RaVJJ8saoXqJ4k3MBlMAVaFgtarAXKS", "tFXZlErWqrJ2rRY8IOn2N0riC1vURsSL7ea3VH9a");
         CReturn = (Button) findViewById(R.id.ConfirmReturn);
         CConfirm = (Button) findViewById(R.id.Confirmed);
+        ConfirmDate = (TextView)findViewById(R.id.CtextView2);
+        ConfirmTime = (TextView)findViewById(R.id.CtextView3);
         listview();
         CReturn.setOnClickListener(new OnClickListener() {
 			@Override
@@ -68,7 +71,7 @@ public class Confirm extends Activity {
 						public void done(List<ParseObject> IDList, ParseException e) {
 						  if (e == null) {
 							  Log.i("playbook", "change status"+Integer.toString(IDList.size()));
-							  IDList.get(0).put("status","1");
+							  IDList.get(0).put("status","0");
 							  IDList.get(0).saveInBackground();
 						  }
 					  }
@@ -88,7 +91,7 @@ public class Confirm extends Activity {
 									  boolean Inside = false;
 									  for(int j = 0 ; j < UserPhone.size() ; j++){
 										  	if( UserPhone.get(j).toString().equals(IDList.get(i).getString("friends")) ){
-										  		IDList.get(i).put("status","1");
+										  		IDList.get(i).put("status","0");
 										  		Log.i("Confirm", "Success11");
 										  		IDList.get(i).put("eventday",EventDay);
 										  		IDList.get(i).put("time",queryString);
@@ -97,21 +100,33 @@ public class Confirm extends Activity {
 										  		break;
 										  	}
 									  }
-									  if(Inside == false)
-										  IDList.get(i).deleteInBackground();
+									  //if(Inside == false)
+										  //IDList.get(i).deleteInBackground();
 									  
 								  }
+								  //ProgressD.dismiss();
 							  }
 							  else{
 								  Log.i("Confirm", "Error");
+								  //ProgressD.dismiss();
 							  }
 						  }
 						  
 					  });
 					//跳回主頁面
+				//Bundle bundle = new Bundle();
+				//bundle.putString("event_id", eventID);
+				//Intent intent = new Intent();
+				//intent.setClass(Confirm.this, propersure.class);
+				//intent.putExtras(bundle);
+				//startActivity(intent);
+				//ProgressD = ProgressDialog.show(Confirm.this, "", "傳送資料中...", true, false);
 				Confirm.this.finish();
+				global.confirm = true;
+				
 			}
 		});
+        
 	}
 	
 	private void listview(){
@@ -127,22 +142,27 @@ public class Confirm extends Activity {
 	    eventID = PeopleData.getString("eventID");
 	    EventDay = PeopleData.getString("eventDay");
 	    days = PeopleData.getInt("days");
-	    
+	    String ChineseTime = "";
 	    switch(Index/(days+1)){
 	    case 1:
 	    	queryString = "FreeMorning";
+	    	ChineseTime = "早上";
 	    	break;
 	    case 2:
 	    	queryString = "FreeNoon";
+	    	ChineseTime = "中午";
 	    	break;
 	    case 3:
 	    	queryString = "FreeAfternoon";
+	    	ChineseTime = "下午";
 	    	break;
 	    case 4:
 	    	queryString = "FreeNight";
+	    	ChineseTime = "晚上";
 	    	break;
 	    }
-	    //CConfirm.setText(Integer.toString(Index));
+	    ConfirmDate.setText("日期 : " + EventDay);
+	    ConfirmTime.setText("時段 : " + ChineseTime);
 	    ParseQuery query = new ParseQuery("FreeTimeTable");
 		query.whereEqualTo("eventID", eventID);
 		query.findInBackground(new FindCallback() {

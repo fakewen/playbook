@@ -14,7 +14,7 @@ public class PlayBookActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+         
         bt1=(Button)findViewById(R.id.button2);
         bt2=(Button)findViewById(R.id.button3);
         bt3=(Button)findViewById(R.id.Button01);

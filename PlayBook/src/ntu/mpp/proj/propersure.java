@@ -117,12 +117,14 @@ public class propersure extends Activity {
 						listItem.add(map);
 					}
 					listview.setAdapter(listItemAdapter);
-					
+					//ProgressD.dismiss();
 				}
-				ProgressD.dismiss();
+				else{
+					//ProgressD.dismiss();
+				}
 			}
 		});
-		
+		//ProgressD = ProgressDialog.show(this, "", "擷取資料中...", true, false);
 		ParseQuery query = new ParseQuery("event_list");
 		// query.whereEqualTo("event",
 		// bData.getString("event_name"));//找出自己有被邀請的活動
@@ -160,10 +162,10 @@ public class propersure extends Activity {
 						flag_mark=false;
 						ib1.setVisibility(ImageButton.INVISIBLE);
 					}
-					//ProgressD.dismiss();
+					ProgressD.dismiss();
 				}
 				else{
-					//ProgressD.dismiss();
+					ProgressD.dismiss();
 				}
 				
 			}

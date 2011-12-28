@@ -28,6 +28,7 @@ class global {
 	static GeoPoint p_;
 	static boolean flag_mark=false;
 	static String my_name="";
+	static boolean confirm = false;
 }
 
 public class Login extends Activity {

@@ -25,6 +25,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class PeopleCnt extends Activity {
+	
 	/** Called when the activity is first created. */
 	private GridView TimeTable;
 	private SimpleAdapter listItemAdapter;
@@ -39,6 +40,14 @@ public class PeopleCnt extends Activity {
 	private ProgressDialog ProgressD;
 	private int yearFrom,monthFrom,dayFrom,yearTo,monthTo,dayTo;
 	Bundle EventData;
+	
+	@Override
+	public void onRestart(){
+		Log.i("TAG","onReStart");
+		super.onRestart();
+		if(global.confirm == true)
+			PeopleCnt.this.finish();
+	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -176,6 +185,7 @@ public class PeopleCnt extends Activity {
 						EventDay+= "/";
 					}
 					EventDay += date.get("ItemText1").toString();
+					EventDay += " " + "(" + date.get("ItemText2").toString() + ")";
 					Bundle PeopleData = new Bundle();
 					PeopleData.putInt("Index",arg2);
 					PeopleData.putString("eventID",eventID);
