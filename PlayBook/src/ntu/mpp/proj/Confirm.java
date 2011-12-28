@@ -71,7 +71,7 @@ public class Confirm extends Activity {
 						public void done(List<ParseObject> IDList, ParseException e) {
 						  if (e == null) {
 							  Log.i("playbook", "change status"+Integer.toString(IDList.size()));
-							  IDList.get(0).put("status","0");
+							  IDList.get(0).put("status","1");
 							  IDList.get(0).saveInBackground();
 						  }
 					  }
@@ -91,7 +91,7 @@ public class Confirm extends Activity {
 									  boolean Inside = false;
 									  for(int j = 0 ; j < UserPhone.size() ; j++){
 										  	if( UserPhone.get(j).toString().equals(IDList.get(i).getString("friends")) ){
-										  		IDList.get(i).put("status","0");
+										  		IDList.get(i).put("status","1");
 										  		Log.i("Confirm", "Success11");
 										  		IDList.get(i).put("eventday",EventDay);
 										  		IDList.get(i).put("time",queryString);
@@ -100,8 +100,8 @@ public class Confirm extends Activity {
 										  		break;
 										  	}
 									  }
-									  //if(Inside == false)
-										  //IDList.get(i).deleteInBackground();
+									  if(Inside == false)
+										  IDList.get(i).deleteInBackground();
 									  
 								  }
 								  //ProgressD.dismiss();
