@@ -212,7 +212,7 @@ public class ElistCBoxmaster extends ExpandableListActivity
 					  if(IDList.get(i).getString("status").equals("1")){
 						  HashMap child = new HashMap();
 							child.put( "shadeName", IDList.get(i).getString("event") );Log.i("playbook","1"+IDList.get(i).getString("event"));
-						    child.put( "rgb", IDList.get(i).getString("founder") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
+						    child.put( "rgb", IDList.get(i).getString("foundername") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
 							secList1.add( child );
 							event_[0][cnt1]=IDList.get(i).getString("event");
 							eventid_[0][cnt1]=IDList.get(i).getString("eventid");
@@ -222,7 +222,7 @@ public class ElistCBoxmaster extends ExpandableListActivity
 					  else{
 						  HashMap child = new HashMap();
 							child.put( "shadeName", IDList.get(i).getString("event") );Log.i("playbook","1"+IDList.get(i).getString("event"));
-						    child.put( "rgb", IDList.get(i).getString("founder") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
+						    child.put( "rgb", IDList.get(i).getString("foundername") );Log.i("playbook","1"+IDList.get(i).getString("founder"));
 							secList2.add( child );
 							event_[1][cnt0]=IDList.get(i).getString("event");
 							eventid_[1][cnt0]=IDList.get(i).getString("eventid");
