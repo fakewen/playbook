@@ -7,11 +7,66 @@
     <TextView android:id="@+id/textView1" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=""></TextView>
     <TextView android:id="@+id/textView2" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=""></TextView>
     <TextView android:id="@+id/textView3" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=""></TextView>
-    <TextView android:layout_width="wrap_content" android:id="@+id/textView4" android:text="" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
-    <TextView android:layout_width="wrap_content" android:id="@+id/textView5" android:text="" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="51dp"
+            android:layout_height="55dp"
+            android:src="@drawable/calendar" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/ImageView01"
+            android:layout_width="51dp"
+            android:layout_height="55dp"
+            android:src="@drawable/time" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
     <TextView android:layout_width="wrap_content" android:id="@+id/textView6" android:text="" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
     <TextView android:layout_width="wrap_content" android:id="@+id/textView7" android:text="" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
-    <TextView android:layout_width="wrap_content" android:id="@+id/textView8" android:text="" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/ImageView02"
+            android:layout_width="51dp"
+            android:layout_height="55dp"
+            android:src="@drawable/people" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listView1"
