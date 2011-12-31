@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
-    <ImageView android:id="@+id/imageView1" android:src="@drawable/icon" android:layout_width="79dp" android:layout_height="79dp"></ImageView>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" android:paddingLeft="30px">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="45dp"
+        android:layout_height="64dp"
+        android:src="@drawable/pencil" >
 
-    <TextView android:id="@+id/childname"
-         android:paddingLeft="50px"
-         android:focusable="false"
-         android:textSize="30px"
-         android:textStyle="italic"
-         android:layout_width="300px"
-         android:layout_height="wrap_content"/>
+</ImageView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="242dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/edge"
+        android:orientation="vertical" >
 
-    <TextView android:id="@+id/rgb"
-         android:focusable="false"
-         android:textSize="20px"
-         android:textStyle="italic"
-         android:layout_width="200px"
-         android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/childname"
+            android:layout_width="300px"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:paddingLeft="20px"
+            android:textSize="40px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/rgb"
+            android:layout_width="200px"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:paddingLeft="50px"
+            android:textSize="20px"
+            android:textStyle="italic" />
+
+    </LinearLayout>
 
 </LinearLayout>
