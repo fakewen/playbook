@@ -92,6 +92,8 @@ public class Register extends Activity {
 				}
 
 				if(flag_ck){
+					global.me=""+et1.getText();
+					global.my_name=""+et4.getText();
 					ParseObject testObject = new ParseObject("user_list");
 					testObject.put("account", ""+et1.getText());
 					testObject.put("password", ""+et2.getText());
